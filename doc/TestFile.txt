@@ -9,5 +9,8 @@ commit by Zuofu Li:
 Commit by Yuhao Zhai:
   Ahhhhhhhhhhyi
 
-Commit by Alex You:
+Commit by Alex Yu:
   I'm trying to type a line here..
+  
+Commit by Pelin Kivrikoglu:
+  Hi!!!!
