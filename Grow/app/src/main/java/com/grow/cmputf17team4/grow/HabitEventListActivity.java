@@ -3,14 +3,16 @@ package com.grow.cmputf17team4.grow;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 public class HabitEventListActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView mTextMessage;
+    private ViewPager mViewPager;
+    private BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -19,19 +21,24 @@ public class HabitEventListActivity extends AppCompatActivity implements View.On
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_habit_event:
-                    mTextMessage.setText(R.string.title_habit_event);
+                    Log.d("navigation","habit event");
+                    mViewPager.setCurrentItem(0);
                     return true;
                 case R.id.navigation_trace:
-                    mTextMessage.setText(R.string.title_trace);
+                    Log.d("navigation","trace");
+                    mViewPager.setCurrentItem(1);
                     return true;
                 case R.id.navigation_community:
-                    mTextMessage.setText(R.string.title_community);
+                    Log.d("navigation","community");
+                    mViewPager.setCurrentItem(2);
                     return true;
                 case R.id.navigation_settings:
-                    mTextMessage.setText(R.string.title_settings);
+                    Log.d("navigation","settings");
+                    mViewPager.setCurrentItem(3);
                     return true;
+                default:
+                    return false;
             }
-            return false;
         }
 
     };
@@ -41,8 +48,7 @@ public class HabitEventListActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_event_list);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation_main);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 

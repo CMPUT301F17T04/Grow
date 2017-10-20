@@ -8,23 +8,22 @@
     android:orientation="vertical"
     tools:context="com.grow.cmputf17team4.grow.HabitEventListActivity">
 
-    <FrameLayout
-        android:id="@+id/content"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        />
 
-
-
-    </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/bottom_navigation_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
         app:menu="@menu/navigation" />
+
 
 </LinearLayout>
