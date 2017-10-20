@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Grow</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_habit_event">Habit Events</string>
+    <string name="title_trace">Trace</string>
+    <string name="title_community">Community</string>
+    <string name="title_settings">Setting</string>
+
 </resources>
