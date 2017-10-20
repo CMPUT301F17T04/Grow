@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 /**
  * Created by yizho on 2017/10/20.
+ * @author Yizhou Zhao
  */
 
 public abstract class BaseFragment extends Fragment {
@@ -72,7 +73,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 如果只想第一次进入该页面请求数据，return prepareGetData(false)
      * 如果想每次进入该页面就请求数据，return prepareGetData(true)
-     * @return
+     * @return 
      */
     private boolean prepareGetData(){
         return prepareGetData(false);
@@ -81,11 +82,10 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 判断是否从服务器器获取数据
      * @param isforceUpdate 强制更新的标记
-     * @return
+     * @return If the data is got from server
      */
     protected boolean prepareGetData(boolean isforceUpdate) {
         if(isVisibleToUser && isViewInitiated && (!isDataRequested || isforceUpdate)){
-            /*从服务器获取数据*/
             getDataFromServer();
             isDataRequested = true;
             return true;
