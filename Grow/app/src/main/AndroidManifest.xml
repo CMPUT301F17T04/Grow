@@ -21,7 +21,9 @@
         <activity android:name=".ActivityHabitEvent" />
         <activity android:name=".ActivityCreateHabit" />
         <activity android:name=".ActivityUserSetting" />
-        <activity android:name=".EventFinishedAvtivity"></activity>
+        <activity android:name=".EventFinishedAvtivity" />
+        <activity android:name=".ActivityEventMissed" />
+        <activity android:name=".ActivityOtherUserProfile"></activity>
     </application>
 
 </manifest>
