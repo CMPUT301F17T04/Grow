@@ -1,29 +1,31 @@
 package com.grow.cmputf17team4.grow;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.google.android.gms.maps.MapView;
 
 /**
- * Fragment for habit event list
+ * Fragment shows the second tab in the main activity.
+ * Shows the map.
  * @author Yizhou Zhao
  */
+public class FragmentTrace extends Fragment implements View.OnClickListener{
 
-
-public class FragmentEventList extends Fragment {
-
-    private ListView listView;
-    private Switch todayOrHistory;
-    private ArrayList<HabitEvent> eventsToShow;
+    private MapView map;
+    private double[][] coordinates;
+    private Button userSelected;
+    private Button habitSelected;
     private User thisUser;
+    private Switch fiveKm;
+    private int radius;
 
     public static FragmentEventList newInstance(String info) {
         Bundle args = new Bundle();
@@ -41,5 +43,24 @@ public class FragmentEventList extends Fragment {
         tvInfo.setText(getArguments().getString("info"));
 
         return view;
+    }
+
+    @Override
+    public void onClick(View view){
+
+    }
+
+    /**
+     * When the button is clicked, this will update the coordinate array that will shows on the map
+     */
+    public void updateCoordinate(){
+
+    }
+
+    /**
+     * This will update the coordinate shows on the map
+     */
+    public void updateMap(int radius){
+
     }
 }

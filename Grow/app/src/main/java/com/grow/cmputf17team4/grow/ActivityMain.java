@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ListView;
 
 
 /**
@@ -20,6 +21,7 @@ public class ActivityMain extends AppCompatActivity{
     private User user;
     private String file;
     private BottomNavigationView bottomNavigationView;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
