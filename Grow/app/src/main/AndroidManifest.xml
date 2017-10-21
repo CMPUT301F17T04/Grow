@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ActivityHabitEvent" />
-        <activity android:name=".ActivityCreateHabit"></activity>
+        <activity android:name=".ActivityCreateHabit" />
+        <activity android:name=".ActivityUserSetting"></activity>
     </application>
 
 </manifest>
