@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".ActivityHabitEvent" />
         <activity android:name=".ActivityCreateHabit" />
-        <activity android:name=".ActivityUserSetting"></activity>
+        <activity android:name=".ActivityUserSetting" />
+        <activity android:name=".EventFinishedAvtivity"></activity>
     </application>
 
 </manifest>
