@@ -12,7 +12,8 @@ public class HabitTest extends ActivityInstrumentationTestCase2{
         super(com.grow.cmputf17team4.grow.HabitActivity.class);
     
     public void testGetName(){
-        HabitList habits = new HabitList(); //
+        
+        HabitList habits = new HabitList();
         Name name = new NewName("getting name");
         habits.add(name);
         Habit returnedName = habits.getName(0);
@@ -20,7 +21,8 @@ public class HabitTest extends ActivityInstrumentationTestCase2{
         assertFalse(name==null);
     }
     public void testGetComment(){
-      	HabitList habits = new HabitList(); //
+      	
+        HabitList habits = new HabitList(); 
         Comment comment = new NewComment("getting comment");
         habits.add(comment);
         Habit returnedComment = habits.getComment(0);
@@ -43,5 +45,5 @@ public class HabitTest extends ActivityInstrumentationTestCase2{
   		assertTrue(list.setComment(comment));
   		assertFalse(list.setComment(""));
     }
-  }
 }
+
