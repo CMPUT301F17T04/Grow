@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.grow.cmputf17team4.grow.ActivityUserSetting">
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@android:drawable/screen_background_dark"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="90dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/setting_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/imageButton"
+        android:text="User Name"
+        android:layout_alignBottom="@id/imageButton"
+        android:background="@android:color/transparent"
+        android:layout_marginEnd="40dp"
+        />
+
+    <TextView
+        android:id="@+id/completed_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/setting_user_name"
+        android:layout_centerVertical="true"
+        android:text="Completed 0 habit events" />
+
+    <TextView
+        android:id="@+id/finished_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/completed_text"
+        android:layout_below="@+id/completed_text"
+        android:layout_marginTop="23dp"
+        android:text="Missed 0 habit events" />
+
+</RelativeLayout>
