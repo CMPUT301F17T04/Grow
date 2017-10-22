@@ -15,7 +15,13 @@ public class HabitType {
     private int numMissed;
 
     public HabitType(String name) {
+
         this.name = name;
+        this.id = 1;
+        this.reason = "";
+        this.routine = new boolean[1];
+        this.routine[0] = true;
+        this.userId = 1;
     }
 
     public int getId() {

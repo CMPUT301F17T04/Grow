@@ -1,7 +1,11 @@
 package com.grow.cmputf17team4.grow;
 
 import android.test.ActivityInstrumentationTestCase2;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Created by qin7 on 2017/10/22.
  */
@@ -34,7 +38,7 @@ public class HabitTypeTest extends ActivityInstrumentationTestCase2 {
 
     public void testGetReason(){
         HabitType atype = new HabitType("haha");
-        assertEquals("HabitType.GetReason Error", atype.getReason(), "haha");
+        assertEquals("HabitType.GetReason Error", atype.getReason(), "");
     }
 
     public void testSetReason(){
@@ -75,7 +79,8 @@ public class HabitTypeTest extends ActivityInstrumentationTestCase2 {
     }
     public void testGetRoutine(){
         HabitType atype = new HabitType("haha");
-        assertEquals("HabitType.GetRoutine Error", atype.getRoutine(), 1);
+        boolean routine[] = {true};
+        assertTrue("HabitType.GetRoutine Error", Arrays.equals(routine,atype.getRoutine()));
     }
 
     public void testSetRoutine(){
