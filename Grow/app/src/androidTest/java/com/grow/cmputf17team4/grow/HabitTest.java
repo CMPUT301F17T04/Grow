@@ -15,38 +15,25 @@ public class HabitTest extends ActivityInstrumentationTestCase2{
         super(com.grow.cmputf17team4.grow.HabitActivity.class);
     
     public void testGetName(){
-        
-        HabitList habits = new HabitList();
-        Name name = new NewName("getting name");
-        habits.add(name);
-        Habit returnedName = habits.getName(0);
-        assertEquals(returnedName.getName(), name.getName());
-        assertFalse(name==null);
+        User auser = new User("pelin");
+        assertEquals("User.GetName Error", auser.getName(), "pelin");
     }
     public void testGetComment(){
       	
-        HabitList habits = new HabitList(); 
-        Comment comment = new NewComment("getting comment");
-        habits.add(comment);
-        Habit returnedComment = habits.getComment(0);
-        assertEquals(returnedComment.getComment(), comment.getComment());
-        assertFalse(comment==null);
+        Comment ncomment= new Comment("hello")
+        assertEquals("Comment.GetComment Error", ncomment.getComment(), "hello");
     }
      public void testSetName(){
+        User auser = new User("pelin");
+        auser.setName("new_user");
+        assertEquals("User.SetName Error", auser.getName(), "new_user");
   		
-  		HabitList list = new HabitList();
-  		Name name = new NewName("set the name");
-  		list.add(name);
-  		assertTrue(list.setName(name));
-  		assertFalse(list.setName(""));
      }
     public void testSetComment(){
   		
-  		HabitList list = new HabitList();
-  		Comment comment = new NewComment("set the comment");
-  		list.add(comment);
-  		assertTrue(list.setComment(comment));
-  		assertFalse(list.setComment(""));
+  		Comment ncomment = new Comment("pelin");
+        ncomment.setComment("new_user");
+        assertEquals("Comment.SetComment Error", ncomment.getComment(), "new_user");
     }
 }
 
