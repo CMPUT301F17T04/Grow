@@ -30,7 +30,7 @@ public class HabitTest extends ActivityInstrumentationTestCase2{
   		
      }
     public void testSetComment(){
-  		Comment ncomment = new Comment("pelin");
+        Comment ncomment = new Comment("pelin");
         ncomment.setComment("new_user");
         assertEquals("Comment.SetComment Error", ncomment.getComment(), "new_user");
     }
