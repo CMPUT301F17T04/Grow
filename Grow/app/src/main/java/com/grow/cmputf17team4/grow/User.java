@@ -15,20 +15,10 @@ public class User {
     private ArrayList<HabitType> habitTypesList;
     private ArrayList<HabitEvent> habitEventHistory;
     private ArrayList<HabitEvent> habitEventToday;
-    private int[] followers;
-    private int[] followings;
+    private int[] follwers;
+    private int[] folloings;
 
-    public User(String name) {
-        this.name = name;
-        this.id = 1;
-        this.numCompleted = 0;
-        this.numMissed = 0;
-        this.followers = new int[100];
-        this.followings = new int[100];
-        this.habitTypesList = new ArrayList<>();
-        this.habitEventHistory = new ArrayList<>();
-        this.habitEventToday = new ArrayList<>();
-    }
+
 
     public String getName() {
         return name;
@@ -71,20 +61,20 @@ public class User {
     }
 
 
-    public int[] getFollowers() {
-        return followers;
+    public int[] getFollwers() {
+        return follwers;
     }
 
-    public void setFollowers(int[] followers) {
-        this.followers = followers;
+    public void setFollwers(int[] follwers) {
+        this.follwers = follwers;
     }
 
-    public int[] getFollowings() {
-        return followings;
+    public int[] getFolloings() {
+        return folloings;
     }
 
-    public void setFollowings(int[] followings) {
-        this.followings = followings;
+    public void setFolloings(int[] folloings) {
+        this.folloings = folloings;
     }
 
     public ArrayList<HabitEvent> getHabitEventHistory() {
