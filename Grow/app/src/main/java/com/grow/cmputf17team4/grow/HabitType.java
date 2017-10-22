@@ -14,6 +14,10 @@ public class HabitType {
     private int numCompleted;
     private int numMissed;
 
+    public HabitType(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
