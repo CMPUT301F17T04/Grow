@@ -18,6 +18,20 @@ public class HabitEvent {
     private double duration;
     private byte[] photo;
 
+    public HabitEvent(int userId){
+        this.id = 1;
+        this.userId = userId;
+        this.startTime = new Date(2017,10,22);
+        //this.endTime = getEndTime();
+        this.dateToRepresent = "2017-10-22";
+        this.comment = "zhai is dead";
+        this.finished = false;
+        this.duration = 10;
+        this.photo = new byte[5];
+
+
+    }
+
     public int getId() {
         return id;
     }
