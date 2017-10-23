@@ -22,6 +22,7 @@ public class ActivityMain extends AppCompatActivity{
     private String file;
     private BottomNavigationView bottomNavigationView;
     private ListView listView;
+    private EventTodayAdapter eventAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
