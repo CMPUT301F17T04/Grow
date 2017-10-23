@@ -17,6 +17,7 @@ public class HabitEvent {
     private boolean finished;
     private double duration;
     private byte[] photo;
+    private HabitType type;
 
     public HabitEvent(int userId){
         this.id = 1;
@@ -102,5 +103,13 @@ public class HabitEvent {
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
+    }
+
+    public void setType(HabitType type){
+        this.type = type;
+    }
+
+    public HabitType getType(){
+        return this.type;
     }
 }
