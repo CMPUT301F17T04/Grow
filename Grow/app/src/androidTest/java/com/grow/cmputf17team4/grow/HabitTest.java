@@ -1,4 +1,5 @@
-package com.grow.cmputf17team4.grow;
+//This code is not a part of project3. please don't run it//
+/*package com.grow.cmputf17team4.grow;
 
 import android.test.ActivityInstrumentationTestCase2;
 import java.lang.reflect.Array;
@@ -8,7 +9,7 @@ import java.util.Arrays;
 /**
  * Created by kivrikog on 10/20/17.
  */
-
+/*
 public class HabitTest extends ActivityInstrumentationTestCase2{
 
     public HabitTest {
@@ -35,4 +36,4 @@ public class HabitTest extends ActivityInstrumentationTestCase2{
         assertEquals("Comment.SetComment Error", ncomment.getComment(), "new_user");
     }
 }
-
+    *\
