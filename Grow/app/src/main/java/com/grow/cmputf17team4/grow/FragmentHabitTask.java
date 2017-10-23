@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 /**
  * Shows the 1st tab in HabitEvent Activity
+ * @author Yizhou Zhao
  */
 
 public class FragmentHabitTask extends Fragment implements View.OnClickListener{
@@ -43,7 +44,7 @@ public class FragmentHabitTask extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_achievement, null);
+        View view = inflater.inflate(R.layout.fragment_habit_task, null);
         TextView tvInfo = (TextView) view.findViewById(R.id.textView);
         tvInfo.setText(getArguments().getString("info"));
 

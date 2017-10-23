@@ -36,7 +36,7 @@ public class FragmentUserSetting extends Fragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_event_list_today, null);
+        View view = inflater.inflate(R.layout.fragment_user_setting, null);
         TextView tvInfo = (TextView) view.findViewById(R.id.textView);
         tvInfo.setText(getArguments().getString("info"));
 

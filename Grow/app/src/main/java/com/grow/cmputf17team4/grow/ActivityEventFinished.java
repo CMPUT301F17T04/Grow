@@ -12,7 +12,7 @@ import android.widget.Switch;
  * Activity when user finished his/her habit event
  * @author Yizhou Zhao
  */
-public class EventFinishedAvtivity extends AppCompatActivity implements View.OnClickListener{
+public class AvtivityEventFinished extends AppCompatActivity implements View.OnClickListener{
 
     private ImageButton attachedPhoto;
     private Switch attachLocation;
@@ -22,7 +22,7 @@ public class EventFinishedAvtivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_finished_avtivity);
+        setContentView(R.layout.activity_event_finished);
     }
 
     @Override
