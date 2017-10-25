@@ -6,11 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import java.util.Date;
 
 /**
  * Shows the 1st tab in HabitEvent Activity
@@ -26,7 +29,7 @@ public class FragmentHabitTask extends Fragment implements View.OnClickListener{
     private TextView textTimeLeft;
     private TextView textTimeCompleted;
     private ProgressBar progress;
-    private TextVeiw habitName;
+    private TextView habitName;
     private TextView reasonToPlay;
 
     private Date startTime;
