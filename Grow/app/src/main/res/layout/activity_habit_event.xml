@@ -90,6 +90,9 @@
                 android:layout_marginTop="30dp"
                 android:text="Finish" />
 
+            <!-- Still need to add components that shows the statistics of the habit -->
+            <!-- just move the previous achievement tab to this tab -->
+
         </RelativeLayout>
     </ScrollView>
 
