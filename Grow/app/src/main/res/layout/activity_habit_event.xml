@@ -8,22 +8,90 @@
     android:orientation="vertical"
     tools:context="com.grow.cmputf17team4.grow.ActivityMain">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager_main"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
+        android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id = "@+id/habit_event_name"
+                android:text = "Habit Event Name"
+                android:textSize="30sp"
+                android:layout_marginTop="30dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id = "@+id/habit_event_reason"
+                android:layout_below="@id/habit_event_name"
+                android:layout_marginTop="5dp"
+                android:text="habit event reason"
+                android:gravity="center"/>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
-        app:menu="@menu/event_navigation" />
+            <TextView
+                android:id="@+id/habit_event_timer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/habit_event_reason"
+                android:textSize="60sp"
+                android:layout_marginTop="60dp"
+                android:gravity="center"
+                android:text="0:00"/>
+
+            <TextView
+                android:id="@+id/habit_event_time_left_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/habit_event_timer"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                android:text="Time left" />
+
+            <TextView
+                android:id="@+id/habit_event_time_left_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/habit_event_time_left_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="60:00" />
+
+            <Button
+                android:id = "@+id/habit_event_pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/habit_event_time_left_timer"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="50dp"
+                android:text = "Pause" />
+
+            <Button
+                android:id="@+id/habit_event_stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="50dp"
+                android:layout_below="@id/habit_event_time_left_timer"
+                android:layout_marginTop="30dp"
+                android:text="Stop" />
+
+            <Button
+                android:id="@+id/habit_event_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/habit_event_time_left_timer"
+                android:layout_marginTop="30dp"
+                android:text="Finish" />
+
+        </RelativeLayout>
+    </ScrollView>
 
 
 </LinearLayout>
