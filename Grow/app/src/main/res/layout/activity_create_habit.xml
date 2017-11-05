@@ -48,7 +48,7 @@
         android:layout_toEndOf="@id/create_duration"
         android:layout_below="@id/create_habit_event_reason"
         android:layout_alignBaseline="@id/create_duration"
-        android:layout_alignEnd="@id/habit_event_reason"
+        android:layout_alignEnd="@id/create_habit_event_reason"
         android:gravity="center"
         android:id="@+id/editText_create_duration" />
 
