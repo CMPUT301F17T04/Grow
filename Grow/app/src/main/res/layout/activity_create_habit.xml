@@ -7,7 +7,7 @@
     tools:context="com.grow.cmputf17team4.grow.ActivityCreateHabit">
 
     <EditText
-        android:id="@+id/habit_event_name"
+        android:id="@+id/create_habit_event_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -18,11 +18,11 @@
         android:layout_centerHorizontal="true" />
 
     <EditText
-        android:id="@+id/habit_event_reason"
+        android:id="@+id/create_habit_event_reason"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:layout_below="@id/habit_event_name"
+        android:layout_below="@id/create_habit_event_name"
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
@@ -30,11 +30,11 @@
         />
 
     <TextView
-        android:id="@+id/duration"
+        android:id="@+id/create_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/habit_event_reason"
-        android:layout_alignStart="@id/habit_event_reason"
+        android:layout_below="@id/create_habit_event_reason"
+        android:layout_alignStart="@id/create_habit_event_reason"
         android:layout_marginTop="50dp"
         android:text="@string/planned_time_for_each_habit"
         android:textSize="12sp"
@@ -45,21 +45,29 @@
         android:layout_height="wrap_content"
         android:hint="@string/text_30_mins"
         android:textSize="12sp"
-        android:layout_toEndOf="@id/duration"
-        android:layout_below="@id/habit_event_reason"
-        android:layout_alignBaseline="@id/duration"
-        android:layout_alignEnd="@id/habit_event_reason"
+        android:layout_toEndOf="@id/create_duration"
+        android:layout_below="@id/create_habit_event_reason"
+        android:layout_alignBaseline="@id/create_duration"
+        android:layout_alignEnd="@id/create_habit_event_reason"
         android:gravity="center"
-        android:id="@+id/editText" />
+        android:id="@+id/editText_create_duration" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/create_habit_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/editText_create_duration"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:text="@string/finish" />
+
+    <Switch
+        android:id="@+id/create_habit_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editText_create_duration"
+        android:layout_alignStart="@+id/create_duration"
+        android:text="Daily Goal" />
 
 
 </RelativeLayout>

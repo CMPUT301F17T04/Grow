@@ -1,20 +1,26 @@
 package com.grow.cmputf17team4.grow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 
 /**
  * MainActivity
  */
-public class ActivityMain extends AppCompatActivity{
+public class ActivityMain extends AppCompatActivity {
 
     private ViewPager viewPager;
     private MenuItem menuItem;
@@ -23,6 +29,9 @@ public class ActivityMain extends AppCompatActivity{
     private BottomNavigationView bottomNavigationView;
     private ListView listView;
     private EventTodayAdapter eventAdapter;
+    private ImageButton addHabit;
+    private Toolbar myToolbar;
+    private ActivityMain that = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +91,17 @@ public class ActivityMain extends AppCompatActivity{
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
+            }
+        });
+
+        // Initialize Toolbar
+        Log.d("toolbar", "adding button");
+        addHabit = (ImageButton) findViewById(R.id.add_habit);
+        addHabit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(that, ActivityCreateHabit.class);
+                startActivityForResult(intent,1);
             }
         });
 

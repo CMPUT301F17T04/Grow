@@ -59,8 +59,7 @@ public class FragmentHabitTask extends Fragment implements View.OnClickListener{
     }
 
     public Date calculateDifference(){
-        // Temp return value
-        return timeLeft;
+        return new  Date();
     }
 
     @Override
