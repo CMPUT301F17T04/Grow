@@ -8,13 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 
 /**
  * MainActivity
  */
-public class ActivityMain extends AppCompatActivity{
+public class ActivityMain extends AppCompatActivity implements View.OnClickListener{
 
     private ViewPager viewPager;
     private MenuItem menuItem;
@@ -23,6 +27,8 @@ public class ActivityMain extends AppCompatActivity{
     private BottomNavigationView bottomNavigationView;
     private ListView listView;
     private EventTodayAdapter eventAdapter;
+    private ImageButton addHabit;
+    private Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +91,19 @@ public class ActivityMain extends AppCompatActivity{
             }
         });
 
+        // Initialize Toolbar
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        addHabit = (ImageButton) findViewById(R.id.add_habit);
+
         setupViewPager(viewPager);
+    }
+
+    @Override
+    public void onClick(View v){
+        int id = v.getId();
+        if(id == R.id.add_habit){
+            Toast.makeText(ActivityMain.this, "Add habit", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
