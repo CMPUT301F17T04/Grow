@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.grow.cmputf17team4.grow">
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,9 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <!--android:theme="@style/AppTheme"> -->
+
+        <!-- android:theme="@style/AppTheme"> -->
         <activity
-            android:name=".ActivityMain"
+            android:name=".ActivityLogin"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,10 +27,12 @@
         </activity>
         <activity android:name=".ActivityHabitEvent" />
         <activity android:name=".ActivityCreateHabit" />
-        <activity android:name=".AvtivityEventFinished" />
+        <activity android:name=".ActivityEventFinished" />
         <activity android:name=".ActivityEventMissed" />
         <activity android:name=".ActivityOtherUserProfile" />
-        <activity android:name=".ActivityHabitSetting"></activity>
+        <activity android:name=".ActivityHabitSetting" />
+        <activity android:name=".ActivityMain" />
+        <activity android:name=".ActivityRegister"></activity>
     </application>
 
 </manifest>
