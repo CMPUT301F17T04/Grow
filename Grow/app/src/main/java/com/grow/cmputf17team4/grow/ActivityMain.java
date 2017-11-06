@@ -100,8 +100,8 @@ public class ActivityMain extends AppCompatActivity {
         addHabit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(that, ActivityCreateHabit.class);
-                startActivityForResult(intent,1);
+                Intent intent = new Intent(that, ActivityModifyHabit.class);
+                startActivityForResult(intent,Constant.REQUEST_CREATE_HABIT);
             }
         });
 

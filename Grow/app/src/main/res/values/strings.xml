@@ -13,5 +13,6 @@
     <string name="planned_time_for_each_habit">Planned time for each habit:</string>
     <string name="text_30_mins">30 mins</string>
     <string name="finish">Finish</string>
+    <string name="title_activity_modify_habit">ActivityModifyHabit</string>
 
 </resources>
