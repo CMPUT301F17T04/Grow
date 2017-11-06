@@ -8,6 +8,13 @@
     android:orientation="vertical"
     tools:context="com.grow.cmputf17team4.grow.ActivityMain">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
