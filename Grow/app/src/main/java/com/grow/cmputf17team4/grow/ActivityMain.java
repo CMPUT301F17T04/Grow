@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -92,14 +93,21 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         });
 
         // Initialize Toolbar
-        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Log.d("toolbar", "adding button");
         addHabit = (ImageButton) findViewById(R.id.add_habit);
+        addHabit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ActivityMain.this, "Add habit", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         setupViewPager(viewPager);
     }
 
     @Override
     public void onClick(View v){
+        Log.d("click", "invoked onClick()");
         int id = v.getId();
         if(id == R.id.add_habit){
             Toast.makeText(ActivityMain.this, "Add habit", Toast.LENGTH_SHORT).show();
