@@ -18,6 +18,8 @@ public class User {
     private int[] followers;
     private int[] followings;
 
+    public User() {}
+
     public User(String name) {
         this.name = name;
         this.id = 1;
