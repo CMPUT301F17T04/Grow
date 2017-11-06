@@ -19,7 +19,7 @@ import android.widget.Toolbar;
 /**
  * MainActivity
  */
-public class ActivityMain extends AppCompatActivity implements View.OnClickListener{
+public class ActivityMain extends AppCompatActivity {
 
     private ViewPager viewPager;
     private MenuItem menuItem;
@@ -103,15 +103,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         });
 
         setupViewPager(viewPager);
-    }
-
-    @Override
-    public void onClick(View v){
-        Log.d("click", "invoked onClick()");
-        int id = v.getId();
-        if(id == R.id.add_habit){
-            Toast.makeText(ActivityMain.this, "Add habit", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
