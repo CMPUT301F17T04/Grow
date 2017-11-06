@@ -15,6 +15,15 @@
         android:background="@color/colorPrimary"
         android:elevation="4dp" >
 
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/web_hi_res_512"
+            android:gravity = "start"
+            />
+
         <ImageButton
             android:id="@+id/add_habit"
             android:layout_width="wrap_content"
