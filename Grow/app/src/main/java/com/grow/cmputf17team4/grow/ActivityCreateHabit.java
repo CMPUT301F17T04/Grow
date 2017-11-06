@@ -21,6 +21,8 @@ public class ActivityCreateHabit extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_habit);
+        habitName = (EditText) findViewById(R.id.create_habit_event_name);
+        habitReason = (EditText) findViewById(R.id.create_habit_event_reason);
     }
 
     @Override

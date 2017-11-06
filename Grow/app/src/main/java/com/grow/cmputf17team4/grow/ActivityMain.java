@@ -1,5 +1,6 @@
 package com.grow.cmputf17team4.grow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -30,6 +31,7 @@ public class ActivityMain extends AppCompatActivity {
     private EventTodayAdapter eventAdapter;
     private ImageButton addHabit;
     private Toolbar myToolbar;
+    private ActivityMain that = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +100,8 @@ public class ActivityMain extends AppCompatActivity {
         addHabit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ActivityMain.this, "Add habit", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(that, ActivityCreateHabit.class);
+                startActivityForResult(intent,1);
             }
         });
 
