@@ -1,36 +1,40 @@
 package com.grow.cmputf17team4.grow;
 
+import java.util.Date;
+import java.util.UUID;
+
 /**
  * Class to represent a habit type
  * @author
  */
 
 public class HabitType {
-    private int id;
+    private UUID uid;
     private String name;
     private String reason;
-    private int userId;
-    private boolean[] routine;
-    private int numCompleted;
-    private int numMissed;
+    private Date startDate;
+    private boolean[] repeats = {false,false,false,false,false,false,false};
 
-    public HabitType(String name) {
-
-        this.name = name;
-        this.id = 1;
-        this.reason = "";
-        this.routine = new boolean[1];
-        this.routine[0] = true;
-        this.userId = 1;
+    public boolean getRepeat(int i) {
+        return repeats[i];
     }
 
-    public int getId() {
-        return id;
+    public void setRepeat(int i,boolean repeat) {
+        this.repeats[i] = repeat;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public HabitType() {
+        uid = UUID.randomUUID();
+        startDate = new Date();
+        name = "";
+        reason = "";
+
     }
+
+    public UUID getUid() {
+        return uid;
+    }
+
 
     public String getName() {
         return name;
@@ -48,35 +52,11 @@ public class HabitType {
         this.reason = reason;
     }
 
-    public int getUserId() {
-        return userId;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public boolean[] getRoutine() {
-        return routine;
-    }
-
-    public void setRoutine(boolean[] routine) {
-        this.routine = routine;
-    }
-
-    public int getNumCompleted() {
-        return numCompleted;
-    }
-
-    public void setNumCompleted(int numCompleted) {
-        this.numCompleted = numCompleted;
-    }
-
-    public int getNumMissed() {
-        return numMissed;
-    }
-
-    public void setNumMissed(int numMissed) {
-        this.numMissed = numMissed;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 }

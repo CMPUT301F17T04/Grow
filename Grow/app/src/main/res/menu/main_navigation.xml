@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_habit_event"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_habit_event" />
+        android:id="@+id/navigation_habit"
+        android:icon="@drawable/habit"
+        android:title="@string/title_habit" />
 
     <item
-        android:id="@+id/navigation_trace"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_trace" />
+        android:id="@+id/navigation_event"
+        android:icon="@drawable/event"
+        android:title="@string/title_event" />
 
     <item
         android:id="@+id/navigation_community"

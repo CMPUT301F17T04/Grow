@@ -3,6 +3,7 @@ package com.grow.cmputf17team4.grow;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,12 @@ public class ActivityMain extends AppCompatActivity {
     private ActivityMain that = this;
 
     @Override
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+        intent.putExtra("requestCode", requestCode);
+        super.startActivityForResult(intent, requestCode, options);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -46,10 +53,10 @@ public class ActivityMain extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.navigation_habit_event:
+                            case R.id.navigation_habit:
                                 viewPager.setCurrentItem(0);
                                 return false;
-                            case R.id.navigation_trace:
+                            case R.id.navigation_event:
                                 viewPager.setCurrentItem(1);
                                 return false;
                             case R.id.navigation_community:
@@ -95,7 +102,6 @@ public class ActivityMain extends AppCompatActivity {
         });
 
         // Initialize Toolbar
-        Log.d("toolbar", "adding button");
         addHabit = (ImageButton) findViewById(R.id.add_habit);
         addHabit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +117,8 @@ public class ActivityMain extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(FragmentEventList.newInstance("Habit Event"));
-        adapter.addFragment(FragmentEventList.newInstance("Trace"));
+        adapter.addFragment(FragmentEventList.newInstance("kljkljk"));
+        adapter.addFragment(FragmentEventList.newInstance("Event"));
         adapter.addFragment(FragmentEventList.newInstance("Community"));
         adapter.addFragment(FragmentEventList.newInstance("Settings"));
         viewPager.setAdapter(adapter);

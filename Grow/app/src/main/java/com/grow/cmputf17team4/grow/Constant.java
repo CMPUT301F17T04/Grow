@@ -5,7 +5,9 @@ package com.grow.cmputf17team4.grow;
  */
 
 public final class Constant {
-    static final Integer REQUEST_CREATE_HABIT = 0;
-    static final Integer REQUEST_MODIFY_HABIT = 1;
+    static final int REQUEST_NONE = 0;
+    static final int REQUEST_CREATE_HABIT = 1;
+    static final int REQUEST_MODIFY_HABIT = 2;
 
+    static final String EXTRA_HABIT_TYPE = "habit type";
 }
