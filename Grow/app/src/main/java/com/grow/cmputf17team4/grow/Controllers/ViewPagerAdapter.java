@@ -1,8 +1,9 @@
-package com.grow.cmputf17team4.grow;
+package com.grow.cmputf17team4.grow.Controllers;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +35,5 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         mFragmentList.add(fragment);
     }
 
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-        for (Fragment fragment:mFragmentList){
-            fragment.notify();
-        }
-    }
+
 }

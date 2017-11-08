@@ -18,10 +18,9 @@ import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.EventTodayAdapter;
 import com.grow.cmputf17team4.grow.FragmentEventList;
-import com.grow.cmputf17team4.grow.Models.HabitList;
 import com.grow.cmputf17team4.grow.R;
 import com.grow.cmputf17team4.grow.User;
-import com.grow.cmputf17team4.grow.ViewPagerAdapter;
+import com.grow.cmputf17team4.grow.Controllers.ViewPagerAdapter;
 
 
 /**
@@ -137,14 +136,9 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         DataManager.saveInFile(this);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        viewPagerAdapter.notifyDataSetChanged();
-    }
 }

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.BoringLayout;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -29,9 +30,9 @@ public class ActivityModifyHabit extends AppCompatActivity {
     private CheckBox[] checkBoxes;
     private ActivityModifyHabit that = this;
     private Calendar myCalendar;
-    private SimpleDateFormat format;
     private  int requestCode;
     private HabitList habitList;
+    private UUID uid;
 
 
     @Override
@@ -43,7 +44,6 @@ public class ActivityModifyHabit extends AppCompatActivity {
         checkBoxes = new CheckBox[7];
         that = this;
         myCalendar = Calendar.getInstance();
-        format = new SimpleDateFormat("yyyy-MM-dd");
 
         // get views
         editName = (EditText) findViewById(R.id.modify_habit_edit_name);
@@ -59,7 +59,8 @@ public class ActivityModifyHabit extends AppCompatActivity {
 
         habitList = (HabitList)DataManager.getInstance().getHabitList();
         if (requestCode == Constant.REQUEST_MODIFY_HABIT){
-            habit = habitList.get(UUID.fromString(intent.getStringExtra("id")));
+            uid = UUID.fromString(intent.getStringExtra("id"));
+            habit = habitList.get(uid);
         } else if (requestCode == Constant.REQUEST_CREATE_HABIT){
             habit  = new HabitType();
             findViewById(R.id.modify_habit_btn_delete).setVisibility(View.GONE);
@@ -78,7 +79,7 @@ public class ActivityModifyHabit extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                editDate.setText(format.format(myCalendar.getTime()));
+                editDate.setText(Constant.TIME_FORMAT.format(myCalendar.getTime()));
             }
 
         };
@@ -105,7 +106,8 @@ public class ActivityModifyHabit extends AppCompatActivity {
         for (int i = 0; i < 7; ++i){
             checkBoxes[i].setChecked(habit.getRepeat(i));
         }
-        editDate.setText(format.format(myCalendar.getTime()));
+        editDate.setText(Constant.TIME_FORMAT.format(habit.getStartDate()));
+        myCalendar.setTime(habit.getStartDate());
     }
 
     public void onCreateHabitConfirm(View v){
@@ -113,6 +115,15 @@ public class ActivityModifyHabit extends AppCompatActivity {
             Toast.makeText(that,"Habit Name cannot be empty!",Toast.LENGTH_SHORT).show();
             return;
         }
+        boolean any_checked = false;
+        for (int i = 0; i < 7; ++i){
+            any_checked = any_checked || checkBoxes[i].isChecked();
+        }
+        if (! any_checked){
+            Toast.makeText(that,"Choose At Least One Repeat!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         habit.setName(editName.getText().toString());
         habit.setReason(editReason.getText().toString());
         for (int i = 0; i < 7; ++i){
@@ -125,6 +136,12 @@ public class ActivityModifyHabit extends AppCompatActivity {
         }
         that.setResult(RESULT_OK);
         that.finish();
+    }
+
+    public void onModifyHabitDelete(View v){
+        habitList.remove(uid);
+        this.setResult(RESULT_OK);
+        this.finish();
     }
 
 }

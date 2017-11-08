@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.grow.cmputf17team4.grow.R;
 public class FragmentHabitTask extends Fragment{
     private static Context context;
     private HabitListAdapter adapter;
+    private ListView listView;
 
     public static FragmentHabitTask newInstance(Context activity) {
         Bundle args = new Bundle();
@@ -37,13 +39,15 @@ public class FragmentHabitTask extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_habit_task, null);
-        ListView listView = (ListView) view.findViewById(R.id.habit_task_listview);
-        adapter = new HabitListAdapter(context,
-                (HabitList)DataManager.getInstance().getHabitList());
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        listView = (ListView) view.findViewById(R.id.habit_task_listview);
         return view;
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("Here","here");
+        adapter = new HabitListAdapter(context, DataManager.getInstance().getHabitList());
+        listView.setAdapter(adapter);
+    }
 }

@@ -1,5 +1,7 @@
 package com.grow.cmputf17team4.grow.Models;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by qin7 on 2017/11/6.
  */
@@ -11,4 +13,5 @@ public final class Constant {
 
     public static final String FILE_NAME = "grow.dat";
     public static final String EXTRA_HABIT_INDEX = "habitIndex";
+    public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 }

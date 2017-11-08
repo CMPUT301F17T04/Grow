@@ -68,15 +68,37 @@ public class HabitType implements Comparable{
 
     public boolean hasEventToday(){
         Calendar calender = Calendar.getInstance();
-        int day = calender.get(Calendar.DAY_OF_WEEK);
-        return repeats[Arrays.binarySearch(days,day)];
+        int result = calender.getTime().compareTo(getStartDate());
+        if (result == 0){
+            return true;
+        } else if (result < 0){
+            return false;
+        } else {
+            int day = calender.get(Calendar.DAY_OF_WEEK);
+            return repeats[Arrays.binarySearch(days, day)];
+        }
     }
+
+    public Date getNextEventDay(){
+        Calendar calendar = Calendar.getInstance();
+        int result = calendar.getTime().compareTo(getStartDate());
+        if (result < 0){
+            calendar.setTime(getStartDate());
+        }
+        int index = Arrays.binarySearch(days,calendar.get(Calendar.DAY_OF_WEEK));
+        for (int i=0;i<7;++i){
+            if (repeats[index]){
+                break;
+            }
+            index = (index + 1)%7;
+            calendar.add(Calendar.DATE,1);
+        }
+        return calendar.getTime();
+    }
+
 
     @Override
     public int compareTo(@NonNull Object o) {
-       if (hasEventToday()){
-            return -1;
-        }
-        return 0;
+       return getNextEventDay().compareTo(((HabitType)o).getNextEventDay());
     }
 }

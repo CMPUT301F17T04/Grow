@@ -1,19 +1,27 @@
 package com.grow.cmputf17team4.grow.Controllers;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.Models.HabitList;
 import com.grow.cmputf17team4.grow.Models.HabitType;
 import com.grow.cmputf17team4.grow.R;
+import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -77,9 +85,35 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
          * find separate view of button and textview
          */
         TextView title = (TextView) view.findViewById(R.id.habit_list_item_title);
+        TextView date = (TextView) view.findViewById(R.id.habit_list_item_date);
+        Button btn = (Button) view.findViewById(R.id.habit_list_item_btn_complete);
+
+        final HabitType habitType = (HabitType) getItem(i);
 
 
         title.setText(((HabitType)getItem(i)).getName());
+        if (habitType.hasEventToday()){
+            date.setTextColor(ContextCompat.getColor(context,R.color.colorDarkGreen));
+            date.setText(R.string.today);
+            btn.setVisibility(View.VISIBLE);
+        } else{
+            date.setText(Constant.TIME_FORMAT.format(habitType.getNextEventDay()));
+            date.setTextColor(ContextCompat.getColor(context,R.color.colorPrimary));
+        }
+
+        view.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                /**
+                 * find the ith counter in couters array list
+                 */
+                Intent intent = new Intent(context,ActivityModifyHabit.class);
+                intent.putExtra("id",habitType.getUid().toString());
+                ((AppCompatActivity)context).startActivityForResult(intent,Constant.REQUEST_MODIFY_HABIT);
+            }
+        });
         return view;
     }
+
+
 }
