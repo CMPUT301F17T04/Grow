@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">Grow</string>
-    <string name="title_habit_event">Habit Events</string>
-    <string name="title_trace">Trace</string>
+    <string name="title_habit">Habit</string>
+    <string name="title_event">Event</string>
     <string name="title_community">Community</string>
     <string name="title_settings">Setting</string>
+
+    <string name="today">Today</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -13,5 +15,6 @@
     <string name="planned_time_for_each_habit">Planned time for each habit:</string>
     <string name="text_30_mins">30 mins</string>
     <string name="finish">Finish</string>
+    <string name="title_activity_modify_habit">ActivityModifyHabit</string>
 
 </resources>
