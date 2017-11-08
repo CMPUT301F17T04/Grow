@@ -6,20 +6,20 @@
         android:id="@+id/text_habit_event_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_habit_event"
+        android:text="@string/title_event"
         android:textSize="22sp"
         android:layout_marginLeft="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimary"
         />
 
     <TextView
         android:id="@+id/text_habit_event_reason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_habit_event"
+        android:text="@string/title_event"
         android:textSize="12sp"
         android:layout_below="@id/text_habit_event_name"
         android:layout_marginTop="1dp"
