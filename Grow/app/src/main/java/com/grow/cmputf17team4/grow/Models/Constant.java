@@ -10,6 +10,10 @@ public final class Constant {
     public static final int REQUEST_NONE = 0;
     public static final int REQUEST_CREATE_HABIT = 1;
     public static final int REQUEST_MODIFY_HABIT = 2;
+    public static final int REQUEST_TAKE_PHOTO = 3;
+    public static final int REQUEST_COMPLETE_EVENT = 4;
+
+    public static final long POLLING_INTERVAL = 3000;
 
     public static final String FILE_NAME = "grow.dat";
     public static final String EXTRA_HABIT_INDEX = "habitIndex";

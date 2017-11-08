@@ -46,7 +46,6 @@ public class FragmentHabitTask extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("Here","here");
         adapter = new HabitListAdapter(context, DataManager.getInstance().getHabitList());
         listView.setAdapter(adapter);
     }
