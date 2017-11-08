@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.grow.cmputf17team4.grow">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -9,6 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
 
         <!-- android:theme="@style/AppTheme"> -->
         <activity
@@ -21,10 +34,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ActivityHabitEvent" />
-        <activity android:name=".ActivityEventMissed" />
         <activity android:name=".ActivityOtherUserProfile" />
         <activity android:name=".ActivityHabitSetting" />
-        <activity android:name=".Views.ActivityModifyHabit"></activity>
+        <activity android:name=".Views.ActivityModifyHabit" />
+        <activity android:name=".Views.ActivityModifyEvent"></activity>
     </application>
 
 </manifest>

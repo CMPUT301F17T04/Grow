@@ -1,7 +1,9 @@
 package com.grow.cmputf17team4.grow;
 
 import android.test.ActivityInstrumentationTestCase2;
-import java.util.ArrayList;
+
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
+
 import java.util.Date;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Date;
 
 public class EventTest extends ActivityInstrumentationTestCase2{
     public EventTest(){
-        super(com.grow.cmputf17team4.grow.HabitEvent.class);
+        super(HabitEvent.class);
     }
 
     public void testGetId(){

@@ -2,6 +2,7 @@ package com.grow.cmputf17team4.grow;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
 import com.grow.cmputf17team4.grow.Models.HabitType;
 
 import java.util.ArrayList;
