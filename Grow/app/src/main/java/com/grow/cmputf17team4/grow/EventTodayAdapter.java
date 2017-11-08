@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
+
 import java.util.ArrayList;
 
 public class EventTodayAdapter extends ArrayAdapter<HabitEvent>{

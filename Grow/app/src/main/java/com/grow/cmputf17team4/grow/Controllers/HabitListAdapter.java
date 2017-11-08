@@ -2,7 +2,6 @@ package com.grow.cmputf17team4.grow.Controllers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -17,13 +16,10 @@ import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.Models.HabitList;
 import com.grow.cmputf17team4.grow.Models.HabitType;
 import com.grow.cmputf17team4.grow.R;
+import com.grow.cmputf17team4.grow.Views.ActivityModifyEvent;
 import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
 
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
@@ -91,14 +87,26 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
         final HabitType habitType = (HabitType) getItem(i);
 
 
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ActivityModifyEvent.class);
+                intent.putExtra("id",habitType.getUid());
+                ((AppCompatActivity)context).startActivityForResult(intent,Constant.REQUEST_COMPLETE_EVENT);
+            }
+        });
+
+
+
+
         title.setText(((HabitType)getItem(i)).getName());
         if (habitType.hasEventToday()){
-            date.setTextColor(ContextCompat.getColor(context,R.color.colorDarkGreen));
+            date.setTextColor(ContextCompat.getColor(context,R.color.colorAccent));
             date.setText(R.string.today);
             btn.setVisibility(View.VISIBLE);
         } else{
             date.setText(Constant.TIME_FORMAT.format(habitType.getNextEventDay()));
-            date.setTextColor(ContextCompat.getColor(context,R.color.colorPrimary));
+            date.setTextColor(ContextCompat.getColor(context,R.color.colorTextPrimary));
         }
 
         view.setOnClickListener(new View.OnClickListener(){

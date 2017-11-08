@@ -35,7 +35,7 @@ public class ActivityMain extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private ListView listView;
     private EventTodayAdapter eventAdapter;
-    private ImageButton addHabit;
+    private ImageButton addBtn;
     private Toolbar myToolbar;
     private ActivityMain that;
     private ViewPagerAdapter viewPagerAdapter;
@@ -53,7 +53,7 @@ public class ActivityMain extends AppCompatActivity {
 
         DataManager.loadFromFile(this);
         that = this;
-
+        addBtn = (ImageButton) findViewById(R.id.add_habit);
         viewPager = (ViewPager) findViewById(R.id.viewpager_main);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_main);
 
@@ -61,8 +61,10 @@ public class ActivityMain extends AppCompatActivity {
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        addBtn.setVisibility(View.GONE);
                         switch (item.getItemId()) {
                             case R.id.navigation_habit:
+                                addBtn.setVisibility(View.VISIBLE);
                                 viewPager.setCurrentItem(0);
                                 return false;
                             case R.id.navigation_event:
@@ -111,8 +113,8 @@ public class ActivityMain extends AppCompatActivity {
         });
 
         // Initialize Toolbar
-        addHabit = (ImageButton) findViewById(R.id.add_habit);
-        addHabit.setOnClickListener(new View.OnClickListener() {
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(that, ActivityModifyHabit.class);
