@@ -20,9 +20,9 @@ public class User {
 
     public User() {}
 
-    public User(String name) {
+    public User(String name, int id) {
         this.name = name;
-        this.id = 1;
+        this.id = id;
         this.numCompleted = 0;
         this.numMissed = 0;
         this.followers = new int[100];

@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ActivityRegister extends AppCompatActivity {
+public class ActivityRegister extends ActivityLogin {
 
     private EditText username;
     private Button register;
@@ -27,14 +27,14 @@ public class ActivityRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 nameString = username.getText().toString();
-                //user_id = userList.getCount();
+                user_id = users.getSize();
                 boolean sign = true;
                 if (username.length() == 0){
                     username.setError("User name cannot be empty");
                     sign = false;
                 }
 
-                User user = new User(nameString);
+                User user = new User(nameString, user_id);
                 if (existedUser(nameString)) {
                     try{
                         Toast.makeText(getApplicationContext(),"User name is registered", Toast.LENGTH_LONG).show();
@@ -45,7 +45,7 @@ public class ActivityRegister extends AppCompatActivity {
                 }
 
                 else {
-                    //userList.addUser(user);
+                    users.addUser(user);
                     ElasticSearchHelper.AddUserTask addUserTask
                             = new ElasticSearchHelper.AddUserTask();
                     addUserTask.execute(user);

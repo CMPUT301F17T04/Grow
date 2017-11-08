@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 public class ActivityLogin extends AppCompatActivity {
 
+    public UserList users;
+
     private EditText Username;
     private Button Login;
     private Button Register;
@@ -21,6 +23,9 @@ public class ActivityLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        users = new UserList();
+
         Username = (EditText) findViewById(R.id.user_log);
 
         Login = (Button) findViewById(R.id.log_in);
