@@ -13,6 +13,7 @@ public class ActivityRegister extends AppCompatActivity {
     private EditText username;
     private Button register;
     private String nameString;
+    private int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class ActivityRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 nameString = username.getText().toString();
-                //uid = userList.getCount();
+                //user_id = userList.getCount();
                 boolean sign = true;
                 if (username.length() == 0){
                     username.setError("User name cannot be empty");
@@ -36,8 +37,8 @@ public class ActivityRegister extends AppCompatActivity {
                 User user = new User(nameString);
                 if (existedUser(nameString)) {
                     try{
-                        Toast.makeText(getApplicationContext(),"Duplicate user name!", Toast.LENGTH_LONG).show();
-                        throw new IllegalArgumentException("Duplicate user");
+                        Toast.makeText(getApplicationContext(),"User name is registered", Toast.LENGTH_LONG).show();
+                        throw new IllegalArgumentException("User Exists");
                     }catch(IllegalArgumentException e){
 
                     }
@@ -57,9 +58,14 @@ public class ActivityRegister extends AppCompatActivity {
         });
     }
 
-    private boolean existedUser (String name) {
+    /**
+     * The method to call elastic search to check if the login user name is registered
+     * @param user_name the log in user name
+     * @return if the user is registered
+     */
+    private boolean existedUser (String user_name) {
         ElasticSearchHelper.IsExist isExist = new ElasticSearchHelper.IsExist();
-        isExist.execute(name);
+        isExist.execute(user_name);
 
         try {
             if (isExist.get()) {

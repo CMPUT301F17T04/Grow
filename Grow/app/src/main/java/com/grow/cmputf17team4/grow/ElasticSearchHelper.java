@@ -44,11 +44,11 @@ public class ElasticSearchHelper {
                         Log.d("In AsyncTask ID", result.getId());
                         //user.setAid(result.getId());
                     } else {
-                        Log.i("Error", "Elasticsearch was not able to add the user.");
+                        Log.i("Error", "Elasticsearch failed adding the user.");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.i("Error", "The application failed to build and send the user");
+                    Log.i("Error", "Application failed building the user");
                 }
 
             }
@@ -71,7 +71,7 @@ public class ElasticSearchHelper {
                 JestResult result = client.execute(get);
                 user = result.getSourceAsObject(User.class);
             } catch (Exception e) {
-                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                Log.i("Error", "Something is wrong with the connection to elasticsearch server.");
             }
             return user;
         }
@@ -95,10 +95,10 @@ public class ElasticSearchHelper {
                     if (result.isSucceeded()) {
                         Log.d("In AsyncTask ID", result.getId());
                     } else {
-                        Log.i("Error", "Elasticsearch was not able to update the user.");
+                        Log.i("Error", "Elasticsearch failed updating the user.");
                     }
                 } catch (Exception e) {
-                    Log.i("Error", "The application failed to build and send the user");
+                    Log.i("Error", "Application failed build the user.");
                 }
             }
             return null;
@@ -122,7 +122,7 @@ public class ElasticSearchHelper {
                 JestResult result = client.execute(get);
                 user = result.getSourceAsObject(User.class);
             } catch (Exception e) {
-                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                Log.i("Error", "Something is wrong with the connection to elasticsearch server.");
             }
 
             if (user == null) {
