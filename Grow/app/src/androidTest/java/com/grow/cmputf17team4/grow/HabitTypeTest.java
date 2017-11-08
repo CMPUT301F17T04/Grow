@@ -2,8 +2,8 @@ package com.grow.cmputf17team4.grow;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import com.grow.cmputf17team4.grow.Models.HabitType;
+
 import java.util.Arrays;
 
 /**
@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 public class HabitTypeTest extends ActivityInstrumentationTestCase2 {
     public HabitTypeTest() {
-        super(com.grow.cmputf17team4.grow.HabitType.class);
+        super(HabitType.class);
     }
     public void testGetName() {
         HabitType atype = new HabitType("haha");

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.grow.cmputf17team4.grow.ActivityMain">
+    tools:context="com.grow.cmputf17team4.grow.Views.ActivityMain">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -40,8 +40,7 @@
         android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1" />
 
 
     <android.support.design.widget.BottomNavigationView

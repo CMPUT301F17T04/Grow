@@ -1,42 +1,45 @@
-package com.grow.cmputf17team4.grow;
+package com.grow.cmputf17team4.grow.Views;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.grow.cmputf17team4.grow.Controllers.DataManager;
+import com.grow.cmputf17team4.grow.Models.Constant;
+import com.grow.cmputf17team4.grow.Models.HabitList;
+import com.grow.cmputf17team4.grow.Models.HabitType;
+import com.grow.cmputf17team4.grow.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.UUID;
 
 public class ActivityModifyHabit extends AppCompatActivity {
     private EditText editName;
     private EditText editDate;
     private EditText editReason;
     private HabitType habit;
-    private Gson gson;
     private CheckBox[] checkBoxes;
     private ActivityModifyHabit that = this;
     private Calendar myCalendar;
     private SimpleDateFormat format;
+    private  int requestCode;
+    private HabitList habitList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_habit);
         Intent intent = getIntent();
-        int requestCode = intent.getIntExtra("requestCode",Constant.REQUEST_NONE);
-        gson = new Gson();
+        requestCode = intent.getIntExtra("requestCode", Constant.REQUEST_NONE);
         checkBoxes = new CheckBox[7];
         that = this;
         myCalendar = Calendar.getInstance();
@@ -54,10 +57,9 @@ public class ActivityModifyHabit extends AppCompatActivity {
         checkBoxes[5] = (CheckBox) findViewById(R.id.modify_habit_checkbox_5);
         checkBoxes[6] = (CheckBox) findViewById(R.id.modify_habit_checkbox_6);
 
-
+        habitList = (HabitList)DataManager.getInstance().getHabitList();
         if (requestCode == Constant.REQUEST_MODIFY_HABIT){
-            habit = gson.fromJson(intent.getStringExtra(Constant.EXTRA_HABIT_TYPE),HabitType.class);
-            myCalendar.setTime(habit.getStartDate());
+            habit = habitList.get(UUID.fromString(intent.getStringExtra("id")));
         } else if (requestCode == Constant.REQUEST_CREATE_HABIT){
             habit  = new HabitType();
             findViewById(R.id.modify_habit_btn_delete).setVisibility(View.GONE);
@@ -118,9 +120,10 @@ public class ActivityModifyHabit extends AppCompatActivity {
         }
         habit.setStartDate(myCalendar.getTime());
 
-        Intent intent = new Intent();
-        intent.putExtra(Constant.EXTRA_HABIT_TYPE,gson.toJson(habit));
-        that.setResult(RESULT_OK,intent);
+        if (requestCode == Constant.REQUEST_CREATE_HABIT){
+            habitList.add(habit);
+        }
+        that.setResult(RESULT_OK);
         that.finish();
     }
 

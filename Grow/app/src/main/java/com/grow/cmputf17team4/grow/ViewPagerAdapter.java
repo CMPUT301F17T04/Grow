@@ -34,4 +34,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         mFragmentList.add(fragment);
     }
 
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        for (Fragment fragment:mFragmentList){
+            fragment.notify();
+        }
+    }
 }
