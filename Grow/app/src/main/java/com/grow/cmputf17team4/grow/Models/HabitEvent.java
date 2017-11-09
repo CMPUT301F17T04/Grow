@@ -7,7 +7,7 @@ import java.util.UUID;
 
 /**
  * Class represent a habit event
- * @author
+ * Created by chris on 2017/11/7.
  */
 
 public class HabitEvent extends Observable implements Identifiable {

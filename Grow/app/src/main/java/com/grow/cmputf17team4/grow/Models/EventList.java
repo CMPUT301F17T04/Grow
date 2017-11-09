@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 /**
- * Created by qin7 on 2017/11/8.
+ * Created by chris on 2017/11/8.
  */
 
 public class EventList extends HashMap<UUID,HabitEvent> {
