@@ -6,6 +6,8 @@ import com.grow.cmputf17team4.grow.Models.HabitType;
 
 import java.util.Arrays;
 
+import static java.lang.Boolean.TRUE;
+
 /**
  * Created by qin7 on 2017/10/22.
  */
@@ -13,6 +15,38 @@ import java.util.Arrays;
 public class HabitTypeTest extends ActivityInstrumentationTestCase2 {
     public HabitTypeTest() {
         super(HabitType.class);
+    }
+
+    public void testGetRepeat(){
+        HabitType atype =new HabitType("HAHAH");
+        assertEquals("HabitType.GetReapeat Error", atype.getRepeat(2));
+    }
+    public void testSetRepeat(){
+        HabitType atype =new HabitType("haha");
+        atype.setRepeat(2,TRUE);
+        assertEquals("HabitType.SetRepeat Error", atype.getRepeat(2));
+    }
+    public void testGetUid(){
+        HabitType atype =new HabitType("haha");
+        assertEquals("HabitType.GetUid Error", atype.getUid(),1);
+    }
+    public void testGetStartDate(){
+        HabitType atype= new HabitType("haha");
+        assertEquals("HabitTyoe.GetStartDate Error",atype.getStartDate(),2);
+    }
+    public void testGetNextEventDay(){
+        HabitType atype= new HabitType("haha");
+        assertEquals("HabitType.GetNextDay Error",atype.getNextEventDay(),2);
+    }
+    public void testSetStartDate(){
+        HabitType atype= new HabitType("haha");
+        assertEquals("HabitType.SetStartDate Error", atype.getStartDate(), 2);
+    }
+    public void testHasEventToday(){
+        HabitType atype = new HabitType("haha");
+        boolean barray[] = {true,false};
+        atype.hasEventToday();
+        assertEquals("HabitType.SetRoutine Error", atype.hasEventToday(), barray);
     }
     public void testGetName() {
         HabitType atype = new HabitType("haha");
