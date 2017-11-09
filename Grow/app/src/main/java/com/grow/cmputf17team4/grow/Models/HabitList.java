@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public class HabitList extends HashMap<UUID,HabitType>{
     public void add(HabitType habitType){
+        //it has a list of habit
         put(habitType.getUid(),habitType);
     }
 }
