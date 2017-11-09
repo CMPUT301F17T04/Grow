@@ -12,7 +12,7 @@ import java.util.UUID;
  * @author
  */
 
-public class HabitType implements Comparable{
+public class HabitType implements Comparable,Identifiable {
     private UUID uid;
     private String name;
     private String reason;
@@ -30,7 +30,7 @@ public class HabitType implements Comparable{
     }
 
     public HabitType() {
-        uid = UUID.randomUUID();
+        uid = generateUid();
         startDate = new Date();
         name = "";
         reason = "";
@@ -41,6 +41,9 @@ public class HabitType implements Comparable{
         return uid;
     }
 
+    public HabitEvent buildEvent(){
+        return new HabitEvent(getName());
+    }
 
     public String getName() {
         return name;
@@ -100,5 +103,16 @@ public class HabitType implements Comparable{
     @Override
     public int compareTo(@NonNull Object o) {
        return getNextEventDay().compareTo(((HabitType)o).getNextEventDay());
+
+    }
+
+    @Override
+    public UUID generateUid() {
+        return UUID.randomUUID();
+    }
+
+    @Override
+    public String getIndex() {
+        return Constant.INDEX_HABIT_TYPE;
     }
 }
