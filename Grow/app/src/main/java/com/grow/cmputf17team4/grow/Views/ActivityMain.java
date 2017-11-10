@@ -1,5 +1,6 @@
 package com.grow.cmputf17team4.grow.Views;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,6 +41,7 @@ public class ActivityMain extends AppCompatActivity {
     private ActivityMain that;
     private ViewPagerAdapter viewPagerAdapter;
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
         intent.putExtra("requestCode", requestCode);
