@@ -15,51 +15,51 @@ public class UserTest extends ActivityInstrumentationTestCase2{
     }
 
     public void testGetName() {
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         assertEquals("User.GetName Error", auser.getName(), "Fufu");
     }
 
     public void testSetName() {
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         auser.setName("Dumb");
         assertEquals("User.SetName Error", auser.getName(), "Dumb");
     }
 
     public void testGetId(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         assertEquals("User.GetId Error", auser.getId(), 1);
     }
 
     public void testSetId(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         auser.setId(23333);
         assertEquals("User.SetId Error", auser.getId(), 23333);
     }
 
     public void testGetNumCompleted(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         assertEquals("User.GetNumCompleted Error", auser.getNumCompleted(), 0);
     }
 
     public void testSetNumCompleted(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         auser.setNumCompleted(10);
         assertEquals("User.SetNumCompleted Error", auser.getNumCompleted(), 10);
     }
 
     public void testGetNumMissed(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         assertEquals("User.GetNumMissed Error", auser.getNumMissed(), 0);
     }
 
     public void testSetNumMissed(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         auser.setNumMissed(10);
         assertEquals("User.SetNumMissed Error", auser.getNumMissed(), 10);
     }
 
     public void testGetHabitTypesList(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         ArrayList<HabitType> newList = new ArrayList<>();
         assertEquals("User.GetHabitTypesList Error", auser.getHabitTypesList(), newList);
     }
@@ -69,13 +69,13 @@ public class UserTest extends ActivityInstrumentationTestCase2{
     }
 
     public void testGetHabitFollowers(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         int[] nofollower = auser.getFollowers();
         assertEquals("User.GetHabitFollowers Error", nofollower[0], 0);
     }
 
     public void testSetHabitFollowers(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         int[] havefollowers = new int[100];
         havefollowers[0] = 233;
         auser.setFollowers(havefollowers);
@@ -85,13 +85,13 @@ public class UserTest extends ActivityInstrumentationTestCase2{
     }
 
     public void testGetHabitFollowing(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         int[] nofollowing = auser.getFollowings();
         assertEquals("User.GetHabitFollowing Error", nofollowing[0], 0);
     }
 
     public void testSetHabitFollowing(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         int[] havefollowings = new int[100];
         havefollowings[0] = 233;
         auser.setFollowings(havefollowings);
@@ -101,7 +101,7 @@ public class UserTest extends ActivityInstrumentationTestCase2{
     }
 
     public void testGetHabitEventHistory(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         ArrayList<HabitEvent> newList = new ArrayList<>();
         assertEquals("User.GetHabitEventHistory Error", auser.getHabitEventHistory(), newList);
     }
@@ -111,7 +111,7 @@ public class UserTest extends ActivityInstrumentationTestCase2{
     }
 
     public void testGetHabitEventToday(){
-        User auser = new User("Fufu");
+        User auser = new User("Fufu", 1);
         ArrayList<HabitEvent> newList = new ArrayList<>();
         assertEquals("User.GetHabitEventToday Error", auser.getHabitEventToday(), newList);
     }
