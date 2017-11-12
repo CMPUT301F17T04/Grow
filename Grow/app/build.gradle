@@ -19,9 +19,7 @@ android {
         }
     }
 }
-configurations.all {
-    resolutionStrategy.force 'com.android.support:support-annotations:23.1.0'
-}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -38,14 +36,4 @@ dependencies {
     compile 'com.android.support:cardview-v7:26.0.0-alpha1'
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.android.support:design:26.0.0-alpha1'
-    androidTestCompile 'com.android.support.test:rules:1.0.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
-    androidTestCompile 'com.android.support.test:runner:1.0.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:3.0.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:3.0.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-accessibility:3.0.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-web:3.0.1'
-    androidTestCompile 'com.android.support.test.espresso.idling:idling-concurrent:3.0.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
-    androidTestCompile 'com.android.support:support-annotations:27.0.1'
 }
