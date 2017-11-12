@@ -2,6 +2,7 @@ package com.grow.cmputf17team4.grow.ModelTests;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
 import com.grow.cmputf17team4.grow.Models.HabitType;
 
 import java.util.Arrays;
@@ -32,15 +33,16 @@ public class HabitTypeTest extends ActivityInstrumentationTestCase2 {
     }
     public void testGetStartDate(){
         HabitType atype= new HabitType("haha");
-        assertEquals("HabitTyoe.GetStartDate Error",atype.getStartDate(),2);
+        assertEquals("HabitTyoe.GetStartDate Error",atype.getStartDate(),"2017-11-11");
     }
     public void testGetNextEventDay(){
         HabitType atype= new HabitType("haha");
-        assertEquals("HabitType.GetNextDay Error",atype.getNextEventDay(),2);
+        assertEquals("HabitType.GetNextDay Error",atype.getNextEventDay(),"2017-11-22");
     }
     public void testSetStartDate(){
         HabitType atype= new HabitType("haha");
-        assertEquals("HabitType.SetStartDate Error", atype.getStartDate(), 2);
+        atype.setStartDate("2017-11-11");
+        assertEquals("HabitEvent.SetDateToRepresent Error", atype.getStartDate(), "2017-11-11");
     }
     public void testHasEventToday(){
         HabitType atype = new HabitType("haha");
