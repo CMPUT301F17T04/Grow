@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.grow.cmputf17team4.grow.R;
+import com.grow.cmputf17team4.grow.Views.ActivityMain;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -35,7 +36,7 @@ import static org.hamcrest.Matchers.is;
 public class Testing {
 
     @Rule
-    public ActivityTestRule<ActivityMain> mActivityTestRule = new ActivityTestRule<>(ActivityMain.class);
+    public ActivityTestRule<ActivityMain> mActivityTestRule = new ActivityTestRule<ActivityMain>(ActivityMain.class);
 
     @Test
     public void testing() {
