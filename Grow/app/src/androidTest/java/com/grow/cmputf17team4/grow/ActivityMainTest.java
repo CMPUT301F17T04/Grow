@@ -1,10 +1,12 @@
-package com.grow.cmputf17team4.grow.Views;
+package com.grow.cmputf17team4.grow;
 
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.support.test.rule.ActivityTestRule;
 
 import com.grow.cmputf17team4.grow.R;
+import com.grow.cmputf17team4.grow.Views.ActivityMain;
+import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
 
 import org.junit.After;
 import org.junit.Before;
