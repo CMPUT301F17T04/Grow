@@ -1,4 +1,4 @@
-package com.grow.cmputf17team4.grow;
+/*package com.grow.cmputf17team4.grow;
 
 import android.test.ActivityInstrumentationTestCase2;
 
@@ -6,9 +6,9 @@ import com.grow.cmputf17team4.grow.Models.HabitEvent;
 
 import java.util.Date;
 
-/**
+*
  * Created by chris on 2017-10-21.
- */
+
 
 public class EventTest extends ActivityInstrumentationTestCase2{
     public EventTest(){
@@ -107,3 +107,4 @@ public class EventTest extends ActivityInstrumentationTestCase2{
     }
 
 }
+*/

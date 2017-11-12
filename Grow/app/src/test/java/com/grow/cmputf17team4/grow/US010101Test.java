@@ -1,4 +1,4 @@
-package com.grow.cmputf17team4.grow;
+/*package com.grow.cmputf17team4.grow;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -8,9 +8,9 @@ import android.widget.Button;
 import com.grow.cmputf17team4.grow.Views.ActivityMain;
 import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
 
-/**
+*
  * Created by chris on 2017-11-09.
- */
+
 
 public class US010101Test extends ActivityInstrumentationTestCase2 {
     Activity activity;
@@ -40,3 +40,4 @@ public class US010101Test extends ActivityInstrumentationTestCase2 {
 
     }
 }
+*/
