@@ -10,6 +10,7 @@ import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Models.HabitList;
@@ -33,7 +34,12 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.pressBack;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static junit.framework.Assert.assertEquals;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -45,6 +51,7 @@ public class CompleteTest {
     private ActivityMain activityM = null;
 
     Instrumentation.ActivityMonitor monitor = InstrumentationRegistry.getInstrumentation().addMonitor(ActivityModifyHabit.class.getName(),null,false);
+
 
 
 
@@ -118,6 +125,12 @@ public class CompleteTest {
         //assertion
         assertNotNull(habitBtnConfirm);
 
+        //Log.d("you stupid", textView);
+        //assertNotNull(allOf(withId(R.id.habit_list_item_title), withText("basketb=all")));
+
+        onView(withId(R.id.habit_list_item_title)).check(matches(withText("basketball")));
+
+        //assertEquals("basketball", textView);
         DataManager.getInstance().getHabitList().clear();
 
         ViewInteraction habitListItemBtnComplete = Espresso.onView(ViewMatchers.withId(R.id.habit_list_item_btn_complete)).perform(ViewActions.click());
@@ -155,5 +168,6 @@ public class CompleteTest {
         activityM = null;
         DataManager.getInstance().getHabitList().clear();
     }
+
 
 }
