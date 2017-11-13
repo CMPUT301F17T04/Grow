@@ -18,16 +18,14 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageA
     private Integer location;
     private Date date;
     private boolean changed;
-    private UUID typeId;
 
 
-    public HabitEvent(String name,UUID typeId) {
+    public HabitEvent(String name) {
         this.name = name;
         uid = generateUid();
         encodedImage = null;
         comment = "";
         location = 0;
-        this.typeId = typeId;
         this.date = new Date();
     }
 
@@ -107,4 +105,5 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageA
     public Date getDate() {
         return date;
     }
+
 }

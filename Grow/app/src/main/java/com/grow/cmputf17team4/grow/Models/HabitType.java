@@ -46,7 +46,7 @@ public class HabitType implements Comparable<HabitType>,Identifiable {
     }
 
     public HabitEvent buildEvent(){
-        return new HabitEvent(getName(),getUid());
+        return new HabitEvent(getName());
     }
 
     public String getName() {
