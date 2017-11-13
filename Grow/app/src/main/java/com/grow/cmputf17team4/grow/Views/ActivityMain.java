@@ -146,8 +146,8 @@ public class ActivityMain extends AppCompatActivity {
 
         viewPagerAdapter.addFragment(FragmentHabitList.newInstance());
         viewPagerAdapter.addFragment(FragmentEventList.newInstance());
-        viewPagerAdapter.addFragment(FragmentEventList.newInstance());
-        viewPagerAdapter.addFragment(FragmentEventList.newInstance());
+        viewPagerAdapter.addFragment(FragmentCommunity.newInstance());
+        viewPagerAdapter.addFragment(FragmentProfile.newInstance());
         viewPager.setAdapter(viewPagerAdapter);
     }
 

@@ -56,6 +56,8 @@ public class DataManager {
 
     }
 
+    public static void prepareForTest(){ourInstance = new DataManager();}
+
     public static void saveInFile(Context context) {
         try {
             FileOutputStream fos = context.openFileOutput(Constant.FILE_NAME,
