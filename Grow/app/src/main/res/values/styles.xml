@@ -1,5 +1,5 @@
 <resources>
-
+    <attr format="reference" name="cardStyle"/>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -9,10 +9,25 @@
         <item name="android:textColorPrimary">@color/colorTextPrimary</item>
         <item name="android:windowBackground">@color/colorWindowBack</item>
         <item name="android:navigationBarColor">@color/colorNavigation</item>
+        <item name="cardStyle">@style/CardTheme</item>
     </style>
 
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.Toolbar" parent="AppTheme">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.ImageView">
+        <item name="android:background">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="CardTheme" parent="CardView">
+        <item name="cardCornerRadius">6dp</item>
+        <item name="cardElevation">6dp</item>
+    </style>
 
 </resources>

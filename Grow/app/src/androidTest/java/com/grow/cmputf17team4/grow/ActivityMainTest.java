@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
@@ -42,12 +43,23 @@ public class ActivityMainTest {
 
     @Test
     public void testTheAddButton(){
-        assertNotNull(activityM.findViewById(R.id.add_habit));
-        Espresso.onView(ViewMatchers.withId(R.id.add_habit)).perform(ViewActions.click());
+        assertNotNull(activityM.findViewById(R.id.toolbar_btn_add_habit));
+        Espresso.onView(ViewMatchers.withId(R.id.toolbar_btn_add_habit)).perform(ViewActions.click());
 
-        Activity addHabit = InstrumentationRegistry.getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);
-        assertNotNull(addHabit);
-        addHabit.finish();
+        Activity addBotton = InstrumentationRegistry.getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);
+        assertNotNull(addBotton);
+
+        ViewInteraction habitEditName = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_name)).perform(ViewActions.typeText("basketball"));
+        assertNotNull(habitEditName);
+
+        ViewInteraction habitEditReason = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_reason)).perform(ViewActions.typeText("Love it"));
+        assertNotNull(habitEditReason);
+
+        Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_reason)).perform(ViewActions.closeSoftKeyboard());
+
+
+        addBotton.finish();
+
 
     }
 

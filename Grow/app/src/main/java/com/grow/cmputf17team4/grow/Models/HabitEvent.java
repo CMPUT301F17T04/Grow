@@ -1,8 +1,8 @@
 package com.grow.cmputf17team4.grow.Models;
 
-import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 
-import java.util.Observable;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -10,17 +10,29 @@ import java.util.UUID;
  * Created by chris on 2017/11/7.
  */
 
-public class HabitEvent extends Observable implements Identifiable {
+public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageAble {
     private String comment;
     private UUID uid;
     private String name;
-    private Bitmap image;
+    private String encodedImage;
+    private Integer location;
+    private Date date;
+    private boolean changed;
+    private UUID typeId;
 
-    public HabitEvent(String name) {
+
+    public HabitEvent(String name,UUID typeId) {
         this.name = name;
         uid = generateUid();
-        image = null;
+        encodedImage = null;
         comment = "";
+        location = 0;
+        this.typeId = typeId;
+        this.date = new Date();
+    }
+
+    public void setEncodedImage(String encodedImage) {
+        this.encodedImage = encodedImage;
     }
 
     public String getComment() {
@@ -46,13 +58,24 @@ public class HabitEvent extends Observable implements Identifiable {
         setChanged();
     }
 
-    public Bitmap getImage() {
-        return image;
+    public String getEncodedImage() {
+        return encodedImage;
     }
 
-    public void setImage(Bitmap image) {
-        this.image = image;
-        setChanged();
+    public void setAttachedLocation(Boolean attached) {
+        if (attached){
+            location = 1;
+        } else {
+            location = 0;
+        }
+    }
+
+    public Boolean isAttachedLocation() {
+        return location!=0;
+    }
+
+    public void setLocation(Integer location) {
+        this.location = location;
     }
 
     @Override
@@ -63,5 +86,25 @@ public class HabitEvent extends Observable implements Identifiable {
     @Override
     public String getIndex() {
         return Constant.INDEX_HABIT_EVENT;
+    }
+
+    @Override
+    public int compareTo(@NonNull HabitEvent o) {
+
+        return(this.date.compareTo(o.date));
+    }
+
+    private void setChanged() {
+        this.changed = true;
+    }
+
+    public boolean isChanged() {
+        boolean result = changed;
+        changed = false;
+        return result;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

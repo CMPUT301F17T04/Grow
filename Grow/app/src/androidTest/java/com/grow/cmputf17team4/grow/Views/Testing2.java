@@ -14,6 +14,7 @@ import com.grow.cmputf17team4.grow.R;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,9 +22,15 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -35,7 +42,7 @@ public class Testing2 {
     @Test
     public void testing2() {
         ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.add_habit),
+                allOf(withId(R.id.toolbar_btn_add_habit),
                         childAtPosition(
                                 allOf(withId(R.id.my_toolbar),
                                         childAtPosition(
@@ -45,9 +52,90 @@ public class Testing2 {
                         isDisplayed()));
         appCompatImageButton.perform(click());
 
-        pressBack();
+        ViewInteraction appCompatEditText = onView(
+                allOf(withId(R.id.modify_habit_edit_name),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.support.v7.widget.CardView")),
+                                        0),
+                                4),
+                        isDisplayed()));
 
-        pressBack();
+        appCompatEditText.perform(replaceText("a"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText2 = onView(
+                allOf(withId(R.id.modify_habit_edit_reason),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.support.v7.widget.CardView")),
+                                        0),
+                                5),
+                        isDisplayed()));
+        appCompatEditText2.perform(replaceText("1"), closeSoftKeyboard());
+
+        ViewInteraction appCompatCheckBox = onView(
+                allOf(withId(R.id.modify_habit_checkbox_1), withText("     Every Monday"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.support.constraint.ConstraintLayout")),
+                                        1),
+                                1),
+                        isDisplayed()));
+        appCompatCheckBox.perform(click());
+
+        //pressBack();
+
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(R.id.modify_habti_btn_confirm), withText("Confirm"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.support.v7.widget.CardView")),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatButton.perform(click());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.list_item_title), withText("a"),
+                        childAtPosition(
+                                childAtPosition(
+                                        IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textView.check(matches(withText("a")));
+
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.list_item_btn_complete), withText("Complete it!"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.support.v7.widget.CardView")),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatButton2.perform(click());
+
+        ViewInteraction appCompatEditText3 = onView(
+                allOf(withId(R.id.modify_event_edit_comment),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.support.v7.widget.CardView")),
+                                        0),
+                                5),
+                        isDisplayed()));
+        appCompatEditText3.perform(replaceText("3"), closeSoftKeyboard());
+
+        //pressBack();
+
+        ViewInteraction appCompatButton3 = onView(
+                allOf(withId(R.id.button2), withText("Complete"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.support.v7.widget.CardView")),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatButton3.perform(click());
 
     }
 

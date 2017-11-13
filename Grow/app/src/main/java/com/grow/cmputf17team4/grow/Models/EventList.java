@@ -5,6 +5,8 @@ import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import java.util.HashMap;
 import java.util.UUID;
 
+import static com.grow.cmputf17team4.grow.R.drawable.event;
+
 /**
  * Created by chris on 2017/11/8.
  */
@@ -13,23 +15,21 @@ import java.util.UUID;
 // it allows user to add event to the event list
 public class EventList extends HashMap<UUID,HabitEvent> {
     public void add(HabitEvent event){
-        //add event
-        event.addObserver(DataManager.getInstance().getQueryQueue());
 
-        event.notifyObservers(Constant.QUERY_CREATE);
-
+        DataManager.getInstance().getQueryQueue().update(event,Constant.QUERY_CREATE);
         put(event.getUid(),event);
     }
 
     @Override
     public HabitEvent remove(Object key) {
-        // remove the event
-        get(key).notifyObservers(Constant.QUERY_DELETE);
+        DataManager.getInstance().getQueryQueue().update(get(key), Constant.QUERY_DELETE);
         return super.remove(key);
     }
 
     public void commit(UUID key){
-        // change event/ update event
-        get(key).notifyObservers(Constant.QUERY_UPDATE);
+        HabitEvent habitEvent = get(key);
+        if (habitEvent.isChanged()){
+            DataManager.getInstance().getQueryQueue().update(habitEvent,Constant.QUERY_UPDATE);
+        }
     }
 }

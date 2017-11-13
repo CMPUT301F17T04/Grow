@@ -6,7 +6,7 @@ import java.util.UUID;
  * Created by qin7 on 2017/11/8.
  */
 
-public interface Identifiable {
+interface Identifiable {
     UUID getUid();
     UUID generateUid();
     String getIndex();

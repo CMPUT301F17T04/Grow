@@ -4,9 +4,4 @@
     android:id = "@+id/event_list_today"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Event List today" />
 </LinearLayout>

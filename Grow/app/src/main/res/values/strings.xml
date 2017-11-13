@@ -4,8 +4,10 @@
     <string name="title_event">Event</string>
     <string name="title_community">Community</string>
     <string name="title_settings">Setting</string>
-
+    <string name="next_event">Next Event: %1$s</string>
     <string name="today">Today</string>
+    <string name="search">🔍 Search</string>>
+
 
     <!-- TODO: Remove or change this placeholder text -->
 

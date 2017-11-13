@@ -29,6 +29,7 @@ import org.junit.Test;
 import java.util.Calendar;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -36,10 +37,14 @@ import static android.support.test.espresso.action.ViewActions.pressBack;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.any;
+import static org.hamcrest.Matchers.anything;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -57,13 +62,16 @@ public class CompleteTest {
 
     @Before
     public void setUp() throws Exception {
+        DataManager.getInstance().getHabitList().clear();
+
         activityM = activityMainTestRule.getActivity();
     }
 
     @Test
     public void testTheAddButton(){
-        assertNotNull(activityM.findViewById(R.id.add_habit));
-        Espresso.onView(ViewMatchers.withId(R.id.add_habit)).perform(ViewActions.click());
+
+        assertNotNull(activityM.findViewById(R.id.toolbar_btn_add_habit));
+        Espresso.onView(ViewMatchers.withId(R.id.toolbar_btn_add_habit)).perform(ViewActions.click());
 
         Activity addbutton = InstrumentationRegistry.getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);
         assertNotNull(addbutton);
@@ -125,38 +133,66 @@ public class CompleteTest {
         //assertion
         assertNotNull(habitBtnConfirm);
 
-        //Log.d("you stupid", textView);
-        //assertNotNull(allOf(withId(R.id.habit_list_item_title), withText("basketb=all")));
 
-        onView(withId(R.id.habit_list_item_title)).check(matches(withText("basketball")));
-
+        onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view),isDisplayed()))
+        .atPosition(0).onChildView (withId(R.id.list_item_title)).check(matches(withText("basketball")));
 
 
 
-
-        //assertEquals("basketball", textView);
-        //DataManager.getInstance().getHabitList().clear();
-
-
-
-
-
-        ViewInteraction habitListItemBtnComplete = Espresso.onView(ViewMatchers.withId(R.id.habit_list_item_btn_complete)).perform(ViewActions.click());
+        ViewInteraction habitListItemBtnComplete = onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view),isDisplayed()))
+                .atPosition(0).onChildView (withId(R.id.list_item_btn_complete)).perform(click());
         assertNotNull(habitListItemBtnComplete);
 
-        ViewInteraction completeEventEditComment = Espresso.onView(ViewMatchers.withId(R.id.complet_event_edit_comment)).perform(ViewActions.typeText("tired"));
+        ViewInteraction completeEventEditComment = Espresso.onView(ViewMatchers.withId(R.id.modify_event_edit_comment)).perform(ViewActions.typeText("tired"));
         assertNotNull(completeEventEditComment);
 
-        Espresso.onView(ViewMatchers.withId(R.id.complet_event_edit_comment)).perform(ViewActions.closeSoftKeyboard());
+        Espresso.onView(ViewMatchers.withId(R.id.modify_event_edit_comment)).perform(ViewActions.closeSoftKeyboard());
+
+
+
 
         ViewInteraction confirmBtn = Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(ViewActions.click());
         assertNotNull(confirmBtn);
 
-        ViewInteraction editExistHabit = Espresso.onView(ViewMatchers.withId(R.id.habit_list_item_title)).perform(ViewActions.click());
+
+
+        ViewInteraction editExistHabit = onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed()))
+                .atPosition(0).perform(click());
         assertNotNull(editExistHabit);
 
+        ViewInteraction habitChangeName = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_name)).perform(ViewActions.replaceText("zhai"));
+        assertNotNull(habitChangeName);
+
+        ViewInteraction habitBtnConfirm1 = Espresso.onView(ViewMatchers.withId(R.id.modify_habti_btn_confirm)).perform(ViewActions.click());
+        //assertion
+        assertNotNull(habitBtnConfirm1);
+
+        onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view),isDisplayed()))
+                .atPosition(0).onChildView (withId(R.id.list_item_title)).check(matches(withText("zhai")));
+
+        ViewInteraction editExistHabit1 = onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed()))
+                .atPosition(0).perform(click());
+        assertNotNull(editExistHabit1);
+
+        ViewInteraction habitChangeReason = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_reason)).perform(ViewActions.replaceText("kill him"));
+        assertNotNull(habitChangeReason);
+
+        ViewInteraction habitBtnConfirm2 = Espresso.onView(ViewMatchers.withId(R.id.modify_habti_btn_confirm)).perform(ViewActions.click());
+        //assertion
+        assertNotNull(habitBtnConfirm2);
+
+        ViewInteraction editExistHabit2 = onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed()))
+                .atPosition(0).perform(click());
+        assertNotNull(editExistHabit2);
+
+        onView(withId(R.id.modify_habit_edit_name)).check(matches(withText("zhai")));
+        onView(withId(R.id.modify_habit_edit_reason)).check(matches(withText("kill him")));
+
+        ViewInteraction deleteButton = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_btn_delete)).perform(ViewActions.click());
+        assertNotNull(deleteButton);
 
         addbutton.finish();
+
 
     }
 
