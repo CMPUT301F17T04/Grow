@@ -24,6 +24,7 @@ import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -49,10 +50,11 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
         return eventList.size();
     }
 
-    public void commit(Set<UUID> showTypes, String keyword){
+    public void commit(HashMap<String,Boolean> showTypes, String keyword){
         eventList.clear();
         for(Map.Entry<UUID,HabitEvent> entry : modelList.entrySet()) {
-            if (entry.getValue().getComment().contains(keyword)) {
+            if (entry.getValue().getComment().contains(keyword)
+                    && showTypes.get(entry.getValue().getName())) {
                 eventList.add(entry.getValue());
             }
         }

@@ -21,6 +21,9 @@ import com.grow.cmputf17team4.grow.R;
 import com.grow.cmputf17team4.grow.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -33,7 +36,7 @@ import java.util.UUID;
 public class FragmentEventList extends Fragment {
     private EventListAdapter adapter;
     private String keyword;
-    private Set<UUID> showTypes;
+    private HashMap<String,Boolean> showTypes;
 
     public static FragmentEventList newInstance() {
         Bundle args = new Bundle();
@@ -48,7 +51,7 @@ public class FragmentEventList extends Fragment {
         View view = inflater.inflate(R.layout.fragment_single_card_list, null);
         final ListView listView = (ListView) view.findViewById(R.id.card_list_view);
         adapter = new EventListAdapter(getActivity(), DataManager.getInstance().getEventList());
-        showTypes = DataManager.getInstance().getHabitList().keySet();
+        showTypes = new HashMap<>();
         listView.setAdapter(adapter);
         final SearchView searchView = (SearchView) getActivity().findViewById(R.id.toolbar_search);
         keyword = searchView.getQuery().toString();
@@ -74,6 +77,10 @@ public class FragmentEventList extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        showTypes.clear();
+        for (Map.Entry<UUID,HabitEvent> entry : DataManager.getInstance().getEventList().entrySet()){
+            showTypes.put(entry.getValue().getName(),true);
+        }
         adapter.commit(showTypes,keyword);
     }
 }
