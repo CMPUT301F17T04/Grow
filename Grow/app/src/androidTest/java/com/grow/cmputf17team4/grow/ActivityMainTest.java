@@ -41,7 +41,7 @@ public class ActivityMainTest {
     }
 
     @Test
-    public  void testTheAddButton(){
+    public void testTheAddButton(){
         assertNotNull(activityM.findViewById(R.id.add_habit));
         Espresso.onView(ViewMatchers.withId(R.id.add_habit)).perform(ViewActions.click());
 
