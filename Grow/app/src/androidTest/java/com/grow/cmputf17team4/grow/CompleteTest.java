@@ -130,8 +130,16 @@ public class CompleteTest {
 
         onView(withId(R.id.habit_list_item_title)).check(matches(withText("basketball")));
 
+
+
+
+
         //assertEquals("basketball", textView);
-        DataManager.getInstance().getHabitList().clear();
+        //DataManager.getInstance().getHabitList().clear();
+
+
+
+
 
         ViewInteraction habitListItemBtnComplete = Espresso.onView(ViewMatchers.withId(R.id.habit_list_item_btn_complete)).perform(ViewActions.click());
         assertNotNull(habitListItemBtnComplete);
@@ -144,24 +152,14 @@ public class CompleteTest {
         ViewInteraction confirmBtn = Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(ViewActions.click());
         assertNotNull(confirmBtn);
 
+        ViewInteraction editExistHabit = Espresso.onView(ViewMatchers.withId(R.id.habit_list_item_title)).perform(ViewActions.click());
+        assertNotNull(editExistHabit);
+
+
         addbutton.finish();
-        //DataManager.getInstance().getHabitList().clear();
 
     }
-    /*
-    @Test
-    public void testTheCompleteButton(){
-        HabitList habitList = DataManager.getInstance().getHabitList();
-        HabitType habitType = new HabitType();
-        habitType.setName("play basketball");
-        //habitType.getName();
-        habitType.setReason("no reason");
-        //habitType.getReason();
-        habitList.add(habitType);
 
-        //habit_list_item_btn_complete
-
-    }*/
 
     @After
     public void tearDown() throws Exception {
