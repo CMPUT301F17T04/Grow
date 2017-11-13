@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.grow.cmputf17team4.grow">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-feature android:name="android.hardware.camera"
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <application
@@ -22,7 +26,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <!-- android:theme="@style/AppTheme"> -->
@@ -39,7 +43,7 @@
         <activity android:name=".ActivityOtherUserProfile" />
         <activity android:name=".ActivityHabitSetting" />
         <activity android:name=".Views.ActivityModifyHabit" />
-        <activity android:name=".Views.ActivityModifyEvent"></activity>
+        <activity android:name=".Views.ActivityModifyEvent" />
     </application>
 
 </manifest>
