@@ -9,96 +9,102 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.grow.cmputf17team4.grow.Controllers.DataManager;
+import com.grow.cmputf17team4.grow.Controllers.ImageManager;
 import com.grow.cmputf17team4.grow.Models.Constant;
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
+import com.grow.cmputf17team4.grow.Models.HabitType;
 import com.grow.cmputf17team4.grow.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class ActivityModifyEvent extends AppCompatActivity {
-    public String mCurrentPhotoPath;
-    public ImageView mImageView;
+
+    private ImageManager imageManager;
+    private ImageView imageView;
+    private int requestCode;
+    private EditText comment;
+    private Switch attachedLocation;
+    private HabitEvent event;
+    private HabitType habit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_event);
+        Intent intent = getIntent();
+        requestCode = intent.getIntExtra("requestCode", Constant.REQUEST_NONE);
+
+        imageView = (ImageView)findViewById(R.id.modify_event_image_view);
+        comment = (EditText) findViewById(R.id.modify_event_edit_comment);
+        attachedLocation = (Switch) findViewById(R.id.modify_event_attached_location);
+
+        if (requestCode == Constant.REQUEST_COMPLETE_EVENT){
+            String id = intent.getStringExtra(Constant.EXTRA_ID);
+            if (id==null){throw new Error("No ID in intent");}
+            habit = DataManager.getInstance().getHabitList().get(UUID.fromString(id));
+            findViewById(R.id.modify_event_btn_delete).setVisibility(View.GONE);
+            event = habit.buildEvent();
+        } else if (requestCode == Constant.REQUEST_MODIFY_EVENT){
+            event = DataManager.getInstance().getEventList().get(UUID.fromString(intent.getStringExtra("id")));
+            findViewById(R.id.modify_event_text).setVisibility(View.GONE);
+        } else {
+            throw new Error("Unknown Request");
+        }
+        imageManager = new ImageManager(event);
+        comment.setText(event.getComment());
+        attachedLocation.setChecked(event.isAttachedLocation());
+        imageManager.setPic(imageView);
     }
 
-
-    //get camera part from https://developer.android.com/training/camera/photobasics.html
-    public void onCompleteEventTakePhoto(View v){
-
+    public void onModifyEventDelete(View v){
+        DataManager.getInstance().getEventList().remove(event.getUid());
+        setResult(RESULT_OK);
+        finish();
     }
 
+    public void onModifyEventConfirm(View v){
+        event.setComment(comment.getText().toString());
+        event.setAttachedLocation(attachedLocation.isChecked());
+        if (requestCode == Constant.REQUEST_COMPLETE_EVENT){
+            DataManager.getInstance().getEventList().add(event);
+            habit.getRecord().add(event.getDate());
+        }
+        setResult(RESULT_OK);
+        finish();
+    }
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                ex.printStackTrace();
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, Constant.REQUEST_TAKE_PHOTO);
-            }
+    public void onEventTakePhoto(View v){
+        imageManager.dispatchTakePictureIntent(this);
+    }
+
+    public void onEventPickImage(View v){
+        imageManager.getPictureFromGalleryIntent(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK){
+            return;
+        }
+        if (requestCode == Constant.REQUEST_TAKE_PHOTO ){
+            imageManager.encode(imageView);
+        } else if (requestCode == Constant.REQUEST_PICK_IMAGE){
+            imageManager.encode(imageView,data.getData());
         }
     }
-
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
-
-    private void setPic() {
-        // Get the dimensions of the View
-        int targetW = mImageView.getWidth();
-        int targetH = mImageView.getHeight();
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        mImageView.setImageBitmap(bitmap);
-    }
-
 
 }

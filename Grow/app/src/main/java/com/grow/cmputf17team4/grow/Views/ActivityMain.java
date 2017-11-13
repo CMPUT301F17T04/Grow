@@ -10,14 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toolbar;
+import android.widget.SearchView;
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.EventTodayAdapter;
-import com.grow.cmputf17team4.grow.FragmentEventList;
 import com.grow.cmputf17team4.grow.R;
 import com.grow.cmputf17team4.grow.User;
 import com.grow.cmputf17team4.grow.Controllers.ViewPagerAdapter;
@@ -53,21 +55,33 @@ public class ActivityMain extends AppCompatActivity {
 
         DataManager.loadFromFile(this);
         that = this;
-        addBtn = (ImageButton) findViewById(R.id.add_habit);
+        addBtn = (ImageButton) findViewById(R.id.toolbar_btn_add_habit);
         viewPager = (ViewPager) findViewById(R.id.viewpager_main);
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_main);
+        final View title = findViewById(R.id.toolbar_title);
+        final ImageButton mapBtn = (ImageButton)findViewById(R.id.toolbar_btn_map);
+        final ImageButton filterBtn = (ImageButton)findViewById(R.id.toolbar_btn_filter);
+        final SearchView searchView = (SearchView) findViewById(R.id.toolbar_search);
 
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        title.setVisibility(View.GONE);
                         addBtn.setVisibility(View.GONE);
+                        mapBtn.setVisibility(View.GONE);
+                        filterBtn.setVisibility(View.GONE);
+                        searchView.setVisibility(View.GONE);
                         switch (item.getItemId()) {
                             case R.id.navigation_habit:
                                 addBtn.setVisibility(View.VISIBLE);
+                                title.setVisibility(View.VISIBLE);
                                 viewPager.setCurrentItem(0);
                                 return false;
                             case R.id.navigation_event:
+                                mapBtn.setVisibility(View.VISIBLE);
+                                searchView.setVisibility(View.VISIBLE);
+                                filterBtn.setVisibility(View.VISIBLE);
                                 viewPager.setCurrentItem(1);
                                 return false;
                             case R.id.navigation_community:
@@ -130,10 +144,10 @@ public class ActivityMain extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        viewPagerAdapter.addFragment(FragmentHabitTask.newInstance(this));
-        viewPagerAdapter.addFragment(FragmentEventList.newInstance("Event"));
-        viewPagerAdapter.addFragment(FragmentEventList.newInstance("Community"));
-        viewPagerAdapter.addFragment(FragmentEventList.newInstance("Settings"));
+        viewPagerAdapter.addFragment(FragmentHabitList.newInstance());
+        viewPagerAdapter.addFragment(FragmentEventList.newInstance());
+        viewPagerAdapter.addFragment(FragmentEventList.newInstance());
+        viewPagerAdapter.addFragment(FragmentEventList.newInstance());
         viewPager.setAdapter(viewPagerAdapter);
     }
 
