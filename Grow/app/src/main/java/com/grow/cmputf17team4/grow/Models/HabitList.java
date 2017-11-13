@@ -8,6 +8,16 @@ import java.util.UUID;
  */
 
 public class HabitList extends HashMap<UUID,HabitType>{
+    private boolean changed;
+
+    public boolean isChanged() {
+        return changed;
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed = changed;
+    }
+
     public void add(HabitType habitType){
         put(habitType.getUid(),habitType);
     }

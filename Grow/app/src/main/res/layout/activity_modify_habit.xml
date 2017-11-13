@@ -7,18 +7,19 @@
     tools:context="com.grow.cmputf17team4.grow.Views.ActivityModifyHabit">
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="6dp"
+        style="?attr/cardStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -114,33 +115,33 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="0dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
                 android:onClick="onCreateHabitConfirm"
                 android:text="Confirm"
-                app:layout_constraintBottom_toTopOf="@+id/modify_habit_btn_delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.0" />
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent" />
 
             <Button
                 android:id="@+id/modify_habit_btn_delete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="0dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginStart="16dp"
                 android:backgroundTint="@color/colorDelete"
                 android:onClick="onModifyHabitDelete"
                 android:text="Delete"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintBottom_toTopOf="@+id/modify_habti_btn_confirm" />
 
             <EditText
                 android:id="@+id/modify_habit_edit_name"
@@ -208,16 +209,15 @@
                 android:id="@+id/modify_habit_btn_statstic"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="0dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
                 android:text="Statstic"
-                app:layout_constraintBottom_toTopOf="@+id/modify_habti_btn_confirm"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginRight="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                android:layout_marginBottom="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/modify_habit_btn_delete" />
 
         </android.support.constraint.ConstraintLayout>
 

@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Models.Constant;
+import com.grow.cmputf17team4.grow.Models.EventList;
 import com.grow.cmputf17team4.grow.Models.HabitList;
+import com.grow.cmputf17team4.grow.Models.QueryQueue;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -21,6 +23,8 @@ import java.util.HashMap;
 
 public class DataManager {
     private HabitList habitList;
+    private QueryQueue queryQueue;
+    private EventList eventList;
 
     private static DataManager ourInstance;
 
@@ -29,9 +33,15 @@ public class DataManager {
     }
 
     private DataManager() {
+
         habitList = new HabitList();
+        queryQueue = new QueryQueue();
+        eventList = new EventList();
     }
 
+    public EventList getEventList() {
+        return eventList;
+    }
 
     public static void loadFromFile(Context context) {
         try {
@@ -63,5 +73,9 @@ public class DataManager {
 
     public HabitList getHabitList() {
         return habitList;
+    }
+
+    public QueryQueue getQueryQueue() {
+        return queryQueue;
     }
 }
