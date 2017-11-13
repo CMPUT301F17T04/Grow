@@ -7,9 +7,11 @@ import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
@@ -21,6 +23,7 @@ import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
 
 import junit.framework.Assert;
 
+import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -38,6 +41,7 @@ import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertEquals;
@@ -47,10 +51,11 @@ import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.anything;
 import static org.junit.Assert.assertNotNull;
 
+
 /**
  * Created by chris on 2017-11-11.
  */
-public class CompleteTest {
+public class IntentTest {
     @Rule
     public ActivityTestRule<ActivityMain> activityMainTestRule = new ActivityTestRule<ActivityMain>(ActivityMain.class);
     private ActivityMain activityM = null;
@@ -63,6 +68,7 @@ public class CompleteTest {
     @Before
     public void setUp() throws Exception {
         DataManager.getInstance().getHabitList().clear();
+        DataManager.getInstance().getEventList().clear();
 
         activityM = activityMainTestRule.getActivity();
     }
@@ -76,10 +82,12 @@ public class CompleteTest {
         Activity addbutton = InstrumentationRegistry.getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);
         assertNotNull(addbutton);
 
-        ViewInteraction habitEditName = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_name)).perform(ViewActions.typeText("basketball"));
+        ViewInteraction habitEditName = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_name))
+                .perform(ViewActions.typeText("basketball"));
         assertNotNull(habitEditName);
 
-        ViewInteraction habitEditReason = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_reason)).perform(ViewActions.typeText("Love it"));
+        ViewInteraction habitEditReason = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_reason))
+                .perform(ViewActions.typeText("Love it"));
         assertNotNull(habitEditReason);
 
 
@@ -90,7 +98,8 @@ public class CompleteTest {
         //System.out.println(day);
         switch (day) {
             case Calendar.SUNDAY:
-                ViewInteraction dayOfWeek0 = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_0)).perform(ViewActions.click());
+                ViewInteraction dayOfWeek0 = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_0))
+                        .perform(ViewActions.click());
                 assertNotNull(dayOfWeek0);
                 break;
 
@@ -143,7 +152,8 @@ public class CompleteTest {
                 .atPosition(0).onChildView (withId(R.id.list_item_btn_complete)).perform(click());
         assertNotNull(habitListItemBtnComplete);
 
-        ViewInteraction completeEventEditComment = Espresso.onView(ViewMatchers.withId(R.id.modify_event_edit_comment)).perform(ViewActions.typeText("tired"));
+        ViewInteraction completeEventEditComment = Espresso.onView(ViewMatchers.withId(R.id.modify_event_edit_comment)).
+                perform(ViewActions.typeText("tired"));
         assertNotNull(completeEventEditComment);
 
         Espresso.onView(ViewMatchers.withId(R.id.modify_event_edit_comment)).perform(ViewActions.closeSoftKeyboard());
@@ -160,10 +170,13 @@ public class CompleteTest {
                 .atPosition(0).perform(click());
         assertNotNull(editExistHabit);
 
-        ViewInteraction habitChangeName = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_name)).perform(ViewActions.replaceText("zhai"));
+        ViewInteraction habitChangeName = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_name))
+                .perform(ViewActions.clearText(),ViewActions.typeText("zhai"));
         assertNotNull(habitChangeName);
 
-        ViewInteraction habitBtnConfirm1 = Espresso.onView(ViewMatchers.withId(R.id.modify_habti_btn_confirm)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_name)).perform(ViewActions.closeSoftKeyboard());
+        ViewInteraction habitBtnConfirm1 = Espresso.onView(ViewMatchers.withId(R.id.modify_habti_btn_confirm))
+                .perform(ViewActions.click());
         //assertion
         assertNotNull(habitBtnConfirm1);
 
@@ -174,10 +187,14 @@ public class CompleteTest {
                 .atPosition(0).perform(click());
         assertNotNull(editExistHabit1);
 
-        ViewInteraction habitChangeReason = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_reason)).perform(ViewActions.replaceText("kill him"));
+        ViewInteraction habitChangeReason = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_reason))
+                .perform(ViewActions.clearText(),ViewActions.typeText("kill him"));
         assertNotNull(habitChangeReason);
+        Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_reason)).perform(ViewActions.closeSoftKeyboard());
 
-        ViewInteraction habitBtnConfirm2 = Espresso.onView(ViewMatchers.withId(R.id.modify_habti_btn_confirm)).perform(ViewActions.click());
+        ViewInteraction habitBtnConfirm2 = Espresso.onView(ViewMatchers.withId(R.id.modify_habti_btn_confirm))
+                .perform(ViewActions.click());
+
         //assertion
         assertNotNull(habitBtnConfirm2);
 
@@ -188,8 +205,60 @@ public class CompleteTest {
         onView(withId(R.id.modify_habit_edit_name)).check(matches(withText("zhai")));
         onView(withId(R.id.modify_habit_edit_reason)).check(matches(withText("kill him")));
 
+
+        onView(withId(R.id.modify_habit_edit_date)).perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2018, 01, 01));
+
+        onView(withId(android.R.id.button1)).perform(click());
+
+        onView(ViewMatchers.withId(R.id.modify_habti_btn_confirm)).perform(ViewActions.click());
+
+        onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed()))
+                .atPosition(0).perform(click());
+        onView(withId(R.id.modify_habit_edit_date)).check(matches(withText("Monday, Jan 01")));
+
+
+
+
         ViewInteraction deleteButton = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_btn_delete)).perform(ViewActions.click());
         assertNotNull(deleteButton);
+
+        ViewInteraction changeToEvent = Espresso.onView(ViewMatchers.withId(R.id.navigation_event)).perform(ViewActions.click());
+        assertNotNull(changeToEvent);
+
+        ViewInteraction editExistEvent = onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed()))
+                .atPosition(0).perform(click());
+        assertNotNull(editExistEvent);
+
+        ViewInteraction eventEditcomment = Espresso.onView(ViewMatchers.withId(R.id.modify_event_edit_comment))
+                .perform(ViewActions.clearText(),ViewActions.typeText("test"));
+        assertNotNull(eventEditcomment);
+
+        Espresso.onView(ViewMatchers.withId(R.id.modify_event_edit_comment)).perform(ViewActions.closeSoftKeyboard());
+
+        ViewInteraction eventButtonConfirm = Espresso.onView(ViewMatchers.withId(R.id.button2))
+                .perform(ViewActions.click());
+
+        onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view),isDisplayed()))
+                .atPosition(0).onChildView (withId(R.id.list_item_text_subtitle)).check(matches(withText("test")));
+
+
+        onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed())).atPosition(0).perform(click());
+
+        ViewInteraction eventDeleteButton = Espresso.onView(ViewMatchers.withId(R.id.modify_event_btn_delete))
+                .perform(ViewActions.click());
+        assertNotNull(eventDeleteButton);
+
+        ViewInteraction changeToEventAgain = Espresso.onView(ViewMatchers.withId(R.id.navigation_event)).perform(ViewActions.click());
+        assertNotNull(changeToEventAgain);
+
+
+
+
+
+        //Espresso.onView(ViewMatchers.withId(R.id.modify_event_edit_comment)).perform(ViewActions.closeSoftKeyboard());
+
 
         addbutton.finish();
 
@@ -201,6 +270,7 @@ public class CompleteTest {
     public void tearDown() throws Exception {
         activityM = null;
         DataManager.getInstance().getHabitList().clear();
+        DataManager.getInstance().getEventList().clear();
     }
 
 
