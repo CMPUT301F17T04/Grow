@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.grow.cmputf17team4.grow.R;
-import com.grow.cmputf17team4.grow.User;
+import com.grow.cmputf17team4.grow.Models.User;
 
 import java.util.ArrayList;
 

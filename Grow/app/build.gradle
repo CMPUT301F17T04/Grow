@@ -37,4 +37,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.android.support:design:26.0.0-alpha1'
     implementation 'com.android.support.test:runner:1.0.1'
+    implementation 'com.android.support.test.espresso:espresso-contrib:3.0.1'
 }

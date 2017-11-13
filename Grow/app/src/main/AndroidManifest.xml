@@ -39,9 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityHabitEvent" />
-        <activity android:name=".ActivityOtherUserProfile" />
-        <activity android:name=".ActivityHabitSetting" />
         <activity android:name=".Views.ActivityModifyHabit" />
         <activity android:name=".Views.ActivityModifyEvent" />
     </application>

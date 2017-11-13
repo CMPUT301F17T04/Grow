@@ -27,6 +27,7 @@ public interface Constant {
 
     String INDEX_HABIT_TYPE = "habitType";
     String INDEX_HABIT_EVENT = "habitEvent";
+    String INDEX_USER = "user";
 
     String EXTRA_ID = "id";
     String EXTRA_INDEX = "index";

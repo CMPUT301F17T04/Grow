@@ -10,8 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toolbar;
@@ -19,9 +17,8 @@ import android.widget.SearchView;
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Models.Constant;
-import com.grow.cmputf17team4.grow.EventTodayAdapter;
 import com.grow.cmputf17team4.grow.R;
-import com.grow.cmputf17team4.grow.User;
+import com.grow.cmputf17team4.grow.Models.User;
 import com.grow.cmputf17team4.grow.Controllers.ViewPagerAdapter;
 
 
@@ -36,7 +33,6 @@ public class ActivityMain extends AppCompatActivity {
     private String file;
     private BottomNavigationView bottomNavigationView;
     private ListView listView;
-    private EventTodayAdapter eventAdapter;
     private ImageButton addBtn;
     private Toolbar myToolbar;
     private ActivityMain that;
