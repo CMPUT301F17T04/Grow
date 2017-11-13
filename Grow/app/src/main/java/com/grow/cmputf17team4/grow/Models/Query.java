@@ -21,4 +21,19 @@ public class Query {
         return false;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public String getContent() {
+        return content;
+    }
 }

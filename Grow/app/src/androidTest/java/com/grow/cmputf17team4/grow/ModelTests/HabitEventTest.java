@@ -1,8 +1,7 @@
-package com.grow.cmputf17team4.grow;
+package com.grow.cmputf17team4.grow.ModelTests;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.Models.HabitEvent;
 
 /**
