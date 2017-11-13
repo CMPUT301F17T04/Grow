@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.Models.EventList;
@@ -24,6 +25,7 @@ import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -47,14 +49,18 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
         return eventList.size();
     }
 
-    public void commit(ArrayList<HabitType> showTypes,@Nullable String keyword){
+    public void commit(Set<UUID> showTypes, String keyword){
         eventList.clear();
         for(Map.Entry<UUID,HabitEvent> entry : modelList.entrySet()) {
-            eventList.add(entry.getValue());
+            if (entry.getValue().getComment().contains(keyword)) {
+                eventList.add(entry.getValue());
+            }
         }
-        Collections.sort(eventList);
+        Collections.sort(eventList,Collections.<HabitEvent>reverseOrder());
         notifyDataSetChanged();
     }
+
+
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null){
@@ -69,7 +75,7 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
         ImageView imageView = (ImageView) view.findViewById(R.id.list_item_image_view);
         TextView title = (TextView) view.findViewById(R.id.list_item_title);
         TextView subtitle = (TextView) view.findViewById(R.id.list_item_text_subtitle);
-        TextView completed = (TextView) view.findViewById(R.id.list_item_text_completed);
+        TextView date = (TextView) view.findViewById(R.id.list_item_date);
         final HabitEvent event = eventList.get(position);
         String encodedImage = event.getEncodedImage();
         if (encodedImage != null) {
@@ -78,8 +84,8 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
         }
         title.setText(event.getName());
         subtitle.setText(event.getComment());
-        completed.setText(Constant.TIME_FORMAT.format(event.getDate()));
-        completed.setVisibility(View.VISIBLE);
+        date.setText(Constant.TIME_FORMAT.format(event.getDate()));
+        date.setVisibility(View.VISIBLE);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
