@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -59,7 +60,8 @@ public class ActivityModifyEvent extends AppCompatActivity {
             event = habit.buildEvent();
         } else if (requestCode == Constant.REQUEST_MODIFY_EVENT){
             event = DataManager.getInstance().getEventList().get(UUID.fromString(intent.getStringExtra("id")));
-            findViewById(R.id.modify_event_text).setVisibility(View.GONE);
+            TextView textView = (TextView) findViewById(R.id.modify_event_text);
+            textView.setText(event.getName());
         } else {
             throw new Error("Unknown Request");
         }
