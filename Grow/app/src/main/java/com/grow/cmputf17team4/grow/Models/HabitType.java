@@ -2,8 +2,11 @@ package com.grow.cmputf17team4.grow.Models;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.UUID;
 
@@ -12,7 +15,8 @@ import java.util.UUID;
  * @author
  */
 
-public class HabitType implements Comparable,Identifiable {
+public class HabitType implements Comparable<HabitType>,Identifiable {
+    private ArrayList<Date> record;
     private UUID uid;
     private String name;
     private String reason;
@@ -34,7 +38,7 @@ public class HabitType implements Comparable,Identifiable {
         startDate = new Date();
         name = "";
         reason = "";
-
+        record = new ArrayList<>();
     }
 
     public UUID getUid() {
@@ -42,7 +46,7 @@ public class HabitType implements Comparable,Identifiable {
     }
 
     public HabitEvent buildEvent(){
-        return new HabitEvent(getName());
+        return new HabitEvent(getName(),getUid());
     }
 
     public String getName() {
@@ -96,14 +100,22 @@ public class HabitType implements Comparable,Identifiable {
             index = (index + 1)%7;
             calendar.add(Calendar.DATE,1);
         }
+        calendar.add(Calendar.MINUTE,(int)getName().charAt(0));
         return calendar.getTime();
     }
 
+    public ArrayList<Date> getRecord() {
+        return record;
+    }
 
     @Override
-    public int compareTo(@NonNull Object o) {
-       return getNextEventDay().compareTo(((HabitType)o).getNextEventDay());
+    public int compareTo(@NonNull HabitType o) {
+        return getNextEventDay().compareTo(o.getNextEventDay());
+    }
 
+    public boolean alreadyDone(){
+        int index = Collections.binarySearch(record,Calendar.getInstance().getTime(), new DateComparator());
+        return index >= 0;
     }
 
     @Override
@@ -114,5 +126,12 @@ public class HabitType implements Comparable,Identifiable {
     @Override
     public String getIndex() {
         return Constant.INDEX_HABIT_TYPE;
+    }
+
+    private class DateComparator implements Comparator<Date> {
+
+        public int compare(Date d1, Date d2) {
+            return Constant.TIME_FORMAT.format(d1).compareTo(Constant.TIME_FORMAT.format(d2));
+        }
     }
 }

@@ -20,7 +20,10 @@ import com.grow.cmputf17team4.grow.Views.ActivityModifyEvent;
 import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,6 +34,7 @@ import java.util.UUID;
 public class HabitListAdapter extends BaseAdapter implements ListAdapter {
     private Context context;
     private ArrayList<HabitType> habitList;
+    private HabitList modelList;
 
     /**
      * Initialization of CounterArrayAdapter
@@ -39,10 +43,16 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
     public HabitListAdapter(Context context, HabitList habitMap) {
         this.context = context;
         this.habitList = new ArrayList<HabitType>();
-        for(Map.Entry<UUID,HabitType> entry : habitMap.entrySet()) {
+        this.modelList = habitMap;
+    }
+
+    public void commit(){
+        habitList.clear();
+        for(Map.Entry<UUID,HabitType> entry : modelList.entrySet()) {
             habitList.add(entry.getValue());
         }
         Collections.sort(habitList);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -60,6 +70,7 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
         return habitList.size();
     }
 
+
     /**
      * edit content in view
      * @param i
@@ -69,20 +80,21 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
      */
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup){
-        // get idea from https://stackoverflow.com/questions/17525886/listview-with-add-and-delete-buttons-in-each-row-in-android
         if (view == null){
             /**
              * if there is no view then inflater list_item.xml as a view
              */
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.habit_list_item, null);
+            view = inflater.inflate(R.layout.list_item, null);
         }
         /**
          * find separate view of button and textview
          */
-        TextView title = (TextView) view.findViewById(R.id.habit_list_item_title);
-        TextView date = (TextView) view.findViewById(R.id.habit_list_item_date);
-        Button btn = (Button) view.findViewById(R.id.habit_list_item_btn_complete);
+        TextView title = (TextView) view.findViewById(R.id.list_item_title);
+        TextView date = (TextView) view.findViewById(R.id.list_item_text_subtitle);
+        TextView completed = (TextView) view.findViewById(R.id.list_item_text_completed);
+        Button btn = (Button) view.findViewById(R.id.list_item_btn_complete);
+        view.findViewById(R.id.list_item_image_view).setVisibility(View.GONE);
 
         final HabitType habitType = (HabitType) getItem(i);
 
@@ -91,21 +103,26 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ActivityModifyEvent.class);
-                intent.putExtra("id",habitType.getUid());
+                intent.putExtra(Constant.EXTRA_ID,habitType.getUid().toString());
                 ((AppCompatActivity)context).startActivityForResult(intent,Constant.REQUEST_COMPLETE_EVENT);
             }
         });
 
-
-
-
         title.setText(((HabitType)getItem(i)).getName());
+
+
+        completed.setVisibility(View.GONE);
+        btn.setVisibility(View.GONE);
         if (habitType.hasEventToday()){
+            if (habitType.alreadyDone()){
+                completed.setVisibility(View.VISIBLE);
+            } else {
+                btn.setVisibility(View.VISIBLE);
+            }
             date.setTextColor(ContextCompat.getColor(context,R.color.colorAccent));
-            date.setText(R.string.today);
-            btn.setVisibility(View.VISIBLE);
+            date.setText(context.getString(R.string.next_event,context.getString(R.string.today)));
         } else{
-            date.setText(Constant.TIME_FORMAT.format(habitType.getNextEventDay()));
+            date.setText(context.getString(R.string.next_event,Constant.TIME_FORMAT.format(habitType.getNextEventDay())));
             date.setTextColor(ContextCompat.getColor(context,R.color.colorTextPrimary));
         }
 
@@ -116,7 +133,7 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
                  * find the ith counter in couters array list
                  */
                 Intent intent = new Intent(context,ActivityModifyHabit.class);
-                intent.putExtra("id",habitType.getUid().toString());
+                intent.putExtra(Constant.EXTRA_ID,habitType.getUid().toString());
                 ((AppCompatActivity)context).startActivityForResult(intent,Constant.REQUEST_MODIFY_HABIT);
             }
         });

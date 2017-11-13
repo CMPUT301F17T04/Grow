@@ -10,12 +10,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Created by qin7 on 2017/11/8.
  */
 
-public class QueryQueue extends ConcurrentLinkedQueue<Query> implements Observer {
-    @Override
-    public void update(Observable o, Object arg) {
+public class QueryQueue extends ConcurrentLinkedQueue<Query>{
+
+    public void update(Object o, int queryType) {
         Gson gson = new Gson();
         Identifiable i = ((Identifiable) o);
-        add(new Query((int)arg,
+        add(new Query(queryType,
                 i.getIndex(),
                 i.getUid().toString(),
                 gson.toJson(i)));

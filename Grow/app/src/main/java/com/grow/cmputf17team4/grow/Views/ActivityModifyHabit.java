@@ -59,7 +59,7 @@ public class ActivityModifyHabit extends AppCompatActivity {
 
         habitList = (HabitList)DataManager.getInstance().getHabitList();
         if (requestCode == Constant.REQUEST_MODIFY_HABIT){
-            uid = UUID.fromString(intent.getStringExtra("id"));
+            uid = UUID.fromString(intent.getStringExtra(Constant.EXTRA_ID));
             habit = habitList.get(uid);
         } else if (requestCode == Constant.REQUEST_CREATE_HABIT){
             habit  = new HabitType();

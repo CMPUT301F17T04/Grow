@@ -6,13 +6,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.MapView;
+import com.grow.cmputf17team4.grow.Views.FragmentEventList;
 
 /**
  * Fragment shows the second tab in the main activity.
@@ -39,8 +37,7 @@ public class FragmentUserSetting extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_setting, null);
-        TextView tvInfo = (TextView) view.findViewById(R.id.textView);
-        tvInfo.setText(getArguments().getString("info"));
+
 
         return view;
     }
