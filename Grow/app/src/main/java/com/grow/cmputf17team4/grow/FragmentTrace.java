@@ -11,6 +11,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.MapView;
+import com.grow.cmputf17team4.grow.Views.FragmentEventList;
 
 /**
  * Fragment shows the second tab in the main activity.
@@ -38,9 +39,8 @@ public class FragmentTrace extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_event_list_today, null);
-        TextView tvInfo = (TextView) view.findViewById(R.id.textView);
-        tvInfo.setText(getArguments().getString("info"));
+        View view = inflater.inflate(R.layout.fragment_event_list, null);
+
 
         return view;
     }

@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     tools:context="com.grow.cmputf17team4.grow.Views.ActivityMain">
 
     <android.support.v7.widget.Toolbar
@@ -14,27 +16,61 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
+        app:theme="@style/AppTheme.Toolbar"
         android:weightSum="1">
 
         <ImageView
+            android:id="@+id/toolbar_title"
             android:layout_width="81dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/web_hi_res_512"
-            android:layout_weight="0.14" />
+            android:visibility="visible"
+            android:src="@drawable/web_hi_res_512" />
 
         <ImageButton
-            android:id="@+id/add_habit"
+            android:id="@+id/toolbar_btn_add_habit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:background="@android:color/transparent"
+            android:src="@mipmap/add"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/toolbar_btn_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="10dp"
-            android:src = "@mipmap/add"
-            android:visibility="visible"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            android:src="@mipmap/filter"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/toolbar_btn_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:src="@mipmap/map"
+            android:visibility="gone" />
+
+        <SearchView
+            android:id="@+id/toolbar_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:visibility="gone"
+            android:queryHint="Search by Comment"
+            android:iconifiedByDefault="false"/>
 
     </android.support.v7.widget.Toolbar>
+
+
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_main"

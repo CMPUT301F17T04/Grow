@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.grow.cmputf17team4.grow.Views.FragmentEventList;
+
 import java.util.ArrayList;
 
 /**
@@ -34,8 +36,6 @@ public class FragmentCommunity extends android.support.v4.app.Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_community, null);
-        TextView tvInfo = (TextView) view.findViewById(R.id.textView);
-        tvInfo.setText(getArguments().getString("info"));
 
         return view;
     }
