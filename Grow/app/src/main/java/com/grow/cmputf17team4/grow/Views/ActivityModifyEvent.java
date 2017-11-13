@@ -31,7 +31,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
-
+/**
+ * Activity for modifying habit event
+ * @author Qin Zhang
+ * @since 1.0
+ */
 public class ActivityModifyEvent extends AppCompatActivity {
 
     private ImageManager imageManager;
@@ -41,6 +45,10 @@ public class ActivityModifyEvent extends AppCompatActivity {
     private Switch attachedLocation;
     private HabitEvent event;
     private HabitType habit;
+    /**
+     * OnCreate method
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,13 +78,19 @@ public class ActivityModifyEvent extends AppCompatActivity {
         attachedLocation.setChecked(event.isAttachedLocation());
         imageManager.setPic(imageView);
     }
-
+    /**
+     * Delete the habit event
+     * @param v
+     */
     public void onModifyEventDelete(View v){
         DataManager.getInstance().getEventList().remove(event.getUid());
         setResult(RESULT_OK);
         finish();
     }
-
+    /**
+     * Confirm the change
+     * @param v
+     */
     public void onModifyEventConfirm(View v){
         event.setComment(comment.getText().toString());
         event.setAttachedLocation(attachedLocation.isChecked());
@@ -87,15 +101,26 @@ public class ActivityModifyEvent extends AppCompatActivity {
         setResult(RESULT_OK);
         finish();
     }
-
+    /**
+     * Called if the user to take photo in order to attach photo
+     * @param v
+     */
     public void onEventTakePhoto(View v){
         imageManager.dispatchTakePictureIntent(this);
     }
-
+    /**
+     * Called if the user decide to choose photo in gallery in order to attach photo
+     * @param v
+     */
     public void onEventPickImage(View v){
         imageManager.getPictureFromGalleryIntent(this);
     }
-
+    /**
+     * Override the onActivityResult method
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

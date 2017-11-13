@@ -24,6 +24,7 @@ import com.grow.cmputf17team4.grow.Controllers.ViewPagerAdapter;
 
 /**
  * MainActivity
+ * @author Yizhou Zhao
  */
 public class ActivityMain extends AppCompatActivity {
 
@@ -37,13 +38,21 @@ public class ActivityMain extends AppCompatActivity {
     private Toolbar myToolbar;
     private ActivityMain that;
     private ViewPagerAdapter viewPagerAdapter;
-
+    /**
+     * Overrides startActivityForResult.
+     * @param intent
+     * @param requestCode
+     * @param options
+     */
     @Override
     public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
         intent.putExtra("requestCode", requestCode);
         super.startActivityForResult(intent, requestCode, options);
     }
-
+    /**
+     * OnCreate method.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,7 +145,10 @@ public class ActivityMain extends AppCompatActivity {
 
 
     }
-
+    /**
+     * Setupt the view pager for fragment
+     * @param viewPager the view pager that will be set
+     */
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
@@ -146,7 +158,9 @@ public class ActivityMain extends AppCompatActivity {
         viewPagerAdapter.addFragment(FragmentProfile.newInstance());
         viewPager.setAdapter(viewPagerAdapter);
     }
-
+    /**
+     * Called when the the activity is paused.
+     */
     @Override
     protected void onPause() {
         super.onPause();

@@ -20,6 +20,11 @@ import com.grow.cmputf17team4.grow.R;
 
 public class FragmentHabitList extends Fragment{
     private HabitListAdapter adapter;
+
+    /**
+     * Test method to test if the view pager worked properly
+     * @return
+     */
     public static FragmentHabitList newInstance() {
         Bundle args = new Bundle();
         FragmentHabitList fragment = new FragmentHabitList();
@@ -28,7 +33,13 @@ public class FragmentHabitList extends Fragment{
     }
 
 
-
+    /**
+     * Called when the fragment is created
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +50,9 @@ public class FragmentHabitList extends Fragment{
         return view;
     }
 
+    /**
+     * Called when the the fragment is showed.
+     */
     @Override
     public void onStart() {
         super.onStart();

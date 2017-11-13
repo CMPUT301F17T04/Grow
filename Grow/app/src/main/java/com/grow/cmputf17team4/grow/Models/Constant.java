@@ -3,7 +3,8 @@ package com.grow.cmputf17team4.grow.Models;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by qin7 on 2017/11/6.
+ * Interface contains all the constant that will be used
+ * @since 1.0
  */
 
 public interface Constant {

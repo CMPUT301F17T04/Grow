@@ -7,11 +7,14 @@ import java.util.Observer;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * Created by qin7 on 2017/11/8.
+ * Class that represents the queue, stores the query
  */
-
 public class QueryQueue extends ConcurrentLinkedQueue<Query>{
-
+    /**
+     * Update the data in elastic search
+     * @param o the object that will be updated
+     * @param queryType the query
+     */
     public void update(Object o, int queryType) {
         Gson gson = new Gson();
         Identifiable i = ((Identifiable) o);

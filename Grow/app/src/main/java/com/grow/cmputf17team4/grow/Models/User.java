@@ -10,7 +10,7 @@ import java.util.UUID;
 
 /**
  * Class to represent a user
- * @author
+ * @author not yet implement
  */
 
 public class User implements Identifiable{

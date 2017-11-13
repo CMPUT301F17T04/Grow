@@ -3,7 +3,9 @@ package com.grow.cmputf17team4.grow.Models;
 import java.util.UUID;
 
 /**
- * Created by qin7 on 2017/11/8.
+ * Interface allows to get the id and index
+ * @author Qin Zhang
+ * @since 1.0
  */
 
 public interface Identifiable {

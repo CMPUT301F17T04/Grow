@@ -30,26 +30,38 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Created by qin7 on 2017/11/12.
+ * Adapter of habit event list
+ * @since 1.0
+ * @author Qin Zhang
  */
-
 public class EventListAdapter extends BaseAdapter implements ListAdapter {
     private Activity activity;
     private EventList modelList;
     private ArrayList<HabitEvent> eventList;
-
+    /**
+     * Construcor of the EventListAdapter
+     * @param activity the activity that this adapter will be used in
+     * @param eventMap the event list that this adapter will be used for
+     */
 
     public EventListAdapter(Activity activity, EventList eventMap) {
         this.activity = activity;
         this.eventList = new ArrayList<>();
         this.modelList = eventMap;
     }
-
+    /**
+     * The size of the list of habit event
+     * @return int- the size of the list
+     */
     @Override
     public int getCount() {
         return eventList.size();
     }
-
+    /**
+     * Called when a the list of habit event is changed
+     * @param showTypes
+     * @param keyword
+     */
     public void commit(HashMap<String,Boolean> showTypes, String keyword){
         eventList.clear();
         for(Map.Entry<UUID,HabitEvent> entry : modelList.entrySet()) {
@@ -62,7 +74,13 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
         notifyDataSetChanged();
     }
 
-
+    /**
+     * Override the getView function so that the adapter can adapt the content of habit events
+     * @param position the position of habitEvent object in the eventList
+     * @param view the view that the adapter will work with
+     * @param parent the parent view.
+     * @return the view that will shows the eventList
+     */
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null){
@@ -100,11 +118,20 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
 
         return view;
     }
-
+    /**
+     * Override the getItemId function. will return 0 all the time
+     * @param position the position of the habitEvent object in eventList
+     * @return the id of that habitEvent object
+     */
     @Override
     public long getItemId(int position) {
         return 0;
     }
+    /**
+     * Override the getItem function. will return the habitEvent object at corresponding position
+     * @param position the position of the habitEvent object in eventList
+     * @return the habitEvent object at corresponding position.
+     */
 
     @Override
     public Object getItem(int position) {

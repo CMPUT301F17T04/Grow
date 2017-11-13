@@ -33,13 +33,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by qin7 on 2017/11/8.
+ * Class that implements the functionality for image
+ * @author Qin Zhang
+ * @since 1.0
  */
+
 
 public class ImageManager {
     private String mCurrentPhotoPath;
     private GetImageAble getImageAble;
-
+    /**
+     * Inner class to encode image
+     */
     private class EncodeImageTask extends AsyncTask<Void,Void,Void>{
         private int height;
         private int width;
@@ -78,6 +83,11 @@ public class ImageManager {
 
         }
 
+
+        /**
+         * Encode the image to byte array
+         * @param image
+         */
         private void encodeImage(Bitmap image){
             ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
             image.compress(Bitmap.CompressFormat.JPEG, 100,
@@ -86,7 +96,11 @@ public class ImageManager {
             getImageAble.setEncodedImage(Base64.encodeToString(b, Base64.DEFAULT));
         }
 
-
+        /**
+         *
+         * @param params
+         * @return
+         */
         @Override
         protected Void doInBackground(Void... params) {
             try{

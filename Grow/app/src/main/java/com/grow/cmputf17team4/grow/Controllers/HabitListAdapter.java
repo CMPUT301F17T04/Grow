@@ -27,10 +27,12 @@ import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * Created by qin7 on 2017/11/7.
- */
 
+/**
+ * Adapter for HabitList. HabitList is a list of habit(type)
+ * @since 1.0
+ * @author Qin Zhang
+ */
 public class HabitListAdapter extends BaseAdapter implements ListAdapter {
     private Context context;
     private ArrayList<HabitType> habitList;
@@ -46,6 +48,9 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
         this.modelList = habitMap;
     }
 
+    /**
+     * Initialization of CounterArrayAdapter
+     */
     public void commit(){
         habitList.clear();
         for(Map.Entry<UUID,HabitType> entry : modelList.entrySet()) {
@@ -54,17 +59,28 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
         Collections.sort(habitList);
         notifyDataSetChanged();
     }
-
+    /**
+     * get the Habit object forom habitList given index
+     * @param i the index of the Habit object in HabitList
+     * @return A Habit object
+     */
     @Override
     public Object getItem(int i) {
         return habitList.get(i);
     }
-
+    /**
+     * get the id of the Habit(type) in the HabitList given index i
+     * @param i the index of the Habit object in HabitList
+     * @return the id of the habit object
+     */
     @Override
     public long getItemId(int i) {
         return 0;
     }
-
+    /**
+     * get the size of the habitList
+     * @return size of the habitList
+     */
     @Override
     public int getCount() {
         return habitList.size();

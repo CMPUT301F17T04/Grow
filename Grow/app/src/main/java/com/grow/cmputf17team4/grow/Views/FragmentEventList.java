@@ -28,14 +28,23 @@ public class FragmentEventList extends Fragment {
     private EventListAdapter adapter;
     private String keyword;
     private HashMap<String,Boolean> showTypes;
-
+    /**
+     * The test function, to test if the view pager works fine
+     * @return
+     */
     public static FragmentEventList newInstance() {
         Bundle args = new Bundle();
         FragmentEventList fragment = new FragmentEventList();
         fragment.setArguments(args);
         return fragment;
     }
-
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

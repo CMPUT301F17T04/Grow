@@ -21,7 +21,11 @@ import com.grow.cmputf17team4.grow.R;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.UUID;
-
+/**
+ * Activity that modify the habit (type)
+ * @author Qin Zhang
+ * @since 1.0
+ */
 public class ActivityModifyHabit extends AppCompatActivity {
     private EditText editName;
     private EditText editDate;
@@ -33,8 +37,10 @@ public class ActivityModifyHabit extends AppCompatActivity {
     private  int requestCode;
     private HabitList habitList;
     private UUID uid;
-
-
+    /**
+     * OnCreate method
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +104,9 @@ public class ActivityModifyHabit extends AppCompatActivity {
     }
 
 
+    /**
+     * Called when the activity becomes the tops in the stack
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -110,6 +119,10 @@ public class ActivityModifyHabit extends AppCompatActivity {
         myCalendar.setTime(habit.getStartDate());
     }
 
+    /**
+     * Called when user confirms the change
+     * @param v
+     */
     public void onCreateHabitConfirm(View v){
         if (editName.getText().toString().replace(" ","").isEmpty()){
             Toast.makeText(that,"Habit Name cannot be empty!",Toast.LENGTH_SHORT).show();
@@ -138,6 +151,10 @@ public class ActivityModifyHabit extends AppCompatActivity {
         that.finish();
     }
 
+    /**
+     * Called when user delete the habit (type)
+     * @param v
+     */
     public void onModifyHabitDelete(View v){
         habitList.remove(uid);
         this.setResult(RESULT_OK);

@@ -1,7 +1,8 @@
 package com.grow.cmputf17team4.grow.Models;
 
 /**
- * Created by qin7 on 2017/11/12.
+ * Interface that provide function about images
+ * @author Qin Zhang
  */
 
 public interface GetImageAble {
