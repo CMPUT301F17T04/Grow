@@ -27,6 +27,9 @@ import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_COMPLETE_EVENT;
+import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_MODIFY_HABIT;
+
 
 /**
  * Adapter for HabitList. HabitList is a list of habit(type)
@@ -120,7 +123,9 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ActivityModifyEvent.class);
                 intent.putExtra(Constant.EXTRA_ID,habitType.getUid().toString());
-                ((AppCompatActivity)context).startActivityForResult(intent,Constant.REQUEST_COMPLETE_EVENT);
+                int requestCode = REQUEST_COMPLETE_EVENT;
+                intent.putExtra("requestCode", requestCode);
+                ((AppCompatActivity)context).startActivityForResult(intent,requestCode);
             }
         });
 
@@ -150,7 +155,9 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
                  */
                 Intent intent = new Intent(context,ActivityModifyHabit.class);
                 intent.putExtra(Constant.EXTRA_ID,habitType.getUid().toString());
-                ((AppCompatActivity)context).startActivityForResult(intent,Constant.REQUEST_MODIFY_HABIT);
+                int requestCode = REQUEST_MODIFY_HABIT;
+                intent.putExtra("requestCode", requestCode);
+                ((AppCompatActivity)context).startActivityForResult(intent, requestCode);
             }
         });
         return view;

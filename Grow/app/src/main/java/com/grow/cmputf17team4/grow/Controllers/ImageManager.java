@@ -230,6 +230,7 @@ public class ImageManager {
 
         // Filter to only show results that can be "opened", such as a
         // file (as opposed to a list of contacts or timezones)
+
         intent.addCategory(Intent.CATEGORY_OPENABLE);
 
         // Filter to show only images, using the image MIME data type.

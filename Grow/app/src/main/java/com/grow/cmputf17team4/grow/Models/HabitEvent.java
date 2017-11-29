@@ -123,7 +123,9 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageA
      */
     @Override
     public int compareTo(@NonNull HabitEvent o) {
-
+        if (Constant.TIME_FORMAT.format(this.getDate()).equals(Constant.TIME_FORMAT.format(o.getDate()))){
+            return - this.getName().compareTo(o.getName());
+        }
         return(this.date.compareTo(o.date));
     }
     /**

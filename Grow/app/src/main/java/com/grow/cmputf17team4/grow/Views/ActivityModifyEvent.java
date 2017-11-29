@@ -31,6 +31,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+
+import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_PICK_IMAGE;
+import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_TAKE_PHOTO;
+
 /**
  * Activity for modifying habit event
  * @author Qin Zhang
@@ -127,9 +131,9 @@ public class ActivityModifyEvent extends AppCompatActivity {
         if (resultCode != RESULT_OK){
             return;
         }
-        if (requestCode == Constant.REQUEST_TAKE_PHOTO ){
+        if (requestCode == REQUEST_TAKE_PHOTO ){
             imageManager.encode(imageView);
-        } else if (requestCode == Constant.REQUEST_PICK_IMAGE){
+        } else if (requestCode == REQUEST_PICK_IMAGE){
             imageManager.encode(imageView,data.getData());
         }
     }

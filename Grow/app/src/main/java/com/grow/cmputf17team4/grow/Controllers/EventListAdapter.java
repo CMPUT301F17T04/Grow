@@ -29,6 +29,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_MODIFY_EVENT;
+
 /**
  * Adapter of habit event list
  * @since 1.0
@@ -112,7 +114,9 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(activity,ActivityModifyEvent.class);
                 intent.putExtra(Constant.EXTRA_ID,event.getUid().toString());
-                activity.startActivityForResult(intent,Constant.REQUEST_MODIFY_EVENT);
+                int requestCode = REQUEST_MODIFY_EVENT;
+                intent.putExtra("requestCode", requestCode);
+                activity.startActivityForResult(intent, requestCode);
             }
         });
 
