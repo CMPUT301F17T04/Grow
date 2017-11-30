@@ -15,8 +15,10 @@ import java.util.UUID;
 
 public class User implements Identifiable{
     private UUID uid;
+    private String name;
 
-    public User() {
+    public User(String name) {
+        this.name = name;
         this.uid = generateUid();
     }
 

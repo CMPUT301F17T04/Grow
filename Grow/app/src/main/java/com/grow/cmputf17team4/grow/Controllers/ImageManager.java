@@ -189,11 +189,10 @@ public class ImageManager {
     }
 
     public void setPic(final ImageView imageView){
-
-        if (getImageAble.getEncodedImage()==null){
+        if (getImageAble.getEncodedImage() == null){
+            imageView.setImageResource(R.drawable.noimage);
             return;
         }
-
         imageView.post(new Runnable() {
             @Override
             public void run() {

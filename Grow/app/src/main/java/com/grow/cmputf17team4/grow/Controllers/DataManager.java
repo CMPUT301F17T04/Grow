@@ -1,12 +1,21 @@
 package com.grow.cmputf17team4.grow.Controllers;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.Models.EventList;
 import com.grow.cmputf17team4.grow.Models.HabitList;
 import com.grow.cmputf17team4.grow.Models.QueryQueue;
+import com.grow.cmputf17team4.grow.Models.User;
+import com.grow.cmputf17team4.grow.R;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -26,6 +35,7 @@ public class DataManager {
     private HabitList habitList;
     private QueryQueue queryQueue;
     private EventList eventList;
+    private User user;
 
     private static DataManager ourInstance;
     /**
@@ -103,5 +113,24 @@ public class DataManager {
      */
     public QueryQueue getQueryQueue() {
         return queryQueue;
+    }
+
+    public void login(final Activity activity){
+        if (this.user != null){
+            return ;
+        }
+        LayoutInflater inflater = activity.getLayoutInflater();
+        final View view = inflater.inflate(R.layout.login, null);
+        AlertDialog dialog = new AlertDialog.Builder(activity)
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        user = new User(((EditText)view.findViewById(R.id.login_edit_id)).getText().toString());
+                    }
+                })
+                .setView(view)
+                .setCancelable(false)
+                .create();
+        dialog.show();
     }
 }

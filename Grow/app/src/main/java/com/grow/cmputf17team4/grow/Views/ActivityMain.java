@@ -53,6 +53,7 @@ public class ActivityMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DataManager.loadFromFile(this);
+        DataManager.getInstance().login(this);
         setupToolBar();
         setupBotNav();
         setupViewPager();
@@ -148,7 +149,7 @@ public class ActivityMain extends AppCompatActivity {
 
     }
 
-    private class SaveLocalDataTask extends AsyncTask<Void,Void,Void>{
+    private static class SaveLocalDataTask extends AsyncTask<Void,Void,Void>{
         @Override
         protected Void doInBackground(Void... voids) {
             DataManager.saveInFile(App.getContext());

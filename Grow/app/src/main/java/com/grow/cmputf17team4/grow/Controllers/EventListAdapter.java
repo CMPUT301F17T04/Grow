@@ -99,11 +99,8 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
         TextView subtitle = (TextView) view.findViewById(R.id.list_item_text_subtitle);
         TextView date = (TextView) view.findViewById(R.id.list_item_date);
         final HabitEvent event = eventList.get(position);
-        String encodedImage = event.getEncodedImage();
-        if (encodedImage != null) {
-            ImageManager imageManager = new ImageManager(event);
-            imageManager.setPic(imageView);
-        }
+        ImageManager imageManager = new ImageManager(event);
+        imageManager.setPic(imageView);
         title.setText(event.getName());
         subtitle.setText(event.getComment());
         date.setText(Constant.TIME_FORMAT.format(event.getDate()));
