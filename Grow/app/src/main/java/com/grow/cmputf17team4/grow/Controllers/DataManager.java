@@ -183,7 +183,7 @@ public class DataManager {
         return user;
     }
 
-    public void clear(){
+    public static void clear(){
         App.getContext().deleteFile(Constant.FILE_NAME);
         ourInstance = new DataManager();
     }
