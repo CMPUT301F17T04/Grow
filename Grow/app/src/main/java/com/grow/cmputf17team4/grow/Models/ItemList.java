@@ -7,6 +7,7 @@ import java.util.UUID;
 
 /**
  * Created by qin7 on 2017/11/30.
+ * List to stored items with UUID
  */
 
 public class ItemList<T> extends HashMap<UUID,T> {
