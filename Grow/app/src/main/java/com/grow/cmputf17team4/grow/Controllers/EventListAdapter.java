@@ -60,7 +60,7 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
      */
     public void commit(HashMap<String,Boolean> showTypes, String keyword){
         eventList.clear();
-        for(Map.Entry<UUID,HabitEvent> entry : modelList.entrySet()) {
+        for(Map.Entry<String,HabitEvent> entry : modelList.entrySet()) {
             if (entry.getValue().getComment().contains(keyword)
                     && showTypes.get(entry.getValue().getName())) {
                 eventList.add(entry.getValue());

@@ -36,7 +36,7 @@ public class ActivityModifyHabit extends AppCompatActivity {
     private Calendar myCalendar;
     private  int requestCode;
     private ItemList<HabitType> habitList;
-    private UUID uid;
+    private String uid;
     /**
      * OnCreate method
      * @param savedInstanceState
@@ -65,7 +65,7 @@ public class ActivityModifyHabit extends AppCompatActivity {
 
         habitList = DataManager.getInstance().getHabitList();
         if (requestCode == Constant.REQUEST_MODIFY_HABIT){
-            uid = UUID.fromString(intent.getStringExtra(Constant.EXTRA_ID));
+            uid = intent.getStringExtra(Constant.EXTRA_ID);
             habit = habitList.get(uid);
         } else if (requestCode == Constant.REQUEST_CREATE_HABIT){
             habit  = new HabitType();
@@ -146,6 +146,8 @@ public class ActivityModifyHabit extends AppCompatActivity {
 
         if (requestCode == Constant.REQUEST_CREATE_HABIT){
             habitList.add(habit);
+        } else {
+            habitList.commit(habit.getUid());
         }
         that.setResult(RESULT_OK);
         that.finish();

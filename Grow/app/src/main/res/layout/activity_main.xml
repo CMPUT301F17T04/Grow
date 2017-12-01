@@ -35,7 +35,7 @@
             android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
             android:src="@mipmap/add"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <ImageButton
             android:id="@+id/toolbar_btn_filter"

@@ -3,6 +3,7 @@ package com.grow.cmputf17team4.grow.Models;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.grow.cmputf17team4.grow.Controllers.DataManager;
 
 import java.util.Date;
 import java.util.UUID;
@@ -11,9 +12,8 @@ import java.util.UUID;
  * Class represents a habit event
  * @author Yizhou Zhao
  */
-public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageable {
+public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImageable {
     private String comment;
-    private UUID uid;
     private String name;
     private String encodedImage;
     private Integer location;
@@ -30,6 +30,7 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImagea
         comment = "";
         location = 0;
         this.date = new Date();
+        this.type = Constant.TYPE_HABIT_EVENT;
     }
     /**
      * Attach an image to a habit event
@@ -52,13 +53,6 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImagea
      */
     public void setComment(String comment) {
         this.comment = comment;
-    }
-    /**
-     * get the id of the habit event
-     * @return UUID represents the id
-     */
-    public UUID getUid() {
-        return uid;
     }
 
     /**
@@ -100,22 +94,8 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImagea
     public void setLocation(Integer location) {
         this.location = location;
     }
-    /**
-     * Generate the ID for the habit event
-     * @return the generated id for the habit event
-     */
-    @Override
-    public UUID generateUid() {
-        return UUID.randomUUID();
-    }
-    /**
-     * get the index of the habit event
-     * @return the constant of INDEX_HABIT_EVENT
-     */
-    @Override
-    public String getIndex() {
-        return Constant.INDEX_HABIT_EVENT;
-    }
+
+
     /**
      * get the difference between this habit event with given habit event
      * @param o the habit event that will be compared with
@@ -137,8 +117,5 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImagea
         return date;
     }
 
-    @Override
-    public String jsonify() {
-        return new Gson().toJson(this);
-    }
+
 }

@@ -130,7 +130,7 @@ public class FragmentEventList extends Fragment {
     public void onStart() {
         super.onStart();
         showTypes.clear();
-        for (Map.Entry<UUID,HabitEvent> entry : DataManager.getInstance().getEventList().entrySet()){
+        for (Map.Entry<String,HabitEvent> entry : DataManager.getInstance().getEventList().entrySet()){
             showTypes.put(entry.getValue().getName(),true);
         }
         adapter.commit(showTypes,keyword);

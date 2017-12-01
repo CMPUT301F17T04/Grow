@@ -3,6 +3,7 @@ package com.grow.cmputf17team4.grow.Views;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
 
 
 /**
@@ -57,14 +59,6 @@ public class ActivityMain extends AppCompatActivity {
         setupToolBar();
         setupBotNav();
         setupViewPager();
-    }
-    /**
-     * Called when the the activity is paused.
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        new SaveLocalDataTask().execute();
     }
 
     private void setupBotNav(){
@@ -149,13 +143,7 @@ public class ActivityMain extends AppCompatActivity {
 
     }
 
-    private static class SaveLocalDataTask extends AsyncTask<Void,Void,Void>{
-        @Override
-        protected Void doInBackground(Void... voids) {
-            DataManager.saveInFile(App.getContext());
-            return null;
-        }
-    }
+
 }
 
 

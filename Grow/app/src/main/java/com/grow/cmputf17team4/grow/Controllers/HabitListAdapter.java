@@ -56,7 +56,7 @@ public class HabitListAdapter extends BaseAdapter implements ListAdapter {
      */
     public void commit(){
         habitList.clear();
-        for(Map.Entry<UUID,HabitType> entry : modelList.entrySet()) {
+        for(Map.Entry<String,HabitType> entry : modelList.entrySet()) {
             habitList.add(entry.getValue());
         }
         Collections.sort(habitList);

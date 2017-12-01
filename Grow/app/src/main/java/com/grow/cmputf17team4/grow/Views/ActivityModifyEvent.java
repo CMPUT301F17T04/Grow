@@ -67,12 +67,12 @@ public class ActivityModifyEvent extends AppCompatActivity {
         if (requestCode == Constant.REQUEST_COMPLETE_EVENT){
             String id = intent.getStringExtra(Constant.EXTRA_ID);
             if (id==null){throw new Error("No ID in intent");}
-            habit = DataManager.getInstance().getHabitList().get(UUID.fromString(id));
+            habit = DataManager.getInstance().getHabitList().get(id);
             findViewById(R.id.modify_event_btn_delete).setVisibility(View.GONE);
             event = habit.buildEvent();
         } else if (requestCode == Constant.REQUEST_MODIFY_EVENT){
-            event = DataManager.getInstance().getEventList().get(UUID.fromString(intent.getStringExtra("id")));
-            TextView textView = (TextView) findViewById(R.id.modify_event_text);
+            event = DataManager.getInstance().getEventList().get(intent.getStringExtra(Constant.EXTRA_ID));
+            TextView textView =  findViewById(R.id.modify_event_text);
             textView.setText(event.getName());
         } else {
             throw new Error("Unknown Request");
@@ -101,6 +101,8 @@ public class ActivityModifyEvent extends AppCompatActivity {
         if (requestCode == Constant.REQUEST_COMPLETE_EVENT){
             DataManager.getInstance().getEventList().add(event);
             habit.getRecord().add(event.getDate());
+        } else {
+            DataManager.getInstance().getEventList().commit(event.getUid());
         }
         setResult(RESULT_OK);
         finish();

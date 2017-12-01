@@ -3,17 +3,19 @@ package com.grow.cmputf17team4.grow.Controllers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
+import com.grow.cmputf17team4.grow.Models.App;
 import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.Models.HabitEvent;
 import com.grow.cmputf17team4.grow.Models.HabitType;
 import com.grow.cmputf17team4.grow.Models.ItemList;
-import com.grow.cmputf17team4.grow.Models.QueryQueue;
+import com.grow.cmputf17team4.grow.Models.Buffer;
 import com.grow.cmputf17team4.grow.Models.User;
 import com.grow.cmputf17team4.grow.R;
 
@@ -24,6 +26,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static com.grow.cmputf17team4.grow.Models.Constant.POLLING_INTERVAL;
 
 /**
  * Class that store and load data
@@ -32,7 +38,7 @@ import java.io.OutputStreamWriter;
  */
 public class DataManager {
     private ItemList<HabitType> habitList;
-    private QueryQueue queryQueue;
+    private Buffer buffer;
     private ItemList<HabitEvent> eventList;
     private User user;
 
@@ -51,7 +57,7 @@ public class DataManager {
     private DataManager() {
 
         habitList = new ItemList<>();
-        queryQueue = new QueryQueue();
+        buffer = new Buffer();
         eventList = new ItemList<>();
     }
     /**
@@ -75,17 +81,24 @@ public class DataManager {
             // TODO Auto-generated catch block
             ourInstance = new DataManager();
         }
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (ourInstance.user != null) {
+                    ourInstance.buffer.process();
+                }
+            }
+        },0,POLLING_INTERVAL);
 
     }
 
-    public static void prepareForTest(){ourInstance = new DataManager();}
     /**
      * Save the change of of user/habit/habitEvent information.
      * Or to create one if not exist.
      * @param context the current context (activity)
      */
 
-    public static void saveInFile(Context context) {
+    private static void saveInFile(Context context) {
         try {
             FileOutputStream fos = context.openFileOutput(Constant.FILE_NAME,
                     Context.MODE_PRIVATE);
@@ -110,8 +123,8 @@ public class DataManager {
      * Getter of Query queue
      * @return A queue of Query that work with elasticSearch
      */
-    public QueryQueue getQueryQueue() {
-        return queryQueue;
+    public Buffer getBuffer() {
+        return buffer;
     }
 
     public void login(final Activity activity){
@@ -120,16 +133,41 @@ public class DataManager {
         }
         LayoutInflater inflater = activity.getLayoutInflater();
         final View view = inflater.inflate(R.layout.login, null);
-        AlertDialog dialog = new AlertDialog.Builder(activity)
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        user = new User(((EditText)view.findViewById(R.id.login_edit_id)).getText().toString());
-                    }
-                })
+        final AlertDialog dialog = new AlertDialog.Builder(activity)
+                .setPositiveButton("Confirm", null)
                 .setView(view)
                 .setCancelable(false)
                 .create();
         dialog.show();
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = view.findViewById(R.id.login_edit_id);
+                String name = editText.getText().toString().trim();
+                if (name.length() == 0){
+                    editText.setError("Name cannot be empty");
+                } else {
+                    user = new User(name);
+                    dialog.dismiss();
+                }
+
+            }
+        });
+    }
+
+    private static class SaveLocalDataTask extends AsyncTask<Void,Void,Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            saveInFile(App.getContext());
+            return null;
+        }
+    }
+
+    public static void save(){
+        new SaveLocalDataTask().execute();
+    }
+
+    public User getUser() {
+        return user;
     }
 }

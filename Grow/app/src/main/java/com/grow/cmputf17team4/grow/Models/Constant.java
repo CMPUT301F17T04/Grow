@@ -24,11 +24,13 @@ public interface Constant {
     long POLLING_INTERVAL = 3000;
 
     String FILE_NAME = "grow.dat";
-    String ELASTIC_SEARCH_PATH = "http://cmput301.softwareprocess.es:8080";
+    String ELASTIC_SEARCH_SERVER = "http://cmput301.softwareprocess.es:8080";
+    String ELASTIC_SEARCH_INDEX = "cmput301f17t4";
 
-    String INDEX_HABIT_TYPE = "habitType";
-    String INDEX_HABIT_EVENT = "habitEvent";
-    String INDEX_USER = "user";
+    String TYPE_HABIT_TYPE = "habitType";
+    String TYPE_HABIT_EVENT = "habitEvent";
+    String TYPE_USER = "user";
+
 
     String EXTRA_ID = "id";
     String EXTRA_INDEX = "index";

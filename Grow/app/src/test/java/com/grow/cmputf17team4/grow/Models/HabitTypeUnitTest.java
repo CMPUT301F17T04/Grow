@@ -1,8 +1,5 @@
 package com.grow.cmputf17team4.grow.Models;
 
-import android.support.annotation.NonNull;
-
-import org.junit.Before;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -131,7 +128,7 @@ public class HabitTypeUnitTest {
     @Test
     public void testGetIndex(){
         habitType = new HabitType();
-        assertEquals(habitType.getIndex(),"habitType");
+        assertEquals(habitType.getType(),"habitType");
     }
 
 

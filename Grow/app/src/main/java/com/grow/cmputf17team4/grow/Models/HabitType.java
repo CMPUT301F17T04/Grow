@@ -3,6 +3,7 @@ package com.grow.cmputf17team4.grow.Models;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.grow.cmputf17team4.grow.Controllers.DataManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,9 +18,8 @@ import java.util.UUID;
  * @author
  */
 
-public class HabitType implements Comparable<HabitType>,Identifiable {
+public class HabitType extends Item implements Comparable<HabitType> {
     private ArrayList<Date> record;
-    private UUID uid;
     private String name;
     private String reason;
     private Date startDate;
@@ -51,14 +51,9 @@ public class HabitType implements Comparable<HabitType>,Identifiable {
         name = "";
         reason = "";
         record = new ArrayList<>();
+        type = Constant.TYPE_HABIT_TYPE;
     }
-    /**
-     * get the id of the habit (type)
-     * @return the id of the habit (type)
-     */
-    public UUID getUid() {
-        return uid;
-    }
+
     /**
      * Generate the habit event of the habit (type)
      * @return the habit event generated
@@ -172,23 +167,7 @@ public class HabitType implements Comparable<HabitType>,Identifiable {
         int index = Collections.binarySearch(record,Calendar.getInstance().getTime(), new DateComparator());
         return index >= 0;
     }
-    /**
-     * Generate the id of the habit (type)
-     * @return the UUID of the habit
-     */
-    @Override
-    public UUID generateUid() {
-        return UUID.randomUUID();
-    }
 
-    /**
-     * Get the constant INDEX_HABIT_TYPE
-     * @return the constant
-     */
-    @Override
-    public String getIndex() {
-        return Constant.INDEX_HABIT_TYPE;
-    }
 
     /**
      * The inner class that helps to compare date.
@@ -203,11 +182,6 @@ public class HabitType implements Comparable<HabitType>,Identifiable {
         public int compare(Date d1, Date d2) {
             return Constant.TIME_FORMAT.format(d1).compareTo(Constant.TIME_FORMAT.format(d2));
         }
-    }
-
-    @Override
-    public String jsonify() {
-        return new Gson().toJson(this);
     }
 
 }
