@@ -2,6 +2,8 @@ package com.grow.cmputf17team4.grow.Models;
 
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -9,14 +11,13 @@ import java.util.UUID;
  * Class represents a habit event
  * @author Yizhou Zhao
  */
-public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageAble {
+public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageable {
     private String comment;
     private UUID uid;
     private String name;
     private String encodedImage;
     private Integer location;
     private Date date;
-    private boolean changed;
     /**
      * Constructor of the HabitEvent
      * @param name the name of the event
@@ -36,6 +37,7 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageA
      */
     public void setEncodedImage(String encodedImage) {
         this.encodedImage = encodedImage;
+
     }
     /**
      * get comment of the habit event
@@ -50,7 +52,6 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageA
      */
     public void setComment(String comment) {
         this.comment = comment;
-        setChanged();
     }
     /**
      * get the id of the habit event
@@ -73,7 +74,6 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageA
      */
     public void setName(String name) {
         this.name = name;
-        setChanged();
     }
     /**
      * get the image attached to the habit event
@@ -128,21 +128,7 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageA
         }
         return(this.date.compareTo(o.date));
     }
-    /**
-     * Set the status indicator to be "changed".
-     */
-    private void setChanged() {
-        this.changed = true;
-    }
-    /**
-     * Check if this habit event is changed
-     * @return True for yes, False for not.
-     */
-    public boolean isChanged() {
-        boolean result = changed;
-        changed = false;
-        return result;
-    }
+
     /**
      * get the date of the this habit event
      * @return the date of this habit event occurred
@@ -151,4 +137,8 @@ public class HabitEvent implements Identifiable,Comparable<HabitEvent>,GetImageA
         return date;
     }
 
+    @Override
+    public String jsonify() {
+        return new Gson().toJson(this);
+    }
 }

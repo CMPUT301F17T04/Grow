@@ -17,7 +17,6 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
-import com.grow.cmputf17team4.grow.Models.HabitList;
 import com.grow.cmputf17team4.grow.Models.HabitType;
 import com.grow.cmputf17team4.grow.Views.ActivityMain;
 import com.grow.cmputf17team4.grow.Views.ActivityModifyEvent;

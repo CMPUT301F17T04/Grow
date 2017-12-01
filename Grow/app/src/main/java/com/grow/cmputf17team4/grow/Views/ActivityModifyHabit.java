@@ -14,8 +14,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Models.Constant;
-import com.grow.cmputf17team4.grow.Models.HabitList;
 import com.grow.cmputf17team4.grow.Models.HabitType;
+import com.grow.cmputf17team4.grow.Models.ItemList;
 import com.grow.cmputf17team4.grow.R;
 
 import java.text.SimpleDateFormat;
@@ -35,7 +35,7 @@ public class ActivityModifyHabit extends AppCompatActivity {
     private ActivityModifyHabit that = this;
     private Calendar myCalendar;
     private  int requestCode;
-    private HabitList habitList;
+    private ItemList<HabitType> habitList;
     private UUID uid;
     /**
      * OnCreate method
@@ -63,7 +63,7 @@ public class ActivityModifyHabit extends AppCompatActivity {
         checkBoxes[5] = (CheckBox) findViewById(R.id.modify_habit_checkbox_5);
         checkBoxes[6] = (CheckBox) findViewById(R.id.modify_habit_checkbox_6);
 
-        habitList = (HabitList)DataManager.getInstance().getHabitList();
+        habitList = DataManager.getInstance().getHabitList();
         if (requestCode == Constant.REQUEST_MODIFY_HABIT){
             uid = UUID.fromString(intent.getStringExtra(Constant.EXTRA_ID));
             habit = habitList.get(uid);

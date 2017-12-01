@@ -12,4 +12,5 @@ public interface Identifiable {
     UUID getUid();
     UUID generateUid();
     String getIndex();
+    String jsonify();
 }

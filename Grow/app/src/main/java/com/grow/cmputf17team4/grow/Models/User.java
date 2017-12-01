@@ -36,4 +36,9 @@ public class User implements Identifiable{
     public UUID getUid() {
         return uid;
     }
+
+    @Override
+    public String jsonify() {
+        return null;
+    }
 }

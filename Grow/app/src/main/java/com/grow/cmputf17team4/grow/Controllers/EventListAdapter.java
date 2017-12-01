@@ -3,8 +3,6 @@ package com.grow.cmputf17team4.grow.Controllers;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +10,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.grow.cmputf17team4.grow.Models.Constant;
-import com.grow.cmputf17team4.grow.Models.EventList;
 import com.grow.cmputf17team4.grow.Models.HabitEvent;
-import com.grow.cmputf17team4.grow.Models.HabitType;
+import com.grow.cmputf17team4.grow.Models.ItemList;
 import com.grow.cmputf17team4.grow.R;
 import com.grow.cmputf17team4.grow.Views.ActivityModifyEvent;
-import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_MODIFY_EVENT;
@@ -38,7 +32,7 @@ import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_MODIFY_EVENT;
  */
 public class EventListAdapter extends BaseAdapter implements ListAdapter {
     private Activity activity;
-    private EventList modelList;
+    private ItemList<HabitEvent> modelList;
     private ArrayList<HabitEvent> eventList;
     /**
      * Construcor of the EventListAdapter
@@ -46,7 +40,7 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
      * @param eventMap the event list that this adapter will be used for
      */
 
-    public EventListAdapter(Activity activity, EventList eventMap) {
+    public EventListAdapter(Activity activity, ItemList<HabitEvent> eventMap) {
         this.activity = activity;
         this.eventList = new ArrayList<>();
         this.modelList = eventMap;

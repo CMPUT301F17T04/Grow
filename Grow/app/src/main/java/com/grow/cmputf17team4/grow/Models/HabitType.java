@@ -2,6 +2,8 @@ package com.grow.cmputf17team4.grow.Models;
 
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -202,4 +204,10 @@ public class HabitType implements Comparable<HabitType>,Identifiable {
             return Constant.TIME_FORMAT.format(d1).compareTo(Constant.TIME_FORMAT.format(d2));
         }
     }
+
+    @Override
+    public String jsonify() {
+        return new Gson().toJson(this);
+    }
+
 }

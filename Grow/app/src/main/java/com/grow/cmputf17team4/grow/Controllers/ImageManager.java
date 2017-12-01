@@ -1,9 +1,7 @@
 package com.grow.cmputf17team4.grow.Controllers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -14,20 +12,16 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.grow.cmputf17team4.grow.Models.App;
 import com.grow.cmputf17team4.grow.Models.Constant;
-import com.grow.cmputf17team4.grow.Models.GetImageAble;
+import com.grow.cmputf17team4.grow.Models.GetImageable;
 import com.grow.cmputf17team4.grow.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,7 +35,7 @@ import java.util.Date;
 
 public class ImageManager {
     private String mCurrentPhotoPath;
-    private GetImageAble getImageAble;
+    private GetImageable getImageable;
     /**
      * Inner class to encode image
      */
@@ -93,7 +87,7 @@ public class ImageManager {
             image.compress(Bitmap.CompressFormat.JPEG, 100,
                     byteArrayBitmapStream);
             byte[] b = byteArrayBitmapStream.toByteArray();
-            getImageAble.setEncodedImage(Base64.encodeToString(b, Base64.DEFAULT));
+            getImageable.setEncodedImage(Base64.encodeToString(b, Base64.DEFAULT));
         }
 
         /**
@@ -132,7 +126,7 @@ public class ImageManager {
 
         @Override
         protected Void doInBackground(Void... params) {
-            byte[] decodedString = Base64.decode(getImageAble.getEncodedImage(), Base64.DEFAULT);
+            byte[] decodedString = Base64.decode(getImageable.getEncodedImage(), Base64.DEFAULT);
             image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             return null;
         }
@@ -144,8 +138,8 @@ public class ImageManager {
         }
     }
 
-    public ImageManager(GetImageAble getImageAble) {
-        this.getImageAble = getImageAble;
+    public ImageManager(GetImageable getImageable) {
+        this.getImageable = getImageable;
     }
 
     public void dispatchTakePictureIntent(Context context) {
@@ -189,7 +183,7 @@ public class ImageManager {
     }
 
     public void setPic(final ImageView imageView){
-        if (getImageAble.getEncodedImage() == null){
+        if (getImageable.getEncodedImage() == null){
             imageView.setImageResource(R.drawable.noimage);
             return;
         }

@@ -16,11 +16,10 @@ public class QueryQueue extends ConcurrentLinkedQueue<Query>{
      * @param queryType the query
      */
     public void update(Object o, int queryType) {
-        Gson gson = new Gson();
         Identifiable i = ((Identifiable) o);
         add(new Query(queryType,
                 i.getIndex(),
                 i.getUid().toString(),
-                gson.toJson(i)));
+                i.jsonify()));
     }
 }

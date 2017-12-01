@@ -1,7 +1,6 @@
 package com.grow.cmputf17team4.grow.Controllers;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -11,8 +10,9 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Models.Constant;
-import com.grow.cmputf17team4.grow.Models.EventList;
-import com.grow.cmputf17team4.grow.Models.HabitList;
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
+import com.grow.cmputf17team4.grow.Models.HabitType;
+import com.grow.cmputf17team4.grow.Models.ItemList;
 import com.grow.cmputf17team4.grow.Models.QueryQueue;
 import com.grow.cmputf17team4.grow.Models.User;
 import com.grow.cmputf17team4.grow.R;
@@ -24,7 +24,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
 
 /**
  * Class that store and load data
@@ -32,9 +31,9 @@ import java.util.HashMap;
  * @author Qin Zhang
  */
 public class DataManager {
-    private HabitList habitList;
+    private ItemList<HabitType> habitList;
     private QueryQueue queryQueue;
-    private EventList eventList;
+    private ItemList<HabitEvent> eventList;
     private User user;
 
     private static DataManager ourInstance;
@@ -51,15 +50,15 @@ public class DataManager {
      */
     private DataManager() {
 
-        habitList = new HabitList();
+        habitList = new ItemList<>();
         queryQueue = new QueryQueue();
-        eventList = new EventList();
+        eventList = new ItemList<>();
     }
     /**
      * Getter of habit events
      * @return A list of habit events of current user
      */
-    public EventList getEventList() {
+    public ItemList<HabitEvent> getEventList() {
         return eventList;
     }
     /**
@@ -104,7 +103,7 @@ public class DataManager {
      * Getter of habit
      * @return A list of habit(type) of current user
      */
-    public HabitList getHabitList() {
+    public ItemList<HabitType> getHabitList() {
         return habitList;
     }
     /**

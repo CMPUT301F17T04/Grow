@@ -13,8 +13,8 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.grow.cmputf17team4.grow.Models.Constant;
-import com.grow.cmputf17team4.grow.Models.HabitList;
 import com.grow.cmputf17team4.grow.Models.HabitType;
+import com.grow.cmputf17team4.grow.Models.ItemList;
 import com.grow.cmputf17team4.grow.R;
 import com.grow.cmputf17team4.grow.Views.ActivityModifyEvent;
 import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
@@ -39,13 +39,13 @@ import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_MODIFY_HABIT;
 public class HabitListAdapter extends BaseAdapter implements ListAdapter {
     private Context context;
     private ArrayList<HabitType> habitList;
-    private HabitList modelList;
+    private ItemList<HabitType> modelList;
 
     /**
      * Initialization of CounterArrayAdapter
      * @param context
      */
-    public HabitListAdapter(Context context, HabitList habitMap) {
+    public HabitListAdapter(Context context, ItemList<HabitType> habitMap) {
         this.context = context;
         this.habitList = new ArrayList<HabitType>();
         this.modelList = habitMap;
