@@ -60,9 +60,9 @@ public class ActivityModifyEvent extends AppCompatActivity {
         Intent intent = getIntent();
         requestCode = intent.getIntExtra("requestCode", Constant.REQUEST_NONE);
 
-        imageView = (ImageView)findViewById(R.id.modify_event_image_view);
-        comment = (EditText) findViewById(R.id.modify_event_edit_comment);
-        attachedLocation = (Switch) findViewById(R.id.modify_event_attached_location);
+        imageView = findViewById(R.id.modify_event_image_view);
+        comment =  findViewById(R.id.modify_event_edit_comment);
+        attachedLocation =  findViewById(R.id.modify_event_attached_location);
 
         if (requestCode == Constant.REQUEST_COMPLETE_EVENT){
             String id = intent.getStringExtra(Constant.EXTRA_ID);

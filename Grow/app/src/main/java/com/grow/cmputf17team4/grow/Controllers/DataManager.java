@@ -147,8 +147,20 @@ public class DataManager {
                 if (name.length() == 0){
                     editText.setError("Name cannot be empty");
                 } else {
-                    user = new User(name);
-                    dialog.dismiss();
+                    try{
+                        int result = new ESManager.isUIdExist().execute(name).get();
+                        if (result == ESManager.isUIdExist.ER_INT){
+                            editText.setError("Cannt connect to server");
+                        } else if (result == ESManager.isUIdExist.HAD){
+                            editText.setError("Name already been used");
+                        } else if (result == ESManager.isUIdExist.PASS){
+                            user = new User(name);
+                            buffer.update(Constant.QUERY_CREATE,user);
+                            dialog.dismiss();
+                        }
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
 
             }
@@ -169,5 +181,10 @@ public class DataManager {
 
     public User getUser() {
         return user;
+    }
+
+    public void clear(){
+        App.getContext().deleteFile(Constant.FILE_NAME);
+        ourInstance = new DataManager();
     }
 }
