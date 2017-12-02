@@ -11,10 +11,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.grow.cmputf17team4.grow.Models.SelfPosition;
 import com.grow.cmputf17team4.grow.R;
-
-import org.osmdroid.util.GeoPoint;
 
 /**
  * Created by charl on 2017/12/1.
@@ -23,7 +24,6 @@ import org.osmdroid.util.GeoPoint;
 public class MapManager extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap Gmap;
-    private GeoPoint currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +37,32 @@ public class MapManager extends AppCompatActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         Gmap = googleMap;
         double latitude, longitude;
-        latitude = 53.537519;
-        longitude = -113.497412;
+
+        latitude = 53.526624;
+        longitude = -113.527080;
+        /*
+        Self positioning
+         */
+        try {
+            SelfPosition locationListener = new SelfPosition();
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(latitude, longitude)), 10));
+        Gmap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("You are Here"));
+
+        MarkHabits();
+    }
+
+    public void MarkHabits(){
+
     }
 
     @Override
