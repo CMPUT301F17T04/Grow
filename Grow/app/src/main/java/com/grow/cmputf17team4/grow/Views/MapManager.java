@@ -14,8 +14,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
 import com.grow.cmputf17team4.grow.Models.SelfPosition;
 import com.grow.cmputf17team4.grow.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by charl on 2017/12/1.
@@ -24,6 +27,7 @@ import com.grow.cmputf17team4.grow.R;
 public class MapManager extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap Gmap;
+    private ArrayList<HabitEvent> Habits = new ArrayList<HabitEvent>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,10 @@ public class MapManager extends AppCompatActivity implements OnMapReadyCallback 
         mapFragment.getMapAsync(this);
     }
 
+    /**
+     * Get the map view ready and self-positioning the camera.
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Gmap = googleMap;
@@ -61,6 +69,9 @@ public class MapManager extends AppCompatActivity implements OnMapReadyCallback 
         MarkHabits();
     }
 
+    /**
+     * Add Habits to the map
+     */
     public void MarkHabits(){
 
     }

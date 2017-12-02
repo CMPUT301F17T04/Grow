@@ -1,9 +1,12 @@
 package com.grow.cmputf17team4.grow.Models;
 
+import android.location.Location;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
+
+import org.osmdroid.util.GeoPoint;
 
 import java.util.Date;
 import java.util.UUID;
@@ -16,7 +19,8 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
     private String comment;
     private String name;
     private String encodedImage;
-    private Integer location;
+    private int location;
+    private GeoPoint HabitLocation;
     private Date date;
     /**
      * Constructor of the HabitEvent
@@ -29,6 +33,7 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         encodedImage = null;
         comment = "";
         location = 0;
+        HabitLocation = null;
         this.date = new Date();
         this.type = Constant.TYPE_HABIT_EVENT;
     }
@@ -91,10 +96,9 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
     /**
      * Determine whether to attach the location or not.
      */
-    public void setLocation(Integer location) {
-        this.location = location;
+    public void setLocation(GeoPoint location) {
+        this.HabitLocation = location;
     }
-
 
     /**
      * get the difference between this habit event with given habit event
