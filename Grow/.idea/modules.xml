@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Grow.iml" filepath="$PROJECT_DIR$/Grow.iml" />
-      <module fileurl="file://D:\Acadamic\FALL2017\CMPUT301\Grow\Grow\Grow.iml" filepath="D:\Acadamic\FALL2017\CMPUT301\Grow\Grow\Grow.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\Acadamic\FALL2017\CMPUT301\Grow\Grow\app\app.iml" filepath="D:\Acadamic\FALL2017\CMPUT301\Grow\Grow\app\app.iml" />
     </modules>
   </component>
 </project>
