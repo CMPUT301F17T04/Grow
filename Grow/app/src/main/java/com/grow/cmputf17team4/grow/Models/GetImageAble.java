@@ -5,7 +5,7 @@ package com.grow.cmputf17team4.grow.Models;
  * @author Qin Zhang
  */
 
-public interface GetImageable {
+public interface GetImageAble {
     String getEncodedImage();
     void setEncodedImage(String encodedImage);
 }
