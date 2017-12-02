@@ -54,6 +54,10 @@
         </activity>
         <activity android:name=".Views.ActivityModifyHabit" />
         <activity android:name=".Views.ActivityModifyEvent" />
+        <activity android:name=".Views.MapManager" />
+        <activity
+                    android:name=".LoginActivity"
+                    android:label="@string/title_activity_login"></activity>
 
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBO5iuIRB7Kjz_gylHUjg2wzVUqerJS7mA"/>

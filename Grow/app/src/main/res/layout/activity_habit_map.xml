@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.grow.cmputf17team4.grow.Controllers.MapManager">
+    tools:context="com.grow.cmputf17team4.grow.Views.MapManager">
 
     <fragment
         android:id="@+id/event_map"
         android:name="com.google.android.gms.maps.MapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="434dp" />
-
+        android:layout_width="wrap_content"
+        android:layout_height="520dp"
+        android:layout_weight="1" />
 </LinearLayout>
