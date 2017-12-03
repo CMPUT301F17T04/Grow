@@ -88,15 +88,7 @@ public class DataManager {
             // TODO Auto-generated catch block
             ourInstance = new DataManager();
         }
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (ourInstance.getUser() != null) {
-                    ourInstance.buffer.process();
-                }
-                Cache.checkUpdates();
-            }
-        },0,POLLING_INTERVAL);
+
 
     }
 

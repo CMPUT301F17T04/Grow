@@ -12,6 +12,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 
@@ -26,14 +30,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.Manifest;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.grow.cmputf17team4.grow.Controllers.MapManager;
 import com.grow.cmputf17team4.grow.Models.HabitEvent;
 import com.grow.cmputf17team4.grow.Models.SelfPosition;
 import com.grow.cmputf17team4.grow.R;
@@ -116,25 +124,10 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.event_map);
         mapFragment.getMapAsync(this);
 
-        Location location1 = new Location("");
-        location1.setLatitude(53.5231846);
-        location1.setLongitude(-113.5275064);
-
-        Location location2 = new Location("a");
-        location2.setLatitude(53.531603);
-        location2.setLongitude(-113.700691);
-
-        HabitEvent event1 = new HabitEvent("1");
-        event1.setLocation(location1);
-        event1.setComment("event1");
-
-        HabitEvent event2 = new HabitEvent("2");
-        event2.setLocation(location2);
-        event2.setComment("event2");
-
-
-        habits.add(event1);
-        habits.add(event2);
+        // Get habit event list to print on the map
+        MapManager mapManager = new MapManager();
+        mapManager = MapManager.getInstance();
+        habits.addAll(mapManager.getHabitEventList());
 
         Log.d("googlemap", "Finished OnCreate()");
 
@@ -306,8 +299,8 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
             if(fiveKMClose){
                 mMap.addMarker(new MarkerOptions().position(position)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                        .title(habit.getName())
-                        .snippet(habit.getStringDate()));
+                        .title(habit.getName())                 // Here, we put the Habit event name and user name
+                        .snippet(habit.getStringDate()));       // Here, we put the comment
             }else{
                 mMap.addMarker(new MarkerOptions().position(position)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))

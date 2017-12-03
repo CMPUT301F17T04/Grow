@@ -6,6 +6,7 @@ import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.text.BoringLayout;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
@@ -106,6 +107,7 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
                 Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
                 this.HabitLocation = location;
+                Log.d("googlemap","location added to habit event");
             } catch (SecurityException e) {
                 e.printStackTrace();
             }
