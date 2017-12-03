@@ -1,6 +1,8 @@
 package com.grow.cmputf17team4.grow.Models;
 
+import android.content.Context;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
@@ -10,6 +12,16 @@ import org.osmdroid.util.GeoPoint;
 
 import java.util.Date;
 import java.util.UUID;
+import com.grow.cmputf17team4.grow.Models.SelfPosition;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
+import com.grow.cmputf17team4.grow.Models.SelfPosition;
 
 /**
  * Class represents a habit event
@@ -19,8 +31,7 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
     private String comment;
     private String name;
     private String encodedImage;
-    private int location;
-    private GeoPoint HabitLocation;
+    private Location HabitLocation;
     private Date date;
     /**
      * Constructor of the HabitEvent
@@ -32,7 +43,6 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         uid = generateUid();
         encodedImage = null;
         comment = "";
-        location = 0;
         HabitLocation = null;
         this.date = new Date();
         this.type = Constant.TYPE_HABIT_EVENT;
@@ -78,25 +88,35 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
      * get the image attached to the habit event
      * @return the String represents the encodedImage
      */
+    @Override
     public String getEncodedImage() {
         return encodedImage;
     }
 
-    public void setAttachedLocation(Boolean attached) {
+    public void setAttachedLocation(Boolean attached, Context context) {
         if (attached){
-            location = 1;
+            try {
+                SelfPosition locationListener = new SelfPosition();
+                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                this.HabitLocation = location;
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
         } else {
-            location = 0;
+            HabitLocation = null;
         }
     }
 
     public Boolean isAttachedLocation() {
-        return location!=0;
+        return HabitLocation!=null;
     }
     /**
      * Determine whether to attach the location or not.
      */
-    public void setLocation(GeoPoint location) {
+    public void setLocation(Location location) {
         this.HabitLocation = location;
     }
 
