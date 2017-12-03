@@ -12,6 +12,7 @@ import com.grow.cmputf17team4.grow.Controllers.DataManager;
 
 import org.osmdroid.util.GeoPoint;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 import com.grow.cmputf17team4.grow.Models.SelfPosition;
@@ -94,6 +95,8 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         return encodedImage;
     }
 
+    public Location getHabitLocation(){ return HabitLocation;}
+
     public void setAttachedLocation(Boolean attached, Context context) {
         if (attached){
             try {
@@ -142,6 +145,17 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         return date;
     }
 
+    /**
+     * Get the date in format HH:mm MM/dd/yyyy
+     * @return
+     */
+    public String getStringDate(){
+        String pattern = "HH:mm  MM/dd/yyyy";
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        String dateString = format.format(date);
+
+        return dateString;
+    }
 
 
     public String getPrevEvent() {
