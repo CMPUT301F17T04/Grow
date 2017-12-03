@@ -5,13 +5,13 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.R;
+import com.grow.cmputf17team4.grow.Views.ActivityMain;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -21,13 +21,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-
-import com.grow.cmputf17team4.grow.Controllers.DataManager;
-import com.grow.cmputf17team4.grow.Models.HabitType;
-import com.grow.cmputf17team4.grow.Views.ActivityMain;
-import com.grow.cmputf17team4.grow.Views.ActivityModifyEvent;
-import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -41,7 +34,7 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class TestingAlert {
+public class Testing1 {
 
     @Rule
     public ActivityTestRule<ActivityMain> mActivityTestRule = new ActivityTestRule<>(ActivityMain.class);
@@ -61,17 +54,7 @@ public class TestingAlert {
                                         0),
                                 0),
                         isDisplayed()));
-        appCompatEditText.perform(click());
-
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.dialog_edit_id),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.custom),
-                                        0),
-                                0),
-                        isDisplayed()));
-        appCompatEditText2.perform(replaceText("ff"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("Chris"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(android.R.id.button1), withText("Confirm"),
@@ -83,7 +66,10 @@ public class TestingAlert {
         appCompatButton.perform(scrollTo(), click());
 
     }
-
+    @After
+    public void tearDown() throws Exception {
+        DataManager.clear();
+    }
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
@@ -102,4 +88,6 @@ public class TestingAlert {
             }
         };
     }
+
+
 }
