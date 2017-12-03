@@ -136,6 +136,4 @@ public class FragmentEventList extends Fragment {
         adapter.commit(showTypes,keyword);
     }
 
-
-
 }
