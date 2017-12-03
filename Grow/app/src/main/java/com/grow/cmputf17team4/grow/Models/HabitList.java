@@ -11,7 +11,7 @@ public class HabitList extends ItemList<HabitType> {
     public void add(HabitType habitType) {
         super.add(habitType);
         DataManager.getInstance().getBuffer().update(Constant.QUERY_CREATE,habitType);
-        DataManager.getInstance().getUser().getHabitList().add(habitType.getUid());
+        DataManager.getInstance().getUser().newHabit(habitType.getUid());
         DataManager.save();
     }
 
@@ -20,7 +20,7 @@ public class HabitList extends ItemList<HabitType> {
         HabitType removed = super.remove(key);
         DataManager.getInstance().getEventList().removeAll(removed);
         DataManager.getInstance().getBuffer().update(Constant.QUERY_DELETE,removed);
-        DataManager.getInstance().getUser().getHabitList().remove(key.toString());
+        DataManager.getInstance().getUser().deleteHabit(key.toString());
         DataManager.save();
         return  removed;
     }

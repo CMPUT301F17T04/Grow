@@ -29,6 +29,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,6 +46,7 @@ public class DataManager {
     private Buffer buffer;
     private EventList eventList;
     private User user;
+    private static LinkedList<AsyncTask> taskPool = new LinkedList<>();
 
     private static DataManager ourInstance;
     /**
@@ -87,7 +90,7 @@ public class DataManager {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                if (ourInstance.user != null) {
+                if (ourInstance.getUser() != null) {
                     ourInstance.buffer.process();
                 }
             }
@@ -188,8 +191,19 @@ public class DataManager {
         }
     }
 
-    public static void save(){
-        new SaveLocalDataTask().execute();
+    public static void waitAllTaskDone(){
+        while (!taskPool.isEmpty()){
+            if (taskPool.peekFirst().getStatus() == AsyncTask.Status.FINISHED){
+                taskPool.removeFirst();
+            }
+        }
+    }
+
+    public static AsyncTask<Void, Void, Void> save(){
+        SaveLocalDataTask task =  new SaveLocalDataTask();
+        taskPool.add(task);
+        task.execute();
+        return task;
     }
 
     public User getUser() {
