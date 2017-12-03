@@ -136,8 +136,9 @@ public class ActivityMain extends AppCompatActivity {
         toolBarViews.put(R.id.toolbar_title,Arrays.asList(habit,profile));
         toolBarViews.put(R.id.toolbar_btn_add_habit,Arrays.asList(habit));
         toolBarViews.put(R.id.toolbar_btn_filter,Arrays.asList(event));
-        toolBarViews.put(R.id.toolbar_btn_map,Arrays.asList(event));
+        toolBarViews.put(R.id.toolbar_btn_map,Arrays.asList(event,community));
         toolBarViews.put(R.id.toolbar_search_event,Arrays.asList(event));
+        toolBarViews.put(R.id.toolbar_btn_follow,Arrays.asList(community));
 
 
 

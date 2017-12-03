@@ -1,6 +1,7 @@
 package com.grow.cmputf17team4.grow.Models;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Interface contains all the constant that will be used
@@ -19,6 +20,11 @@ public interface Constant {
     int QUERY_CREATE = 0;
     int QUERY_UPDATE = 1;
     int QUERY_DELETE = 2;
+
+    int TASK_SUCCESS = 1;
+    int TASK_FAIL = 2;
+    int TASK_EXCEPTION = 3;
+
     int MAX_IMAGE_SIZE = 65536;
 
     long POLLING_INTERVAL = 3000;
@@ -30,9 +36,15 @@ public interface Constant {
     String TYPE_HABIT_TYPE = "habitType";
     String TYPE_HABIT_EVENT = "habitEvent";
     String TYPE_USER = "user";
+    String TYPE_FRIENDS = "friends";
+    String TYPE_REQUESTS = "requests";
 
 
     String EXTRA_ID = "id";
     String EXTRA_INDEX = "index";
     SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("EEEE, MMM dd");
+
+    int[] days ={
+        Calendar.SUNDAY,Calendar.MONDAY,Calendar.TUESDAY,Calendar.WEDNESDAY,
+                Calendar.THURSDAY,Calendar.FRIDAY,Calendar.SATURDAY};
 }

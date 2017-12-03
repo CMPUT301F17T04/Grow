@@ -12,8 +12,11 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Models.App;
 import com.grow.cmputf17team4.grow.Models.Constant;
+import com.grow.cmputf17team4.grow.Models.EventList;
 import com.grow.cmputf17team4.grow.Models.HabitEvent;
+import com.grow.cmputf17team4.grow.Models.HabitList;
 import com.grow.cmputf17team4.grow.Models.HabitType;
+import com.grow.cmputf17team4.grow.Models.IDList;
 import com.grow.cmputf17team4.grow.Models.ItemList;
 import com.grow.cmputf17team4.grow.Models.Buffer;
 import com.grow.cmputf17team4.grow.Models.User;
@@ -37,9 +40,9 @@ import static com.grow.cmputf17team4.grow.Models.Constant.POLLING_INTERVAL;
  * @author Qin Zhang
  */
 public class DataManager {
-    private ItemList<HabitType> habitList;
+    private HabitList habitList;
     private Buffer buffer;
-    private ItemList<HabitEvent> eventList;
+    private EventList eventList;
     private User user;
 
     private static DataManager ourInstance;
@@ -56,15 +59,15 @@ public class DataManager {
      */
     private DataManager() {
 
-        habitList = new ItemList<>();
+        habitList = new HabitList();
         buffer = new Buffer();
-        eventList = new ItemList<>();
+        eventList = new EventList();
     }
     /**
      * Getter of habit events
      * @return A list of habit events of current user
      */
-    public ItemList<HabitEvent> getEventList() {
+    public EventList getEventList() {
         return eventList;
     }
     /**
@@ -116,7 +119,7 @@ public class DataManager {
      * Getter of habit
      * @return A list of habit(type) of current user
      */
-    public ItemList<HabitType> getHabitList() {
+    public HabitList getHabitList() {
         return habitList;
     }
     /**
@@ -132,31 +135,41 @@ public class DataManager {
             return ;
         }
         LayoutInflater inflater = activity.getLayoutInflater();
-        final View view = inflater.inflate(R.layout.login, null);
+        final View view = inflater.inflate(R.layout.dialog, null);
         final AlertDialog dialog = new AlertDialog.Builder(activity)
                 .setPositiveButton("Confirm", null)
                 .setView(view)
+                .setTitle("Who are you ?")
                 .setCancelable(false)
                 .create();
         dialog.show();
         dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editText = view.findViewById(R.id.login_edit_id);
+                EditText editText = view.findViewById(R.id.dialog_edit_id);
                 String name = editText.getText().toString().trim();
                 if (name.length() == 0){
                     editText.setError("Name cannot be empty");
                 } else {
                     try{
-                        int result = new ESManager.isUIdExist().execute(name).get();
-                        if (result == ESManager.isUIdExist.ER_INT){
-                            editText.setError("Cannt connect to server");
-                        } else if (result == ESManager.isUIdExist.HAD){
-                            editText.setError("Name already been used");
-                        } else if (result == ESManager.isUIdExist.PASS){
-                            user = new User(name);
-                            buffer.update(Constant.QUERY_CREATE,user);
-                            dialog.dismiss();
+                        int result = new ESManager.CheckExistTask().execute(name).get();
+                        switch (result){
+                            case Constant.TASK_EXCEPTION:
+                                editText.setError(activity.getString(R.string.internet_error));
+                                break;
+                            case Constant.TASK_SUCCESS:
+                                editText.setError("Name already been used");
+                                break;
+                            case Constant.TASK_FAIL:
+                                user = new User(name);
+                                buffer.update(Constant.QUERY_CREATE,user);
+                                buffer.update(Constant.QUERY_CREATE,new IDList(user.getUid(),Constant.TYPE_REQUESTS));
+                                buffer.update(Constant.QUERY_CREATE,new IDList(user.getUid(),Constant.TYPE_FRIENDS));
+                                dialog.dismiss();
+                                break;
+                            default:
+                                throw new Error("Unhandled Task Result");
+
                         }
                     } catch (Exception e){
                         e.printStackTrace();
@@ -185,6 +198,22 @@ public class DataManager {
 
     public static void clear(){
         App.getContext().deleteFile(Constant.FILE_NAME);
+        if (getInstance().getUser()!= null) {
+            try {
+                new CancelAccountTask().execute().get();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
         ourInstance = new DataManager();
+    }
+
+    public static class CancelAccountTask extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            ESManager.delete(ourInstance.getUser());
+            return null;
+        }
     }
 }
