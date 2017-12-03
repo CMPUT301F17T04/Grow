@@ -37,7 +37,7 @@ public class FragmentHabitList extends Fragment{
 
 
     /**
-     * Called when the fragment is created
+     * Called when the fragment_community is created
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -68,4 +68,5 @@ public class FragmentHabitList extends Fragment{
         super.onStart();
         adapter.commit();
     }
+
 }
