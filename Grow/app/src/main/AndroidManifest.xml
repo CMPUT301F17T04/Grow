@@ -54,7 +54,7 @@
         </activity>
         <activity android:name=".Views.ActivityModifyHabit" />
         <activity android:name=".Views.ActivityModifyEvent" />
-        <activity android:name=".Views.MapManager" />
+        <activity android:name=".Views.ActivityHabitMap" />
 
     </application>
 

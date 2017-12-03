@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Created by charl on 2017/12/1.
  */
 
-public class MapManager extends AppCompatActivity implements OnMapReadyCallback {
+public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap Gmap;
     private ArrayList<HabitEvent> Habits = new ArrayList<HabitEvent>();

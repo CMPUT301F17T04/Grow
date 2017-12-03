@@ -118,7 +118,7 @@ public class FragmentEventList extends Fragment {
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MapManager.class);
+                Intent intent = new Intent(getActivity(), ActivityHabitMap.class);
                 startActivity(intent);
             }
         });

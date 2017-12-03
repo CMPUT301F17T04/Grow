@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.grow.cmputf17team4.grow.Views.MapManager">
+    tools:context="com.grow.cmputf17team4.grow.Views.ActivityHabitMap">
 
     <fragment
         android:id="@+id/event_map"
