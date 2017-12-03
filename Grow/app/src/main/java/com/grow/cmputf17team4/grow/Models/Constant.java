@@ -36,7 +36,7 @@ public interface Constant {
     String TYPE_HABIT_TYPE = "habitType";
     String TYPE_HABIT_EVENT = "habitEvent";
     String TYPE_USER = "user";
-    String TYPE_FRIENDS = "friends";
+    String TYPE_FOLLOWINGS = "followings";
     String TYPE_REQUESTS = "requests";
 
 

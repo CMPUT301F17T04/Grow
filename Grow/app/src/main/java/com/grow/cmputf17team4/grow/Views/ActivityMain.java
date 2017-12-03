@@ -167,6 +167,8 @@ public class ActivityMain extends AppCompatActivity {
         ((FragmentProfile)viewPagerAdapter.getItem(3)).result(requestCode,data);
 
     }
+
+
 }
 
 

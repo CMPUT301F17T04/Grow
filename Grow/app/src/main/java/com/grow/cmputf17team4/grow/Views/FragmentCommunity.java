@@ -2,9 +2,11 @@ package com.grow.cmputf17team4.grow.Views;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +16,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.grow.cmputf17team4.grow.Controllers.CommunityAdapter;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Controllers.ESManager;
+import com.grow.cmputf17team4.grow.Models.Cache;
 import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.R;
 import com.grow.cmputf17team4.grow.Models.User;
@@ -46,6 +50,28 @@ public class FragmentCommunity extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_community, null);
+
+
+        final SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.community_swipe_layout);
+        swipeRefreshLayout.setColorSchemeColors(Color.BLUE,
+                Color.GREEN,
+                Color.YELLOW,
+                Color.RED);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    new Cache.FetchTask().execute().get();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        ListView listView = view.findViewById(R.id.community_list_view);
+        listView.setAdapter(Cache.getAdapter(getActivity()));
 
         getActivity().findViewById(R.id.toolbar_btn_follow).setOnClickListener(new View.OnClickListener() {
             @Override
