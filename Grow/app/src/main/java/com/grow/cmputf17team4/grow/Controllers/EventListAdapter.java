@@ -58,6 +58,7 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
      * @param showTypes
      * @param keyword
      */
+
     public void commit(HashMap<String,Boolean> showTypes, String keyword){
         eventList.clear();
         for(Map.Entry<String,HabitEvent> entry : modelList.entrySet()) {

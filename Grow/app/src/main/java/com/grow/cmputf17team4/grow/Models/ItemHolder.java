@@ -20,6 +20,8 @@ public class ItemHolder{
         map.put(Constant.TYPE_HABIT_EVENT, HabitEvent.class);
         map.put(Constant.TYPE_HABIT_TYPE, HabitType.class);
         map.put(Constant.TYPE_USER,User.class);
+        map.put(Constant.TYPE_FRIENDS,IDList.class);
+        map.put(Constant.TYPE_REQUESTS,IDList.class);
     }
 
     ItemHolder(Item item){

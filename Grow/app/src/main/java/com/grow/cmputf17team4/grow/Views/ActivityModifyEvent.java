@@ -69,7 +69,7 @@ public class ActivityModifyEvent extends AppCompatActivity {
             if (id==null){throw new Error("No ID in intent");}
             habit = DataManager.getInstance().getHabitList().get(id);
             findViewById(R.id.modify_event_btn_delete).setVisibility(View.GONE);
-            event = habit.buildEvent();
+            event = new HabitEvent(habit.getUid());
         } else if (requestCode == Constant.REQUEST_MODIFY_EVENT){
             event = DataManager.getInstance().getEventList().get(intent.getStringExtra(Constant.EXTRA_ID));
             TextView textView =  findViewById(R.id.modify_event_text);
@@ -100,7 +100,6 @@ public class ActivityModifyEvent extends AppCompatActivity {
         event.setAttachedLocation(attachedLocation.isChecked());
         if (requestCode == Constant.REQUEST_COMPLETE_EVENT){
             DataManager.getInstance().getEventList().add(event);
-            habit.getRecord().add(event.getDate());
         } else {
             DataManager.getInstance().getEventList().commit(event.getUid());
         }

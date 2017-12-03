@@ -26,7 +26,6 @@ public class Buffer extends ConcurrentLinkedQueue<Pair<Integer,ItemHolder>>{
 
     public void update(int queryType,Object o){
         Item item = (Item) o;
-        item.setUserID(DataManager.getInstance().getUser().getUid());
         add(new Pair<>(queryType,new ItemHolder(item)));
     }
 
@@ -44,7 +43,7 @@ public class Buffer extends ConcurrentLinkedQueue<Pair<Integer,ItemHolder>>{
         } else if(pair.first.equals(QUERY_DELETE)){
             result = ESManager.delete(item);
         } else {
-            throw new Error("Unhandle query type");
+            throw new Error("Unhandled query type");
         }
 
         if (result){
