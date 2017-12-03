@@ -7,11 +7,12 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/login_edit_id"
+        android:id="@+id/dialog_edit_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Enter your name"
+        android:hint="Enter a username"
+        android:maxLength="20"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

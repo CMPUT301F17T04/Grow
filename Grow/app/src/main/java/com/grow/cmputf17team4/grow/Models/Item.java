@@ -10,7 +10,6 @@ import io.searchbox.annotations.JestId;
 
 public class Item {
     protected String uid;
-    protected String userID;
     protected String type = null;
 
     public String getUid(){return this.uid;}
@@ -19,8 +18,4 @@ public class Item {
         return UUID.randomUUID().toString();
     }
     public String getType(){return this.type;};
-
-    public void setUserID(String userID){
-        this.userID = userID;
-    }
 }

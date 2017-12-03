@@ -19,13 +19,11 @@ import java.util.UUID;
  */
 
 public class HabitType extends Item implements Comparable<HabitType> {
-    private ArrayList<Date> record;
     private String name;
     private String reason;
     private Date startDate;
     private boolean[] repeats = {false,false,false,false,false,false,false};
-    private final int[] days = {Calendar.SUNDAY,Calendar.MONDAY,Calendar.TUESDAY,Calendar.WEDNESDAY,
-        Calendar.THURSDAY,Calendar.FRIDAY,Calendar.SATURDAY};
+    private HabitEvent mostRecentEvent;
     /**
      * Check which day is repeated in a week
      * @param i the day to check
@@ -50,17 +48,11 @@ public class HabitType extends Item implements Comparable<HabitType> {
         startDate = new Date();
         name = "";
         reason = "";
-        record = new ArrayList<>();
         type = Constant.TYPE_HABIT_TYPE;
+        mostRecentEvent = null;
     }
 
-    /**
-     * Generate the habit event of the habit (type)
-     * @return the habit event generated
-     */
-    public HabitEvent buildEvent(){
-        return new HabitEvent(getName());
-    }
+
     /**
      * get the name of the habit (type)
      * @return the name of the habit
@@ -117,7 +109,7 @@ public class HabitType extends Item implements Comparable<HabitType> {
             return false;
         } else {
             int day = calender.get(Calendar.DAY_OF_WEEK);
-            return repeats[Arrays.binarySearch(days, day)];
+            return repeats[Arrays.binarySearch(Constant.days, day)];
         }
     }
     /**
@@ -130,7 +122,7 @@ public class HabitType extends Item implements Comparable<HabitType> {
         if (result < 0){
             calendar.setTime(getStartDate());
         }
-        int index = Arrays.binarySearch(days,calendar.get(Calendar.DAY_OF_WEEK));
+        int index = Arrays.binarySearch(Constant.days,calendar.get(Calendar.DAY_OF_WEEK));
         for (int i=0;i<7;++i){
             if (repeats[index]){
                 break;
@@ -140,13 +132,6 @@ public class HabitType extends Item implements Comparable<HabitType> {
         }
         calendar.add(Calendar.MINUTE,(int)getName().charAt(0));
         return calendar.getTime();
-    }
-    /**
-     * get the record of the habit events
-     * @return the arrayList contains the record
-     */
-    public ArrayList<Date> getRecord() {
-        return record;
     }
 
     /**
@@ -164,24 +149,26 @@ public class HabitType extends Item implements Comparable<HabitType> {
      * @return True if done, False if not.
      */
     public boolean alreadyDone(){
-        int index = Collections.binarySearch(record,Calendar.getInstance().getTime(), new DateComparator());
-        return index >= 0;
-    }
-
-
-    /**
-     * The inner class that helps to compare date.
-     */
-    private class DateComparator implements Comparator<Date> {
-        /**
-         * Compare the date
-         * @param d1 date 1
-         * @param d2 date 2
-         * @return 1 if there are difference, 0 if not
-         */
-        public int compare(Date d1, Date d2) {
-            return Constant.TIME_FORMAT.format(d1).compareTo(Constant.TIME_FORMAT.format(d2));
+        HabitEvent event  = getMostRecentEvent();
+        if (event == null){
+            return  false;
         }
+        return isSameDay(event.getDate(),new Date());
     }
+
+
+
+    private boolean isSameDay(Date d1, Date d2) {
+        return Constant.TIME_FORMAT.format(d1).equals(Constant.TIME_FORMAT.format(d2));
+    }
+
+    public HabitEvent getMostRecentEvent() {
+        return mostRecentEvent;
+    }
+
+    public void setMostRecentEvent(HabitEvent mostRecentEvent) {
+        this.mostRecentEvent = mostRecentEvent;
+    }
+
 
 }

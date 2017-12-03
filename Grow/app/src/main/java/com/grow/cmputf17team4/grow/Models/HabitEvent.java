@@ -1,6 +1,8 @@
 package com.grow.cmputf17team4.grow.Models;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
+import android.text.BoringLayout;
 
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
@@ -14,23 +16,28 @@ import java.util.UUID;
  */
 public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImageable {
     private String comment;
-    private String name;
+    private String habitTypeID;
     private String encodedImage;
     private Integer location;
     private Date date;
+    private String prevEvent;
+    private String nextEvent;
+
     /**
      * Constructor of the HabitEvent
-     * @param name the name of the event
+     * @param habitTypeID the id of the habit type which the event belongs to
      */
 
-    public HabitEvent(String name) {
-        this.name = name;
+    public HabitEvent(String habitTypeID) {
+        this.habitTypeID = habitTypeID;
         uid = generateUid();
         encodedImage = null;
         comment = "";
         location = 0;
         this.date = new Date();
         this.type = Constant.TYPE_HABIT_EVENT;
+        prevEvent = null;
+        nextEvent = null;
     }
     /**
      * Attach an image to a habit event
@@ -60,15 +67,9 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
      * @return string represent the name
      */
     public String getName() {
-        return name;
+        return this.getHabitType().getName();
     }
-    /**
-     * set the name of the habit event
-     * @param name the name of the habit event
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+
     /**
      * get the image attached to the habit event
      * @return the String represents the encodedImage
@@ -118,4 +119,29 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
     }
 
 
+
+    public String getPrevEvent() {
+        return prevEvent;
+    }
+
+    public void setPrevEvent(String prevEvent) {
+        this.prevEvent = prevEvent;
+    }
+
+    public String getNextEvent() {
+        return nextEvent;
+    }
+
+    public void setNextEvent(String nextEvent) {
+        this.nextEvent = nextEvent;
+    }
+
+
+    public HabitType getHabitType(){
+        return DataManager.getInstance().getHabitList().get(this.habitTypeID);
+    }
+    @VisibleForTesting
+    private void setDateForTestingOnly(Date date) {
+        this.date = date;
+    }
 }

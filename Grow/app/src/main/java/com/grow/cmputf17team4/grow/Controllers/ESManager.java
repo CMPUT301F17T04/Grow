@@ -5,10 +5,13 @@ import android.util.Log;
 import android.widget.EditText;
 
 import com.grow.cmputf17team4.grow.Models.Constant;
+import com.grow.cmputf17team4.grow.Models.IDList;
 import com.grow.cmputf17team4.grow.Models.Item;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
+
+import java.util.ArrayList;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;
@@ -68,27 +71,61 @@ public class ESManager {
         }
     }
 
-    public static class isUIdExist extends AsyncTask<String,Void,Integer>{
-        static final int PASS = 1;
-        static final int ER_INT = 2;
-        static final int HAD= 3;
+    public static class CheckExistTask extends AsyncTask<String,Void,Integer>{
         @Override
         protected Integer doInBackground(String... strings) {
             Get get = new Get.Builder(Constant.ELASTIC_SEARCH_INDEX,strings[0]).type(Constant.TYPE_USER).build();
             try{
                 JestResult result = ourInstance.client.execute(get);
                 if (result.isSucceeded()){
-                    return HAD;
+                    return Constant.TASK_SUCCESS;
                 } else{
-                    return PASS;
+                    return Constant.TASK_FAIL;
                 }
             } catch (Exception e){
                 e.printStackTrace();
-                return ER_INT;
+                return Constant.TASK_EXCEPTION;
             }
 
         }
     }
+
+    public static class AppendTask extends AsyncTask<String,Void,Integer>{
+        private String type;
+
+        public AppendTask(String type){
+            this.type = type;
+        }
+
+        @Override
+        protected Integer doInBackground(String... strings) {
+            Get get = new Get.Builder(Constant.ELASTIC_SEARCH_INDEX,strings[0]).type(this.type).build();
+            try{
+                JestResult result = ourInstance.client.execute(get);
+                if (!result.isSucceeded()){
+                    Log.e("ES AppendTask",result.getErrorMessage());
+                    return Constant.TASK_FAIL;
+                }
+                IDList list = result.getSourceAsObject(IDList.class);
+                ArrayList<String> payload = list.getPayload();
+                String uid = DataManager.getInstance().getUser().getUid();
+                if (!payload.contains(uid)){
+                    payload.add(uid);
+                }
+                if (create(list)){
+                    return Constant.TASK_SUCCESS;
+                } else {
+                    return Constant.TASK_FAIL;
+                }
+
+            } catch (Exception e){
+                e.printStackTrace();
+                return Constant.TASK_EXCEPTION;
+            }
+        }
+    }
+
+
 
     private ESManager() {
         if (client == null) {
@@ -100,4 +137,6 @@ public class ESManager {
             client = (JestDroidClient) factory.getObject();
         }
     }
+
+
 }
