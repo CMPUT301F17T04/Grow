@@ -52,4 +52,8 @@ public class User extends Item implements GetImageable{
     private void commit(){
         DataManager.getInstance().getBuffer().update(Constant.QUERY_UPDATE,this);
     }
+
+    public ArrayList<String> getHabitList() {
+        return habitList;
+    }
 }

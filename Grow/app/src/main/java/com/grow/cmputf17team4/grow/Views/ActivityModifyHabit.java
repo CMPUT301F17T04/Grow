@@ -68,7 +68,7 @@ public class ActivityModifyHabit extends AppCompatActivity {
             uid = intent.getStringExtra(Constant.EXTRA_ID);
             habit = habitList.get(uid);
         } else if (requestCode == Constant.REQUEST_CREATE_HABIT){
-            habit  = new HabitType();
+            habit  = new HabitType(DataManager.getInstance().getUser().getUid());
             findViewById(R.id.modify_habit_btn_delete).setVisibility(View.GONE);
             findViewById(R.id.modify_habit_btn_statstic).setVisibility(View.GONE);
         } else {

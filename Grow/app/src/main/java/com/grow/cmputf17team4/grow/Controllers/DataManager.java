@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Models.App;
+import com.grow.cmputf17team4.grow.Models.Cache;
 import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.Models.EventList;
 import com.grow.cmputf17team4.grow.Models.HabitEvent;
@@ -93,6 +94,7 @@ public class DataManager {
                 if (ourInstance.getUser() != null) {
                     ourInstance.buffer.process();
                 }
+                Cache.checkUpdates();
             }
         },0,POLLING_INTERVAL);
 
@@ -167,7 +169,7 @@ public class DataManager {
                                 user = new User(name);
                                 buffer.update(Constant.QUERY_CREATE,user);
                                 buffer.update(Constant.QUERY_CREATE,new IDList(user.getUid(),Constant.TYPE_REQUESTS));
-                                buffer.update(Constant.QUERY_CREATE,new IDList(user.getUid(),Constant.TYPE_FRIENDS));
+                                buffer.update(Constant.QUERY_CREATE,new IDList(user.getUid(),Constant.TYPE_FOLLOWINGS));
                                 dialog.dismiss();
                                 break;
                             default:
