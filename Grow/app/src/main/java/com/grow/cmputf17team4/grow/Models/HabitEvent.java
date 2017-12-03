@@ -141,7 +141,7 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         return DataManager.getInstance().getHabitList().get(this.habitTypeID);
     }
     @VisibleForTesting
-    private void setDateForTestingOnly(Date date) {
+    public void setDateForTestingOnly(Date date) {
         this.date = date;
     }
 }
