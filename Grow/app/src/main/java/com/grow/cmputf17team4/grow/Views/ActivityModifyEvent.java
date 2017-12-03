@@ -97,7 +97,7 @@ public class ActivityModifyEvent extends AppCompatActivity {
      */
     public void onModifyEventConfirm(View v){
         event.setComment(comment.getText().toString());
-        event.setAttachedLocation(attachedLocation.isChecked());
+        event.setAttachedLocation(attachedLocation.isChecked(), this);
         if (requestCode == Constant.REQUEST_COMPLETE_EVENT){
             DataManager.getInstance().getEventList().add(event);
         } else {
