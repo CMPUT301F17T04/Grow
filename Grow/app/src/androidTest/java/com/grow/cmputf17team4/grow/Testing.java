@@ -68,6 +68,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
@@ -100,7 +101,7 @@ public class Testing {
     private class prepareTask extends AsyncTask<Void,Void,Void>{
         @Override
         protected Void doInBackground(Void... voids) {
-            ESManager.delete(new User("fufu"));
+            assertTrue(ESManager.delete(new User("fufu")));
             User user = new User(friendId);
             ESManager.create(new IDList(friendId, Constant.TYPE_REQUESTS));
             ESManager.create(new IDList(friendId, Constant.TYPE_FOLLOWINGS));
@@ -110,7 +111,7 @@ public class Testing {
             habitType2.setName("habit2");
             user.getHabitList().add(habitType1.getUid());
             user.getHabitList().add(habitType2.getUid());
-            HabitEvent event = new HabitEvent(habitType1.getUid());
+            HabitEvent event = new HabitEvent(habitType1.getUid(),habitType1.getUserId());
             habitType1.setMostRecentEvent(event);
             ESManager.create(user);
             ESManager.create(habitType1);
@@ -466,13 +467,27 @@ public class Testing {
 
 
         //addbutton.finish();
-        new FakeAcceptTask().execute();
+
         try {
+            new FakeAcceptTask().execute().get();
+            new FakeRequestTask().execute().get();
             Thread.sleep(5000);
         } catch (Exception e){
             e.printStackTrace();
         }
     }
+    private class FakeRequestTask extends AsyncTask<Void,Void,Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            IDList requests = new IDList("fufu",Constant.TYPE_REQUESTS);
+            requests.getPayload().add(friendId);
+            requests.setChanged(true);
+            ESManager.create(requests);
+            return null;
+
+        }
+    }
+
 
     private class FakeAcceptTask extends AsyncTask<Void,Void,Void>{
         @Override

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,7 @@ public class DataManager {
     private EventList eventList;
     private User user;
     private static LinkedList<AsyncTask> taskPool = new LinkedList<>();
+    private static boolean isTesting = false;
 
     private static DataManager ourInstance;
     /**
@@ -204,6 +206,7 @@ public class DataManager {
     }
 
     public static AsyncTask<Void, Void, Void> save(){
+        if(isTesting){return null;}
         SaveLocalDataTask task =  new SaveLocalDataTask();
         taskPool.add(task);
         task.execute();
@@ -233,5 +236,12 @@ public class DataManager {
             ESManager.delete(ourInstance.getUser());
             return null;
         }
+    }
+
+    @VisibleForTesting
+    public static void prepareForTesting(){
+        ourInstance = new DataManager();
+        ourInstance.user = new User(Constant.TEST_USER_NAME);
+        isTesting = true;
     }
 }

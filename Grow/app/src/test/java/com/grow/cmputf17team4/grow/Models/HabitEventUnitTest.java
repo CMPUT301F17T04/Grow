@@ -3,6 +3,9 @@ package com.grow.cmputf17team4.grow.Models;
 import android.location.Location;
 import android.support.annotation.NonNull;
 
+import com.grow.cmputf17team4.grow.Controllers.DataManager;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -16,7 +19,16 @@ import static org.junit.Assert.*;
 public class HabitEventUnitTest {
     private HabitEvent habitEvent;
     private HabitType  habitType;
-    private String     id = "fufu", habitTypeID;
+    private final String id = Constant.TEST_USER_NAME;
+    private String habitTypeID;
+
+
+    @Before
+    public void setUp(){
+        DataManager.prepareForTesting();
+    }
+
+
     @Test
     public void TestSetAndGetComment(){
         habitType = new HabitType(id);
@@ -84,7 +96,9 @@ public class HabitEventUnitTest {
         habitType = new HabitType(id);
         habitTypeID = habitType.getUid();
         habitEvent = new HabitEvent(habitTypeID,id);
-        assertNotNull(habitEvent.getHabitType());
+        DataManager.getInstance().getHabitList().add(habitType);
+        DataManager.getInstance().getEventList().add(habitEvent);
+        assertEquals(habitEvent.getHabitType(),habitType);
     }
 
 }
