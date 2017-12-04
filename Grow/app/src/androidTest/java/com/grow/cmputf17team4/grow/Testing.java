@@ -3,7 +3,9 @@ package com.grow.cmputf17team4.grow;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.os.AsyncTask;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
@@ -19,6 +21,11 @@ import android.view.ViewParent;
 import android.widget.DatePicker;
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
+import com.grow.cmputf17team4.grow.Controllers.ESManager;
+import com.grow.cmputf17team4.grow.Models.Constant;
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
+import com.grow.cmputf17team4.grow.Models.IDList;
+import com.grow.cmputf17team4.grow.Models.User;
 import com.grow.cmputf17team4.grow.R;
 
 import org.hamcrest.Description;
@@ -68,6 +75,7 @@ import static org.hamcrest.Matchers.is;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class Testing {
+    private static final String friendId = "Qin7";
 
     @Rule
     public ActivityTestRule<ActivityMain> mActivityTestRule = new ActivityTestRule<>(ActivityMain.class);
@@ -80,6 +88,35 @@ public class Testing {
     public void setUp(){
 
         activityM = mActivityTestRule.getActivity();
+
+        try {
+            new prepareTask().execute().get();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    private class prepareTask extends AsyncTask<Void,Void,Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            ESManager.delete(new User("fufu"));
+            User user = new User(friendId);
+            ESManager.create(new IDList(friendId, Constant.TYPE_REQUESTS));
+            ESManager.create(new IDList(friendId, Constant.TYPE_FOLLOWINGS));
+            HabitType habitType1 = new HabitType(friendId);
+            habitType1.setName("habit1");
+            HabitType habitType2 = new HabitType(friendId);
+            habitType2.setName("habit2");
+            user.getHabitList().add(habitType1.getUid());
+            user.getHabitList().add(habitType2.getUid());
+            HabitEvent event = new HabitEvent(habitType1.getUid());
+            habitType1.setMostRecentEvent(event);
+            ESManager.create(user);
+            ESManager.create(habitType1);
+            ESManager.create(habitType2);
+            return null;
+        }
     }
 
     @Test
@@ -120,6 +157,7 @@ public class Testing {
                                 3)));
         appCompatButton.perform(scrollTo(), click());
 
+        /*
         ViewInteraction switchnavigation_event = Espresso.onView(ViewMatchers.withId(R.id.navigation_event)).perform(ViewActions.click());
         assertNotNull(switchnavigation_event);
         ViewInteraction switchnavigation_community = Espresso.onView(ViewMatchers.withId(R.id.navigation_community)).perform(ViewActions.click());
@@ -133,9 +171,28 @@ public class Testing {
 
         Activity addbutton = InstrumentationRegistry.getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);
 
+        //testing delete button
+        Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_name))
+                .perform(ViewActions.typeText("66666"));
 
 
+        Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_reason))
+                .perform(ViewActions.typeText("call"));
 
+        Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_reason)).perform(ViewActions.closeSoftKeyboard());
+        Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_0)).perform(ViewActions.click());
+
+        ViewInteraction habitBtnConfirm3 = onView(
+                allOf(withId(R.id.modify_habti_btn_confirm), withText("Confirm")));
+        habitBtnConfirm3.perform(click());
+
+        onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed())).atPosition(0).perform(click());
+
+        ViewInteraction eventDeleteButton = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_btn_delete))
+                .perform(ViewActions.click());
+        assertNotNull(eventDeleteButton);
+
+        Espresso.onView(ViewMatchers.withId(R.id.toolbar_btn_add_habit)).perform(ViewActions.click());
         ViewInteraction habitEditName = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_name))
                 .perform(ViewActions.typeText("basketball"));
         assertNotNull(habitEditName);
@@ -200,8 +257,10 @@ public class Testing {
 
 
 
+
         onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view),isDisplayed()))
                 .atPosition(0).onChildView (withId(R.id.list_item_title)).check(matches(withText("basketball")));
+
 
 
 
@@ -259,7 +318,7 @@ public class Testing {
         onView(withId(R.id.modify_habit_edit_name)).check(matches(withText("zhai")));
         onView(withId(R.id.modify_habit_edit_reason)).check(matches(withText("kill him")));
 
-        /*
+
         onView(withId(R.id.modify_habit_edit_date)).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
                 .perform(PickerActions.setDate(2018, 01, 01));
@@ -271,21 +330,10 @@ public class Testing {
         onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed()))
                 .atPosition(0).perform(click());
         onView(withId(R.id.modify_habit_edit_date)).check(matches(withText("Monday, Jan 01")));
-        */
+
         onView(ViewMatchers.withId(R.id.modify_habti_btn_confirm)).perform(ViewActions.click());
 
-        /*
 
-        this is delete an event
-
-
-
-        onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed()))
-                .atPosition(0).perform(click());
-
-
-        ViewInteraction deleteButton = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_btn_delete)).perform(ViewActions.click());
-        assertNotNull(deleteButton);*/
 
         ViewInteraction changeToEvent = Espresso.onView(ViewMatchers.withId(R.id.navigation_event)).perform(ViewActions.click());
         assertNotNull(changeToEvent);
@@ -310,10 +358,6 @@ public class Testing {
 
         //onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed())).atPosition(0).perform(click());
 
-        /*
-        ViewInteraction eventDeleteButton = Espresso.onView(ViewMatchers.withId(R.id.modify_event_btn_delete))
-                .perform(ViewActions.click());
-        assertNotNull(eventDeleteButton);*/
 
         ViewInteraction changeToEventAgain = Espresso.onView(ViewMatchers.withId(R.id.navigation_event)).perform(ViewActions.click());
         assertNotNull(changeToEventAgain);
@@ -400,15 +444,46 @@ public class Testing {
                     isDisplayed())).atPosition(0).perform(click());
         }catch (Exception e){}
 
+        // check if it has the correct amount of habits and completed habit events
+        Espresso.onView(ViewMatchers.withId(R.id.navigation_settings)).perform(ViewActions.click());
+
+        onView(withId(R.id.profile_text_habits)).check(matches(withText("1")));
+        onView(withId(R.id.profile_text_events)).check(matches(withText("1")));
+        */
+
+        Espresso.onView(ViewMatchers.withId(R.id.navigation_community)).perform(ViewActions.click());
+        Espresso.onView(allOf(withId(R.id.toolbar_btn_follow), childAtPosition(
+                allOf(withId(R.id.my_toolbar), childAtPosition(withId(R.id.container),
+                        0)), 2), isDisplayed())).perform(click());
+
+        Espresso.onView(allOf(withId(R.id.dialog_edit_id), childAtPosition(
+                childAtPosition(withId(R.id.custom), 0), 0), isDisplayed()))
+                .perform(replaceText("Qin7"), closeSoftKeyboard());
+
+        Espresso.onView(allOf(withId(android.R.id.button1), withText("Confirm"),
+                childAtPosition(childAtPosition(withId(R.id.buttonPanel), 0), 3)))
+                .perform(scrollTo(), click());
 
 
+        //addbutton.finish();
+        new FakeAcceptTask().execute();
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    private class FakeAcceptTask extends AsyncTask<Void,Void,Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            IDList followings = new IDList("fufu",Constant.TYPE_FOLLOWINGS);
+            followings.getPayload().add(friendId);
+            followings.setChanged(true);
+            ESManager.create(followings);
+            return null;
 
-        //Espresso.onView(ViewMatchers.withId(R.id.modify_event_edit_comment)).perform(ViewActions.closeSoftKeyboard());
-
-
-        addbutton.finish();
-
+        }
     }
 
     @After
