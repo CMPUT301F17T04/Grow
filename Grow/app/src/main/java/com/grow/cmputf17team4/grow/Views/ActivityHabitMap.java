@@ -290,44 +290,44 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
      * Add habit event to map
      */
     public void AddHabitEventTomMap(){
-        for(HabitEvent habit : habits){
+        for(HabitEvent habit : habits) {
+            if (habit.getHabitLocation() != null) {
+                Log.d("googlemap", habit.getComment());
+                Location tempLocation = habit.getHabitLocation();
+                double lat = tempLocation.getLatitude();
+                double lng = tempLocation.getLongitude();
+                Log.d("googlemap", Double.toString(lat));
+                Log.d("googlemap", Double.toString(lng));
+                LatLng position = new LatLng(lat, lng);
 
-            Log.d("googlemap",habit.getComment());
-            Location tempLocation = habit.getHabitLocation();
-            double lat = tempLocation.getLatitude();
-            double lng = tempLocation.getLongitude();
-            Log.d("googlemap", Double.toString(lat));
-            Log.d("googlemap", Double.toString(lng));
-            LatLng position = new LatLng(lat, lng);
-
-            boolean fiveKMClose = isFiveKm(tempLocation, mLocation);
-            if(intentFrom) {
-                if (fiveKMClose) {
-                    mMap.addMarker(new MarkerOptions().position(position)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                            .title(habit.getName())                 // Here, we put the Habit event name and user name
-                            .snippet(habit.getComment()));       // Here, we put the comment
+                boolean fiveKMClose = isFiveKm(tempLocation, mLocation);
+                if (intentFrom) {
+                    if (fiveKMClose) {
+                        mMap.addMarker(new MarkerOptions().position(position)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                                .title(habit.getName())                 // Here, we put the Habit event name and user name
+                                .snippet(habit.getComment()));       // Here, we put the comment
+                    } else {
+                        mMap.addMarker(new MarkerOptions().position(position)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                                .title(habit.getName())
+                                .snippet(habit.getComment()));
+                    }
                 } else {
-                    mMap.addMarker(new MarkerOptions().position(position)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                            .title(habit.getName())
-                            .snippet(habit.getComment()));
-                }
-            }else{
-                if (fiveKMClose) {
-                    mMap.addMarker(new MarkerOptions().position(position)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                            .title(habit.getName())                 // Here, we put the Habit event name and user name
-                            .snippet(habit.getUserId()));       // Here, we put the comment
-                } else {
-                    mMap.addMarker(new MarkerOptions().position(position)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                            .title(habit.getName())
-                            .snippet(habit.getUserId()));
+                    if (fiveKMClose) {
+                        mMap.addMarker(new MarkerOptions().position(position)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                                .title(habit.getName())                 // Here, we put the Habit event name and user name
+                                .snippet(habit.getUserId()));       // Here, we put the comment
+                    } else {
+                        mMap.addMarker(new MarkerOptions().position(position)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                                .title(habit.getName())
 
+                                .snippet(habit.getUserId()));
+                    }
                 }
             }
-
         }
     }
 

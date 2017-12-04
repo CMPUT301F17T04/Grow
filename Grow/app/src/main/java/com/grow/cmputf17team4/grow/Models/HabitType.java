@@ -26,6 +26,7 @@ public class HabitType extends Item implements Comparable<HabitType> {
     private boolean[] repeats = {false,false,false,false,false,false,false};
     private HabitEvent mostRecentEvent;
     private String userId;
+    private int numCompleted;
     /**
      * Check which day is repeated in a week
      * @param i the day to check
@@ -53,6 +54,7 @@ public class HabitType extends Item implements Comparable<HabitType> {
         type = Constant.TYPE_HABIT_TYPE;
         mostRecentEvent = null;
         this.userId = userId;
+        this.numCompleted = 0;
     }
 
 
@@ -184,4 +186,7 @@ public class HabitType extends Item implements Comparable<HabitType> {
     public String getUserId() {
         return userId;
     }
+
+    public void addNumCompleted(int d){this.numCompleted+=d;}
+
 }

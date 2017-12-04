@@ -115,7 +115,7 @@ public class FragmentEventList extends Fragment {
             }
         });
 
-        ImageButton mapView = (ImageButton) getActivity().findViewById(R.id.toolbar_btn_map);
+        ImageButton mapView = (ImageButton) getActivity().findViewById(R.id.toolbar_btn_my_events_map);
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

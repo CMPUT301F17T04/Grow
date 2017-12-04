@@ -19,8 +19,11 @@ import android.widget.Toast;
 import com.grow.cmputf17team4.grow.Controllers.CommunityAdapter;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Controllers.ESManager;
+import com.grow.cmputf17team4.grow.Controllers.MapManager;
 import com.grow.cmputf17team4.grow.Models.Cache;
 import com.grow.cmputf17team4.grow.Models.Constant;
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
+import com.grow.cmputf17team4.grow.Models.HabitType;
 import com.grow.cmputf17team4.grow.R;
 import com.grow.cmputf17team4.grow.Models.User;
 
@@ -75,6 +78,25 @@ public class FragmentCommunity extends Fragment {
 
         ListView listView = view.findViewById(R.id.community_list_view);
         listView.setAdapter(Cache.getAdapter(getActivity()));
+
+        getActivity().findViewById(R.id.toolbar_btn_friend_events_map).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<HabitEvent> events = new ArrayList<>();
+                HabitEvent event;
+                for (HabitType type: Cache.getInstance().getHabitTypes()){
+                    event = type.getMostRecentEvent();
+                    if (event != null){
+                        event.setName(type.getName());
+                        events.add(event);
+                    }
+                }
+                MapManager.getInstance().setHabitEventList(events);
+                Intent intent = new Intent(getActivity(),ActivityHabitMap.class);
+                intent.putExtra("intentFrom",false);
+                startActivity(intent);
+            }
+        });
 
         getActivity().findViewById(R.id.toolbar_btn_follow).setOnClickListener(new View.OnClickListener() {
             @Override
