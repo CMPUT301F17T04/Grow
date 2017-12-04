@@ -41,6 +41,8 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
     private String nextEvent;
     private String userId;
 
+    private String name;
+
     /**
      * Constructor of the HabitEvent
      * @param habitTypeID the id of the habit type which the event belongs to
@@ -85,7 +87,12 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
      * @return string represent the name
      */
     public String getName() {
-        return this.getHabitType().getName();
+        HabitType habitType = this.getHabitType();
+        if (habitType != null){
+            return habitType.getName();
+        } else {
+            return this.name;
+        }
     }
 
     /**
@@ -120,12 +127,7 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
     public Boolean isAttachedLocation() {
         return HabitLocation!=null;
     }
-    /**
-     * Determine whether to attach the location or not.
-     */
-    public void setLocation(Location location) {
-        this.HabitLocation = location;
-    }
+
 
     /**
      * get the difference between this habit event with given habit event
@@ -148,17 +150,6 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         return date;
     }
 
-    /**
-     * Get the date in format HH:mm MM/dd/yyyy
-     * @return
-     */
-    public String getStringDate(){
-        String pattern = "HH:mm  MM/dd/yyyy";
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
-        String dateString = format.format(date);
-
-        return dateString;
-    }
 
 
     public String getPrevEvent() {
@@ -192,5 +183,9 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
 
     public String getUserId() {
         return userId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

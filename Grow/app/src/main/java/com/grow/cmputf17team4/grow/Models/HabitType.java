@@ -175,4 +175,5 @@ public class HabitType extends Item implements Comparable<HabitType> {
     public String getUserId() {
         return userId;
     }
+    
 }
