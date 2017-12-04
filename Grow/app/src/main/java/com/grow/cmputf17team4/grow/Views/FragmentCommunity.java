@@ -88,10 +88,13 @@ public class FragmentCommunity extends Fragment {
                     event = type.getMostRecentEvent();
                     if (event != null){
                         event.setName(type.getName());
+                        events.add(event);
                     }
-                    events.add(event);
                 }
                 MapManager.getInstance().setHabitEventList(events);
+                Intent intent = new Intent(getActivity(),ActivityHabitMap.class);
+                intent.putExtra("intentFrom",false);
+                startActivity(intent);
             }
         });
 
