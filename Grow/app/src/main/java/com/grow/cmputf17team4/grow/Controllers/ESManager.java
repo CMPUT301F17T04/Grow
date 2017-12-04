@@ -2,13 +2,16 @@ package com.grow.cmputf17team4.grow.Controllers;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.Models.HabitEvent;
 import com.grow.cmputf17team4.grow.Models.HabitType;
 import com.grow.cmputf17team4.grow.Models.IDList;
 import com.grow.cmputf17team4.grow.Models.Item;
+import com.grow.cmputf17team4.grow.Models.User;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -156,6 +159,48 @@ public class ESManager {
             factory.setDroidClientConfig(config);
             client = (JestDroidClient) factory.getObject();
         }
+    }
+
+    public static class SearchFriendsTask extends AsyncTask<Void,Void,Integer>{
+        private ArrayList<User> friends;
+
+        private Runnable preExecute;
+        private Runnable postExecuteSuccess;
+        private Runnable postExecuteFailed;
+
+        public SearchFriendsTask(Runnable pre, Runnable postSuccess, Runnable postFailed){
+            friends = new ArrayList<>();
+            preExecute = pre;
+            postExecuteSuccess = postSuccess;
+            postExecuteFailed = postFailed;
+        }
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            
+
+        }
+
+        public ArrayList<User> getFriends() {
+            return friends;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // SHOW THE SPINNER WHILE LOADING FEEDS
+            preExecute.run();
+        }
+
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            if(result == Constant.TASK_SUCCESS){
+                postExecuteSuccess.run();
+            }else if(result == Constant.TASK_EXCEPTION){
+                postExecuteFailed.run();
+            }
+        }
+
     }
 
 
