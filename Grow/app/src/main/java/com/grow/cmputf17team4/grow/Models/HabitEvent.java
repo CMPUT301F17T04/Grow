@@ -208,6 +208,7 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
                         // Set the map's camera position to the current location of the device
                         HabitLocation = task.getResult();
                         Log.d("googlemap", "got current location");
+                        DataManager.getInstance().getEventList().commit(getUid());
 
                     } else {
                         Log.d("googlemap", "Current location is null. Using defaults.");

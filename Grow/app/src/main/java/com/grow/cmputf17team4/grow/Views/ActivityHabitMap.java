@@ -291,7 +291,7 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
      */
     public void AddHabitEventTomMap(){
         for(HabitEvent habit : habits) {
-            if (habit.getHabitLocation() == null) {
+            if (habit.getHabitLocation() != null) {
                 Log.d("googlemap", habit.getComment());
                 Location tempLocation = habit.getHabitLocation();
                 double lat = tempLocation.getLatitude();
