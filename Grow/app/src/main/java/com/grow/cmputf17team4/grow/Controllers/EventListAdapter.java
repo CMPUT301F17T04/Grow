@@ -133,4 +133,8 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
     public Object getItem(int position) {
         return eventList.get(position);
     }
+
+    public ArrayList<HabitEvent> getEventList() {
+        return eventList;
+    }
 }

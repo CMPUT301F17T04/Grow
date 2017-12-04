@@ -39,13 +39,13 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
     private Date date;
     private String prevEvent;
     private String nextEvent;
+    private String userId;
 
     /**
      * Constructor of the HabitEvent
      * @param habitTypeID the id of the habit type which the event belongs to
      */
-
-    public HabitEvent(String habitTypeID) {
+    public HabitEvent(String habitTypeID,String userId) {
         this.habitTypeID = habitTypeID;
         uid = generateUid();
         encodedImage = null;
@@ -55,7 +55,9 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         this.type = Constant.TYPE_HABIT_EVENT;
         prevEvent = null;
         nextEvent = null;
+        this.userId = userId;
     }
+
     /**
      * Attach an image to a habit event
      * @param encodedImage the image to be added
@@ -186,5 +188,9 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
 
     public String getHabitTypeID() {
         return habitTypeID;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 }
