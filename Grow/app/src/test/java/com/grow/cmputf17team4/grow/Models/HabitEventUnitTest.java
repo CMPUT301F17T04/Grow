@@ -65,6 +65,8 @@ public class HabitEventUnitTest {
         habitTypeID = habitType.getUid();
         habitEvent = new HabitEvent(habitTypeID,id);
         HabitEvent habitEvent2 = new HabitEvent(habitTypeID,id);
+        habitEvent2.setName("Chris");
+        habitEvent.setName("Chris");
         assertEquals(habitEvent.compareTo(habitEvent2),0);
 
     }
@@ -82,7 +84,7 @@ public class HabitEventUnitTest {
         habitType = new HabitType(id);
         habitTypeID = habitType.getUid();
         habitEvent = new HabitEvent(habitTypeID,id);
-        assertNotNull(habitEvent.getDate());
+        assertNotNull(habitEvent.getHabitType());
     }
 
 }
