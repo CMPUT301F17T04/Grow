@@ -170,7 +170,11 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
 
 
     public HabitType getHabitType(){
-        return DataManager.getInstance().getHabitList().get(this.habitTypeID);
+        try {
+            return DataManager.getInstance().getHabitList().get(this.habitTypeID);
+        } catch (NullPointerException e){
+            return null;
+        }
     }
     @VisibleForTesting
     public void setDateForTestingOnly(Date date) {
