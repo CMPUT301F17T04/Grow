@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Models.App;
+import com.grow.cmputf17team4.grow.Models.Cache;
 import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.Models.EventList;
 import com.grow.cmputf17team4.grow.Models.HabitEvent;
@@ -29,6 +30,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,6 +47,7 @@ public class DataManager {
     private Buffer buffer;
     private EventList eventList;
     private User user;
+    private static LinkedList<AsyncTask> taskPool = new LinkedList<>();
 
     private static DataManager ourInstance;
     /**
@@ -87,9 +91,10 @@ public class DataManager {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                if (ourInstance.user != null) {
+                if (ourInstance.getUser() != null) {
                     ourInstance.buffer.process();
                 }
+                Cache.checkUpdates();
             }
         },0,POLLING_INTERVAL);
 
@@ -164,7 +169,7 @@ public class DataManager {
                                 user = new User(name);
                                 buffer.update(Constant.QUERY_CREATE,user);
                                 buffer.update(Constant.QUERY_CREATE,new IDList(user.getUid(),Constant.TYPE_REQUESTS));
-                                buffer.update(Constant.QUERY_CREATE,new IDList(user.getUid(),Constant.TYPE_FRIENDS));
+                                buffer.update(Constant.QUERY_CREATE,new IDList(user.getUid(),Constant.TYPE_FOLLOWINGS));
                                 dialog.dismiss();
                                 break;
                             default:
@@ -188,8 +193,19 @@ public class DataManager {
         }
     }
 
-    public static void save(){
-        new SaveLocalDataTask().execute();
+    public static void waitAllTaskDone(){
+        while (!taskPool.isEmpty()){
+            if (taskPool.peekFirst().getStatus() == AsyncTask.Status.FINISHED){
+                taskPool.removeFirst();
+            }
+        }
+    }
+
+    public static AsyncTask<Void, Void, Void> save(){
+        SaveLocalDataTask task =  new SaveLocalDataTask();
+        taskPool.add(task);
+        task.execute();
+        return task;
     }
 
     public User getUser() {

@@ -32,6 +32,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 
+import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_PICK_IMAGE;
+import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_TAKE_PHOTO;
+
 
 /**
  * MainActivity
@@ -44,6 +47,7 @@ public class ActivityMain extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private ActivityMain that = this;
     private SparseArray<List<Integer>> toolBarViews;
+    private ViewPagerAdapter viewPagerAdapter;
 
 
     /**
@@ -88,10 +92,18 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     /**
-     * Setupt the view pager for fragment
+     * Setupt the view pager for fragment_community
      */
     private void setupViewPager() {
-        viewPager = (ViewPager) findViewById(R.id.viewpager_main);
+        viewPager = findViewById(R.id.viewpager_main);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setOffscreenPageLimit(3);
+        viewPagerAdapter.addFragment(FragmentHabitList.newInstance());
+        viewPagerAdapter.addFragment(FragmentEventList.newInstance());
+        viewPagerAdapter.addFragment(FragmentCommunity.newInstance());
+        viewPagerAdapter.addFragment(FragmentProfile.newInstance());
+        viewPager.setAdapter(viewPagerAdapter);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -114,6 +126,9 @@ public class ActivityMain extends AppCompatActivity {
                         findViewById(toolBarViews.keyAt(i)).setVisibility(View.GONE);
                     }
                 }
+                if(position==3){
+                    ((FragmentProfile)viewPagerAdapter.getItem(position)).refresh();
+                }
             }
 
             @Override
@@ -121,19 +136,12 @@ public class ActivityMain extends AppCompatActivity {
             }
         });
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPager.setOffscreenPageLimit(3);
-        viewPagerAdapter.addFragment(FragmentHabitList.newInstance());
-        viewPagerAdapter.addFragment(FragmentEventList.newInstance());
-        viewPagerAdapter.addFragment(FragmentCommunity.newInstance());
-        viewPagerAdapter.addFragment(FragmentProfile.newInstance());
-        viewPager.setAdapter(viewPagerAdapter);
     }
 
     private void setupToolBar(){
         toolBarViews = new SparseArray<>();
         int habit = 0, event =1, community = 2, profile = 3;
-        toolBarViews.put(R.id.toolbar_title,Arrays.asList(habit,profile));
+        toolBarViews.put(R.id.toolbar_title,Arrays.asList(habit,community,profile));
         toolBarViews.put(R.id.toolbar_btn_add_habit,Arrays.asList(habit));
         toolBarViews.put(R.id.toolbar_btn_filter,Arrays.asList(event));
         toolBarViews.put(R.id.toolbar_btn_map,Arrays.asList(event,community));
@@ -141,6 +149,22 @@ public class ActivityMain extends AppCompatActivity {
         toolBarViews.put(R.id.toolbar_btn_follow,Arrays.asList(community));
 
 
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DataManager.waitAllTaskDone();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK){
+            return;
+        }
+        ((FragmentProfile)viewPagerAdapter.getItem(3)).result(requestCode,data);
 
     }
 

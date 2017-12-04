@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.EditText;
 
 import com.grow.cmputf17team4.grow.Models.Constant;
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
+import com.grow.cmputf17team4.grow.Models.HabitType;
 import com.grow.cmputf17team4.grow.Models.IDList;
 import com.grow.cmputf17team4.grow.Models.Item;
 import com.searchly.jestdroid.DroidClientConfig;
@@ -42,6 +44,23 @@ public class ESManager {
         }
 
     }
+
+    public static Object get(String id, String type, Class cls){
+        Get get = new Get.Builder(Constant.ELASTIC_SEARCH_INDEX,id).type(type).build();
+        try {
+            DocumentResult result = ourInstance.client.execute(get);
+            if (!result.isSucceeded()){
+                Log.i("ESManagerError",result.getErrorMessage());
+            }
+            return result.getSourceAsObject(cls);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
 
     public static boolean update(Item item){
         Index update = new Index.Builder(item).id(item.getUid()).index(Constant.ELASTIC_SEARCH_INDEX).type(item.getType()).build();
@@ -111,6 +130,7 @@ public class ESManager {
                 String uid = DataManager.getInstance().getUser().getUid();
                 if (!payload.contains(uid)){
                     payload.add(uid);
+                    list.setChanged(true);
                 }
                 if (create(list)){
                     return Constant.TASK_SUCCESS;

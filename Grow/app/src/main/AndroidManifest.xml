@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.grow.cmputf17team4.grow">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
@@ -49,6 +54,8 @@
         </activity>
         <activity android:name=".Views.ActivityModifyHabit" />
         <activity android:name=".Views.ActivityModifyEvent" />
+
+        <activity android:name=".Views.ActivityHabitMap" />
 
     </application>
 
