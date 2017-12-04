@@ -18,6 +18,7 @@ public class EventList extends ItemList<HabitEvent> {
             event.setPrevEvent(habitType.getMostRecentEvent().getUid());
         }
         habitType.setMostRecentEvent(event);
+        habitType.addNumCompleted(1);
         DataManager.getInstance().getHabitList().commit(habitType.getUid());
         DataManager.save();
     }
@@ -41,6 +42,7 @@ public class EventList extends ItemList<HabitEvent> {
             }
             DataManager.getInstance().getHabitList().commit(habitType.getUid());
         }
+        habitType.addNumCompleted(-1);
         DataManager.save();
         return removed;
     }
