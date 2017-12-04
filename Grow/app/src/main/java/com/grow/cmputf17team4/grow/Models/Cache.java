@@ -185,4 +185,7 @@ public class Cache {
         return ourInstance.adapter;
     }
 
+    public ArrayList<HabitType> getHabitTypes() {
+        return habitTypes;
+    }
 }

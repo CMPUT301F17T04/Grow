@@ -1,5 +1,6 @@
 package com.grow.cmputf17team4.grow.Models;
 
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
@@ -8,6 +9,10 @@ import android.support.annotation.VisibleForTesting;
 import android.text.BoringLayout;
 import android.util.Log;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 
@@ -26,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.grow.cmputf17team4.grow.Models.HabitEvent;
 import com.grow.cmputf17team4.grow.Models.SelfPosition;
+import com.grow.cmputf17team4.grow.Views.ActivityMain;
 
 /**
  * Class represents a habit event
@@ -106,19 +112,9 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
 
     public Location getHabitLocation(){ return HabitLocation;}
 
-    public void setAttachedLocation(Boolean attached, Context context) {
+    public void setAttachedLocation(Boolean attached, Activity activity) {
         if (attached){
-            try {
-                SelfPosition locationListener = new SelfPosition();
-                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-                this.HabitLocation = location;
-                Log.d("googlemap","location added to habit event");
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            }
+            getDeviceLocation(activity);
         } else {
             HabitLocation = null;
         }
@@ -191,5 +187,37 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Gets the current location of the device, and positions the map's camera.
+     */
+    private void getDeviceLocation(Activity activity) {
+        /*
+         * Get the best and most recent location of the device, which may be null in rare
+         * cases when a location is not available.
+         */
+        FusedLocationProviderClient mFusedLocationProviderClient;
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
+        try {
+            Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
+            locationResult.addOnCompleteListener(activity, new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    if (task.isSuccessful()) {
+                        // Set the map's camera position to the current location of the device
+                        HabitLocation = task.getResult();
+                        Log.d("googlemap", "got current location");
+                        DataManager.getInstance().getEventList().commit(getUid());
+
+                    } else {
+                        Log.d("googlemap", "Current location is null. Using defaults.");
+                        Log.e("googlemap", "Exception: %s", task.getException());
+                    }
+                }
+            });
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage());
+        }
     }
 }
