@@ -313,18 +313,21 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
                             .title(habit.getName())
                             .snippet(habit.getComment()));
                 }
-            }else{/*
+            }else{
                 if (fiveKMClose) {
                     mMap.addMarker(new MarkerOptions().position(position)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                             .title(habit.getName())                 // Here, we put the Habit event name and user name
-                            .snippet(habit.getUser()));       // Here, we put the comment
+                            .snippet(habit.getUserId()));       // Here, we put the comment
                 } else {
                     mMap.addMarker(new MarkerOptions().position(position)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                             .title(habit.getName())
+
+                            .snippet(habit.getUserId()));
+                }
                             .snippet(habit.getUser()));
-                }*/
+                }
             }
 
         }

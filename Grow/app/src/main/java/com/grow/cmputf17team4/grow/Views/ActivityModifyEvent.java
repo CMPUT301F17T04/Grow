@@ -69,7 +69,7 @@ public class ActivityModifyEvent extends AppCompatActivity {
             if (id==null){throw new Error("No ID in intent");}
             habit = DataManager.getInstance().getHabitList().get(id);
             findViewById(R.id.modify_event_btn_delete).setVisibility(View.GONE);
-            event = new HabitEvent(habit.getUid());
+            event = new HabitEvent(habit.getUid(),DataManager.getInstance().getUser().getUid());
         } else if (requestCode == Constant.REQUEST_MODIFY_EVENT){
             event = DataManager.getInstance().getEventList().get(intent.getStringExtra(Constant.EXTRA_ID));
             TextView textView =  findViewById(R.id.modify_event_text);
