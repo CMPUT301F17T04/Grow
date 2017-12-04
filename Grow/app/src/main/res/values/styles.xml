@@ -10,6 +10,7 @@
         <item name="android:windowBackground">@color/colorWindowBack</item>
         <item name="android:navigationBarColor">@color/colorNavigation</item>
         <item name="cardStyle">@style/CardTheme</item>
+        <item name="android:textViewStyle">@style/AppTheme.TextView</item>
     </style>
 
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -19,6 +20,10 @@
     <style name="AppTheme.Toolbar" parent="AppTheme">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.TextView" parent="android:style/Widget.TextView">
+        <item name="android:textColor">@color/colorTextPrimary</item>
     </style>
 
     <style name="AppTheme.ImageView">

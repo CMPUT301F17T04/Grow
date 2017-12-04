@@ -1,5 +1,7 @@
 package com.grow.cmputf17team4.grow.Models;
 
+import android.util.Log;
+
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 
 /**
@@ -45,7 +47,13 @@ public class EventList extends ItemList<HabitEvent> {
 
     @Override
     public void commit(String key) {
-        DataManager.save();
+        if (get(key).getNextEvent() == null) {
+            HabitType habitType = get(key).getHabitType();
+            habitType.setMostRecentEvent(get(key));
+            DataManager.getInstance().getHabitList().commit(habitType.getUid());
+        } else {
+            DataManager.save();
+        }
     }
 
     public void removeAll(HabitType habitType){
