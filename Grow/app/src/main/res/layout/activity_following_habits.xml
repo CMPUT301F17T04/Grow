@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.grow.cmputf17team4.grow.Views.ActivityFollowingHabits">
+
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/other_user_picture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_centerHorizontal="true"
+        />
+
+
+
+    <TextView
+        android:id="@+id/other_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="User Name"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="0dp"
+        android:layout_below="@id/other_user_picture"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/other_user_habit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Habit Name"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/other_user_name"
+        android:textSize="20sp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="60dp"
+        />
+
+    <TextView
+        android:id="@+id/other_user_reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reason to have this habit"
+        android:layout_below="@id/other_user_habit_name"
+        android:layout_alignLeft="@id/other_user_habit_name"
+        android:layout_marginTop="0dp"
+        />
+
+    <TextView
+        android:id="@+id/other_user_text_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Started at:"
+        android:layout_below="@id/other_user_reason"
+        android:layout_alignLeft="@id/other_user_habit_name"
+        android:layout_marginTop="15dp"
+        />
+
+    <TextView
+        android:id="@+id/other_user_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/other_user_text_start"
+        android:layout_below="@id/other_user_habit_name"
+        android:layout_alignTop="@id/other_user_text_start"
+        android:layout_marginStart="80dp"
+        android:text="02/18/2017"
+        />
+
+    <TextView
+        android:id="@+id/other_user_text_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/other_user_text_start"
+        android:layout_marginTop="5dp"
+        android:layout_alignLeft="@id/other_user_text_start"
+        android:text="Achieved:"
+        />
+
+    <TextView
+        android:id="@+id/other_user_total_achieve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/other_user_start_date"
+        android:layout_alignStart="@id/other_user_start_date"
+        android:layout_alignTop="@id/other_user_text_total"
+        android:text="99"
+        />
+
+    <TextView
+        android:id="@+id/other_user_most_recent_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/other_user_text_total"
+        android:layout_marginTop="40dp"
+        android:layout_alignStart="@id/other_user_text_total"
+        android:text="Most Recent Event"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        />
+
+    <TextView
+        android:id="@+id/other_user_event_text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time:"
+        android:layout_alignStart="@id/other_user_most_recent_event"
+        android:layout_below="@id/other_user_most_recent_event"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/other_user_event_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/other_user_most_recent_event"
+        android:layout_alignStart="@id/other_user_start_date"
+        android:layout_alignTop="@id/other_user_event_text_date"
+        android:text="02/18/2080"
+        />
+
+    <TextView
+        android:id="@+id/other_user_event_text_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/other_user_event_text_date"
+        android:layout_alignStart="@id/other_user_most_recent_event"
+        android:layout_marginTop="5dp"
+        android:text="Comment:"
+        />
+
+    <TextView
+        android:id="@+id/other_user_event_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/other_user_event_date"
+        android:layout_alignStart="@id/other_user_start_date"
+        android:layout_alignTop="@id/other_user_event_text_comment"
+        android:text="Reason to have thsi habit"
+        />
+
+
+
+
+
+
+</RelativeLayout>

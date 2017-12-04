@@ -55,9 +55,15 @@ dependencies {
 }
 
 repositories {
-        mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
     compile 'org.osmdroid:osmdroid-android:5.6.5'
+}
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }

@@ -3,9 +3,8 @@
     package="com.grow.cmputf17team4.grow">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
@@ -20,7 +19,6 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
-
     <application
         android:name=".Models.App"
         android:allowBackup="true"
@@ -31,7 +29,8 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAaBwwxAjQIfMnMyJiHTfCUPYTznwREhpk"/>
+            android:value="AIzaSyAaBwwxAjQIfMnMyJiHTfCUPYTznwREhpk" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
@@ -54,9 +53,8 @@
         </activity>
         <activity android:name=".Views.ActivityModifyHabit" />
         <activity android:name=".Views.ActivityModifyEvent" />
-
         <activity android:name=".Views.ActivityHabitMap" />
-
+        <activity android:name=".Views.ActivityFollowingHabits"></activity>
     </application>
 
 </manifest>
