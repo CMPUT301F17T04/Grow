@@ -30,8 +30,8 @@ public interface Constant {
     long POLLING_INTERVAL = 3000;
 
     String FILE_NAME = "grow.dat";
-    //String ELASTIC_SEARCH_SERVER = "http://cmput301.softwareprocess.es:8080";
-    String ELASTIC_SEARCH_SERVER = "https://5b3c205796b755b5db6f9b28b41fa441.us-east-1.aws.found.io:9243/";
+    String ELASTIC_SEARCH_SERVER = "http://cmput301.softwareprocess.es:8080";
+    //String ELASTIC_SEARCH_SERVER = "https://5b3c205796b755b5db6f9b28b41fa441.us-east-1.aws.found.io:9243/";
     String ELASTIC_SEARCH_INDEX = "cmput301f17t4";
 
     String TYPE_HABIT_TYPE = "habitType";
