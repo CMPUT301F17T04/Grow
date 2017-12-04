@@ -47,16 +47,20 @@ import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
@@ -129,6 +133,9 @@ public class Testing {
 
         Activity addbutton = InstrumentationRegistry.getInstrumentation().waitForMonitorWithTimeout(monitor, 5000);
 
+
+
+
         ViewInteraction habitEditName = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_name))
                 .perform(ViewActions.typeText("basketball"));
         assertNotNull(habitEditName);
@@ -152,34 +159,34 @@ public class Testing {
 
             case Calendar.MONDAY:
                 // Current day is Monday
-                ViewInteraction dayOfWeek1 =Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_1)).perform(ViewActions.click());
+                ViewInteraction dayOfWeek1 = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_1)).perform(ViewActions.click());
                 assertNotNull(dayOfWeek1);
                 break;
 
 
             case Calendar.TUESDAY:
                 // Tuesday
-                ViewInteraction dayOfWeek2 =Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_2)).perform(ViewActions.click());
+                ViewInteraction dayOfWeek2 = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_2)).perform(ViewActions.click());
                 assertNotNull(dayOfWeek2);
                 break;
 
             case Calendar.WEDNESDAY:
-                ViewInteraction dayOfWeek3 =Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_3)).perform(ViewActions.click());
+                ViewInteraction dayOfWeek3 = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_3)).perform(ViewActions.click());
                 assertNotNull(dayOfWeek3);
                 break;
 
             case Calendar.THURSDAY:
-                ViewInteraction dayOfWeek4 =Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_4)).perform(ViewActions.click());
+                ViewInteraction dayOfWeek4 = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_4)).perform(ViewActions.click());
                 assertNotNull(dayOfWeek4);
                 break;
 
             case Calendar.FRIDAY:
-                ViewInteraction dayOfWeek5 =Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_5)).perform(ViewActions.click());
+                ViewInteraction dayOfWeek5 = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_5)).perform(ViewActions.click());
                 assertNotNull(dayOfWeek5);
                 break;
 
             case Calendar.SATURDAY:
-                ViewInteraction dayOfWeek6 =Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_6)).perform(ViewActions.click());
+                ViewInteraction dayOfWeek6 = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_checkbox_6)).perform(ViewActions.click());
                 assertNotNull(dayOfWeek6);
                 break;
 
@@ -252,7 +259,7 @@ public class Testing {
         onView(withId(R.id.modify_habit_edit_name)).check(matches(withText("zhai")));
         onView(withId(R.id.modify_habit_edit_reason)).check(matches(withText("kill him")));
 
-
+        /*
         onView(withId(R.id.modify_habit_edit_date)).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName())))
                 .perform(PickerActions.setDate(2018, 01, 01));
@@ -264,10 +271,15 @@ public class Testing {
         onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed()))
                 .atPosition(0).perform(click());
         onView(withId(R.id.modify_habit_edit_date)).check(matches(withText("Monday, Jan 01")));
-
+        */
         onView(ViewMatchers.withId(R.id.modify_habti_btn_confirm)).perform(ViewActions.click());
 
         /*
+
+        this is delete an event
+
+
+
         onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed()))
                 .atPosition(0).perform(click());
 
@@ -284,7 +296,7 @@ public class Testing {
         assertNotNull(editExistEvent);
 
         ViewInteraction eventEditcomment = Espresso.onView(ViewMatchers.withId(R.id.modify_event_edit_comment))
-                .perform(ViewActions.clearText(),ViewActions.typeText("test"));
+                .perform(ViewActions.clearText(),ViewActions.typeText("Testing"));
         assertNotNull(eventEditcomment);
 
         Espresso.onView(ViewMatchers.withId(R.id.modify_event_edit_comment)).perform(ViewActions.closeSoftKeyboard());
@@ -293,17 +305,100 @@ public class Testing {
                 .perform(ViewActions.click());
 
         onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view),isDisplayed()))
-                .atPosition(0).onChildView (withId(R.id.list_item_text_subtitle)).check(matches(withText("test")));
+                .atPosition(0).onChildView (withId(R.id.list_item_text_subtitle)).check(matches(withText("Testing")));
 
 
-        onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed())).atPosition(0).perform(click());
+        //onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed())).atPosition(0).perform(click());
 
+        /*
         ViewInteraction eventDeleteButton = Espresso.onView(ViewMatchers.withId(R.id.modify_event_btn_delete))
                 .perform(ViewActions.click());
-        assertNotNull(eventDeleteButton);
+        assertNotNull(eventDeleteButton);*/
 
         ViewInteraction changeToEventAgain = Espresso.onView(ViewMatchers.withId(R.id.navigation_event)).perform(ViewActions.click());
         assertNotNull(changeToEventAgain);
+
+        ViewInteraction search2 = onView(
+                allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")),
+                        childAtPosition(
+                                allOf(withClassName(is("android.widget.LinearLayout")),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                1)),
+                                0),
+                        isDisplayed()));
+        search2.perform(replaceText("Abc"), closeSoftKeyboard());
+
+        ViewInteraction search22 = onView(
+                allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")), withText("Abc"),
+                        childAtPosition(
+                                allOf(withClassName(is("android.widget.LinearLayout")),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                1)),
+                                0),
+                        isDisplayed()));
+        search22.perform(pressImeActionButton());
+
+        // because we don't have comment with "Abc", so the following checks if it does not exist
+        try{
+            onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view),
+                    isDisplayed())).atPosition(0).perform(click());
+        }catch (Exception e){}
+
+        ViewInteraction searchAutoComplete = onView(
+                allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")),
+                        childAtPosition(
+                                allOf(withClassName(is("android.widget.LinearLayout")),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                1)),
+                                0),
+                        isDisplayed()));
+        searchAutoComplete.perform(replaceText("Testing"), closeSoftKeyboard());
+
+        ViewInteraction searchAutoComplete2 = onView(
+                allOf(withClassName(is("android.widget.SearchView$SearchAutoComplete")), withText("Testing"),
+                        childAtPosition(
+                                allOf(withClassName(is("android.widget.LinearLayout")),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                1)),
+                                0),
+                        isDisplayed()));
+        searchAutoComplete2.perform(pressImeActionButton());
+
+        ViewInteraction checkExitingEvent = onData(anything())
+                .inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed())).atPosition(0).perform(click());
+        assertNotNull(checkExitingEvent);
+        Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(ViewActions.click());
+
+
+
+
+        Espresso.onView(ViewMatchers.withId(R.id.toolbar_btn_filter)).perform(ViewActions.click());
+
+        onView(allOf(withId(android.R.id.button1), withText("Confirm"),
+                childAtPosition(childAtPosition(withId(R.id.buttonPanel), 0),
+                        3))).perform(scrollTo(), click());
+
+        onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed())).atPosition(0).perform(click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(ViewActions.click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.toolbar_btn_filter)).perform(ViewActions.click());
+        onData(anything()).inAdapterView(allOf(withId(R.id.select_dialog_listview),
+                childAtPosition(withId(R.id.contentPanel), 0)))
+                .atPosition(0).perform(click());
+
+        onView(allOf(withId(android.R.id.button1), withText("Confirm"),
+                childAtPosition(childAtPosition(withId(R.id.buttonPanel), 0),
+                        3))).perform(scrollTo(), click());
+
+        try{
+            onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view),
+                    isDisplayed())).atPosition(0).perform(click());
+        }catch (Exception e){}
 
 
 
