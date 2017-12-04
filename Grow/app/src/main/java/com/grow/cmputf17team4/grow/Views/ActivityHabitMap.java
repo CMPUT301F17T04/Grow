@@ -323,7 +323,10 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
                     mMap.addMarker(new MarkerOptions().position(position)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                             .title(habit.getName())
+
                             .snippet(habit.getUserId()));
+                }
+                            .snippet(habit.getUser()));
                 }
             }
 
