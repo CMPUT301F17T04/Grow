@@ -45,9 +45,9 @@ public class HabitEventUnitTest {
     public void TestGetName(){
         habitType = new HabitType(id);
         habitTypeID = habitType.getUid();
-        String name = habitType.getName();
         habitEvent = new HabitEvent(habitTypeID,id);
-        assertEquals(habitEvent.getName(),name);
+        habitEvent.setName("chris");
+        assertEquals(habitEvent.getName(),"chris");
 
     }
     @Test
@@ -72,6 +72,13 @@ public class HabitEventUnitTest {
 
     @Test
     public void testGetDate(){
+        habitType = new HabitType(id);
+        habitTypeID = habitType.getUid();
+        habitEvent = new HabitEvent(habitTypeID,id);
+        assertNotNull(habitEvent.getDate());
+    }
+    @Test
+    public void testGetHabitType(){
         habitType = new HabitType(id);
         habitTypeID = habitType.getUid();
         habitEvent = new HabitEvent(habitTypeID,id);
