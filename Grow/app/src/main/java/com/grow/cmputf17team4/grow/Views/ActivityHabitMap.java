@@ -99,12 +99,18 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
 
     // Used for requirement
     private ArrayList<HabitEvent> habits = new ArrayList<HabitEvent>();
-    private boolean mPositionGot = false;
+    // true: intent from mine event list; false: intent from community event list
+    private boolean intentFrom;
     private boolean requestSent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Get extra from intent
+        Intent intent = getIntent();
+        intentFrom = intent.getBooleanExtra("intentFrom", true);
+
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -125,6 +131,7 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
         mapFragment.getMapAsync(this);
 
         // Get habit event list to print on the map
+        habits = new ArrayList<HabitEvent>();
         MapManager mapManager = new MapManager();
         mapManager = MapManager.getInstance();
         habits.addAll(mapManager.getHabitEventList());
@@ -176,8 +183,7 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
-                            // Set the map's camera position to the current location of the device.
-                            mPositionGot = true;
+                            // Set the map's camera position to the current location of the device
                             mLastKnownLocation = task.getResult();
                             mLocation = mLastKnownLocation;
                             Log.d("googlemap", "got current location");
@@ -295,17 +301,30 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
             LatLng position = new LatLng(lat, lng);
 
             boolean fiveKMClose = isFiveKm(tempLocation, mLocation);
-
-            if(fiveKMClose){
-                mMap.addMarker(new MarkerOptions().position(position)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                        .title(habit.getName())                 // Here, we put the Habit event name and user name
-                        .snippet(habit.getStringDate()));       // Here, we put the comment
+            if(intentFrom) {
+                if (fiveKMClose) {
+                    mMap.addMarker(new MarkerOptions().position(position)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                            .title(habit.getName())                 // Here, we put the Habit event name and user name
+                            .snippet(habit.getComment()));       // Here, we put the comment
+                } else {
+                    mMap.addMarker(new MarkerOptions().position(position)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                            .title(habit.getName())
+                            .snippet(habit.getComment()));
+                }
             }else{
-                mMap.addMarker(new MarkerOptions().position(position)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                        .title(habit.getName())
-                        .snippet(habit.getStringDate()));
+                if (fiveKMClose) {
+                    mMap.addMarker(new MarkerOptions().position(position)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                            .title(habit.getName())                 // Here, we put the Habit event name and user name
+                            .snippet(habit.getUser()));       // Here, we put the comment
+                } else {
+                    mMap.addMarker(new MarkerOptions().position(position)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                            .title(habit.getName())
+                            .snippet(habit.getUser()));
+                }
             }
 
         }

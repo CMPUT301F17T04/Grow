@@ -33,4 +33,8 @@ public class MapManager {
     public ArrayList<HabitEvent> getHabitEventList(){
         return habitEventList;
     }
+
+    public void setHabitEventList(ArrayList<HabitEvent> l){
+        this.habitEventList = l;
+    }
 }
