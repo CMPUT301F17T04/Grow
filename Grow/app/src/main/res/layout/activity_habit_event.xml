@@ -30,6 +30,7 @@
                 android:id = "@+id/habit_event_reason"
                 android:layout_below="@id/habit_event_name"
                 android:layout_marginTop="5dp"
+                android:textColor="@android:color/holo_red_dark"
                 android:text="habit event reason"
                 android:gravity="center"/>
 

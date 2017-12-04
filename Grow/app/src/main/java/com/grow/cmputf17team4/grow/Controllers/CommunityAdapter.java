@@ -89,6 +89,8 @@ public class CommunityAdapter  extends BaseAdapter implements ListAdapter {
             card.setCardBackgroundColor(App.getContext().getColor(R.color.colorAccent));
             title.setText(user.getUid());
             subtitle.setText("want to follow you");
+            title.setTextColor(Color.WHITE);
+            subtitle.setTextColor(Color.WHITE);
             imageManager= new ImageManager(user);
             imageManager.setPic(imageView);
             accept.setVisibility(View.VISIBLE);
@@ -108,6 +110,8 @@ public class CommunityAdapter  extends BaseAdapter implements ListAdapter {
             });
             date.setVisibility(View.GONE);
         } else {
+            title.setTextColor(activity.getColor(R.color.colorTextPrimary));
+            subtitle.setTextColor(activity.getColor(R.color.colorTextPrimary));
             date.setVisibility(View.VISIBLE);
             HabitType type = (HabitType) getItem(i);
             card.setCardBackgroundColor(Color.WHITE);
@@ -117,10 +121,10 @@ public class CommunityAdapter  extends BaseAdapter implements ListAdapter {
             accept.setVisibility(View.GONE);
             reject.setVisibility(View.GONE);
             date.setText("No event completed");
+            imageManager = new ImageManager(event);
+            imageManager.setPic(imageView);
             if (event != null){
                 date.setText("Most recent: " + Constant.TIME_FORMAT.format(event.getDate()));
-                imageManager = new ImageManager(event);
-                imageManager.setPic(imageView);
             }
         }
 

@@ -1,5 +1,7 @@
 package com.grow.cmputf17team4.grow.Models;
 
+import android.util.Log;
+
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 
 /**

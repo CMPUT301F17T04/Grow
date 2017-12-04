@@ -1,12 +1,15 @@
 package com.grow.cmputf17team4.grow.Views;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,6 +24,7 @@ import android.widget.SearchView;
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Models.App;
+import com.grow.cmputf17team4.grow.Models.Cache;
 import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.R;
 import com.grow.cmputf17team4.grow.Models.User;
@@ -48,6 +52,8 @@ public class ActivityMain extends AppCompatActivity {
     private ActivityMain that = this;
     private SparseArray<List<Integer>> toolBarViews;
     private ViewPagerAdapter viewPagerAdapter;
+    private boolean mLocationPermissionGranted = false;
+    private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
 
     /**
@@ -61,6 +67,7 @@ public class ActivityMain extends AppCompatActivity {
         setupToolBar();
         setupBotNav();
         setupViewPager();
+        getLocationPermission();
         DataManager.loadFromFile(this);
         DataManager.getInstance().login(this);
     }
@@ -126,9 +133,16 @@ public class ActivityMain extends AppCompatActivity {
                         findViewById(toolBarViews.keyAt(i)).setVisibility(View.GONE);
                     }
                 }
-                if(position==3){
-                    ((FragmentProfile)viewPagerAdapter.getItem(position)).refresh();
+
+                switch (position){
+                    case 2:
+                        new Cache.FetchTask().execute();
+                        break;
+                    case 3:
+                        ((FragmentProfile)viewPagerAdapter.getItem(position)).refresh();
+                        break;
                 }
+
             }
 
             @Override
@@ -165,6 +179,49 @@ public class ActivityMain extends AppCompatActivity {
             return;
         }
         ((FragmentProfile)viewPagerAdapter.getItem(3)).result(requestCode,data);
+
+    }
+
+
+    /**
+     * Prompts the user for permission to use the device location.
+     */
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
+
+
+    /**
+     * Handles the result of the request for location permissions.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationPermissionGranted = true;
+                    Log.d("googlemap","permission got");
+                }
+            }
+        }
 
     }
 

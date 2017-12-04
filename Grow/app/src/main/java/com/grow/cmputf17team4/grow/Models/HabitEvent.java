@@ -6,12 +6,14 @@ import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.text.BoringLayout;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 
 import org.osmdroid.util.GeoPoint;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 import com.grow.cmputf17team4.grow.Models.SelfPosition;
@@ -60,7 +62,6 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
      */
     public void setEncodedImage(String encodedImage) {
         this.encodedImage = encodedImage;
-
     }
     /**
      * get comment of the habit event
@@ -94,6 +95,8 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         return encodedImage;
     }
 
+    public Location getHabitLocation(){ return HabitLocation;}
+
     public void setAttachedLocation(Boolean attached, Context context) {
         if (attached){
             try {
@@ -103,6 +106,7 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
                 Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
                 this.HabitLocation = location;
+                Log.d("googlemap","location added to habit event");
             } catch (SecurityException e) {
                 e.printStackTrace();
             }
@@ -142,6 +146,17 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         return date;
     }
 
+    /**
+     * Get the date in format HH:mm MM/dd/yyyy
+     * @return
+     */
+    public String getStringDate(){
+        String pattern = "HH:mm  MM/dd/yyyy";
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        String dateString = format.format(date);
+
+        return dateString;
+    }
 
 
     public String getPrevEvent() {
@@ -167,5 +182,9 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
     @VisibleForTesting
     public void setDateForTestingOnly(Date date) {
         this.date = date;
+    }
+
+    public String getHabitTypeID() {
+        return habitTypeID;
     }
 }
