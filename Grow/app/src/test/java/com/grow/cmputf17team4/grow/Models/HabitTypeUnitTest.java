@@ -11,9 +11,8 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 /**
- * Created by Chris
+ * Created by chris on 2017-12-04.
  */
-
 public class HabitTypeUnitTest {
     private HabitType habitType;
     String id = "fufu", name = "coding";
