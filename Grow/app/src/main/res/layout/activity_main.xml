@@ -58,7 +58,17 @@
             android:visibility="gone" />
 
         <ImageButton
-            android:id="@+id/toolbar_btn_map"
+            android:id="@+id/toolbar_btn_my_events_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:src="@mipmap/map"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/toolbar_btn_friend_events_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
