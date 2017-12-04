@@ -2,10 +2,12 @@ package com.grow.cmputf17team4.grow.Models;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.grow.cmputf17team4.grow.Controllers.CommunityAdapter;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Controllers.ESManager;
+import com.grow.cmputf17team4.grow.R;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -36,6 +38,17 @@ public class Cache {
         init = true;
     }
 
+    private void fakeTestData(){
+        init = false;
+        for (int i = 1; i < 10; ++i) {
+            requesters.add(new User("user"+i));
+            HabitType habitType = new HabitType("user" + i);
+            habitType.setName("habit"+i);
+            habitType.setMostRecentEvent(new HabitEvent("habit"+i));
+            habitTypes.add((habitType));
+        }
+    }
+
     public static boolean checkUpdates(){
         boolean updated = false;
         IDList requsterIds=(IDList) ESManager.get(DataManager.getInstance().getUser().getUid(),Constant.TYPE_REQUESTS,IDList.class);
@@ -54,9 +67,9 @@ public class Cache {
             }
             ourInstance.requesters.clear();
             ourInstance.requesters.addAll(newRequesters);
-            updated = true;
             requsterIds.setChanged(false);
-            DataManager.getInstance().getBuffer().update(Constant.QUERY_UPDATE,requsterIds);
+            if (!ESManager.update(requsterIds)){return false;}
+            updated = true;
         }
 
         IDList followingIds=(IDList) ESManager.get(DataManager.getInstance().getUser().getUid(),Constant.TYPE_FOLLOWINGS,IDList.class);
@@ -67,11 +80,10 @@ public class Cache {
             ourInstance.followings.clear();
             ourInstance.followings.addAll(followingIds.getPayload());
             updated = true;
-            requsterIds.setChanged(false);
-            DataManager.getInstance().getBuffer().update(Constant.QUERY_UPDATE,requsterIds);
+            followingIds.setChanged(false);
+            if (! ESManager.update(followingIds)){return updated;}
         }
         if (updated){
-            DataManager.save();
             ourInstance.adapter.commit();
         }
 
@@ -81,6 +93,50 @@ public class Cache {
         }
 
         return updated;
+    }
+
+    public static class RemoveTask extends AsyncTask<String,Void,Integer>{
+        private Activity activity;
+        public RemoveTask(Activity activity){
+            this.activity = activity;
+        }
+        @Override
+        protected Integer doInBackground(String... strings) {
+            IDList requesterIds = (IDList) ESManager.get(DataManager.getInstance().getUser()
+                    .getUid(),Constant.TYPE_REQUESTS,IDList.class);
+            if (requesterIds == null){
+                return Constant.TASK_EXCEPTION;
+            }
+
+            requesterIds.setChanged(false);
+            requesterIds.getPayload().remove(strings[0]);
+
+            User user;
+            ArrayList<User> newRequesters = new ArrayList<>();
+            for (String id: requesterIds.getPayload()){
+                user = (User)ESManager.get(id,Constant.TYPE_USER,User.class);
+                if (user == null){
+                    return Constant.TASK_EXCEPTION;
+                }
+                newRequesters.add(user);
+            }
+            if (!ESManager.update(requesterIds)){
+                return Constant.TASK_EXCEPTION;
+            }
+            ourInstance.requesters.clear();
+            ourInstance.requesters.addAll(newRequesters);
+            return Constant.TASK_SUCCESS;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            if (integer==Constant.TASK_EXCEPTION){
+                Toast.makeText(activity, R.string.internet_error,Toast.LENGTH_SHORT).show();
+            } else {
+                ourInstance.adapter.commit();
+            }
+        }
     }
 
     public static class FetchTask extends AsyncTask<Void,Void,Boolean>{

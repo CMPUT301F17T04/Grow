@@ -62,7 +62,10 @@ public class FragmentCommunity extends Fragment{
             @Override
             public void onRefresh() {
                 try {
-                    new Cache.FetchTask().execute().get();
+                    boolean result;
+                    do {
+                        result = new Cache.FetchTask().execute().get();
+                    } while (!result);
                 } catch (Exception e){
                     e.printStackTrace();
                 }
