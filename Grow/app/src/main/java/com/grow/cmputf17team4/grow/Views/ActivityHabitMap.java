@@ -326,8 +326,6 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
 
                             .snippet(habit.getUserId()));
                 }
-                            .snippet(habit.getUser()));
-                }
             }
 
         }
