@@ -1,13 +1,22 @@
 package com.grow.cmputf17team4.grow.Models;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 import com.grow.cmputf17team4.grow.Controllers.CommunityAdapter;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Controllers.ESManager;
 import com.grow.cmputf17team4.grow.R;
+import com.grow.cmputf17team4.grow.Views.ActivityMain;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -26,6 +35,7 @@ public class Cache {
     private ArrayList<String> followings;
     private CommunityAdapter adapter;
     private boolean init;
+    private static int nid = 0;
 
     public static Cache getInstance() {
         return ourInstance;
@@ -38,16 +48,6 @@ public class Cache {
         init = true;
     }
 
-    private void fakeTestData(){
-        init = false;
-        for (int i = 1; i < 10; ++i) {
-            requesters.add(new User("user"+i));
-            HabitType habitType = new HabitType("user" + i);
-            habitType.setName("habit"+i);
-            habitType.setMostRecentEvent(new HabitEvent("habit"+i));
-            habitTypes.add((habitType));
-        }
-    }
 
     public static boolean checkUpdates(){
         boolean updated = false;
@@ -94,6 +94,8 @@ public class Cache {
 
         return updated;
     }
+
+
 
     public static class RemoveTask extends AsyncTask<String,Void,Integer>{
         private Activity activity;

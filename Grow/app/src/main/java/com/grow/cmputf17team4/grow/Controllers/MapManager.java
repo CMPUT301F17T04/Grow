@@ -24,7 +24,7 @@ public class MapManager {
         habitEventList = null;
     }
 
-    private static MapManager instance;
+    private static final MapManager instance = new MapManager();
 
     public static MapManager getInstance(){
         return instance;

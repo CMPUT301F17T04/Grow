@@ -16,6 +16,7 @@ import android.widget.SearchView;
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Controllers.EventListAdapter;
+import com.grow.cmputf17team4.grow.Controllers.MapManager;
 import com.grow.cmputf17team4.grow.Models.HabitEvent;
 import com.grow.cmputf17team4.grow.R;
 
@@ -118,6 +119,7 @@ public class FragmentEventList extends Fragment {
         mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MapManager.getInstance().setHabitEventList(adapter.getEventList());
                 Intent intent = new Intent(getActivity(), ActivityHabitMap.class);
                 startActivity(intent);
             }

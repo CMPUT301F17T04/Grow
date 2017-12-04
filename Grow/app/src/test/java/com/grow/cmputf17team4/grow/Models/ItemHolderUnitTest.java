@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class ItemHolderUnitTest {
     @Test
     public void test(){
-        HabitType type = new HabitType();
+        HabitType type = new HabitType("abc");
         type.setName("test");
         Gson gson = new Gson();
         Item item = type;
