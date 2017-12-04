@@ -21,6 +21,7 @@ import android.widget.SearchView;
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Models.App;
+import com.grow.cmputf17team4.grow.Models.Cache;
 import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.R;
 import com.grow.cmputf17team4.grow.Models.User;
@@ -126,9 +127,16 @@ public class ActivityMain extends AppCompatActivity {
                         findViewById(toolBarViews.keyAt(i)).setVisibility(View.GONE);
                     }
                 }
-                if(position==3){
-                    ((FragmentProfile)viewPagerAdapter.getItem(position)).refresh();
+
+                switch (position){
+                    case 2:
+                        new Cache.FetchTask().execute();
+                        break;
+                    case 3:
+                        ((FragmentProfile)viewPagerAdapter.getItem(position)).refresh();
+                        break;
                 }
+
             }
 
             @Override

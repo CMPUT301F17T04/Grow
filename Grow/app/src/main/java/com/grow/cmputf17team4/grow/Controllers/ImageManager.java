@@ -183,7 +183,7 @@ public class ImageManager {
     }
 
     public void setPic(final ImageView imageView){
-        if (getImageable.getEncodedImage() == null){
+        if (getImageable==null ||getImageable.getEncodedImage() == null){
             imageView.setImageResource(R.drawable.noimage);
             return;
         }

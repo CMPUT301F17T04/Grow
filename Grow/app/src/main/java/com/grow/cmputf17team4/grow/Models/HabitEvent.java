@@ -60,7 +60,6 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
      */
     public void setEncodedImage(String encodedImage) {
         this.encodedImage = encodedImage;
-
     }
     /**
      * get comment of the habit event
@@ -167,5 +166,9 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
     @VisibleForTesting
     public void setDateForTestingOnly(Date date) {
         this.date = date;
+    }
+
+    public String getHabitTypeID() {
+        return habitTypeID;
     }
 }

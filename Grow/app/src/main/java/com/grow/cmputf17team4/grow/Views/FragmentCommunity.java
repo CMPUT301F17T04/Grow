@@ -32,14 +32,14 @@ import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_CREATE_HABIT;
  * Fragment shows the 3rd tab in the main activity
  * @author Yizhou Zhao
  */
-public class FragmentCommunity extends Fragment{
+public class FragmentCommunity extends Fragment {
 
     private ListView list;
     private EditText searchBox;
     private ArrayList<User> userToDisplay;
 
 
-    public static FragmentCommunity newInstance() {
+    public static FragmentCommunity newInstance(){
         Bundle args = new Bundle();
         FragmentCommunity fragment = new FragmentCommunity();
         fragment.setArguments(args);
