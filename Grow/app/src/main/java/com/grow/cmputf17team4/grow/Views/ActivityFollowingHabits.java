@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.grow.cmputf17team4.grow.Models.Cache;
+import com.grow.cmputf17team4.grow.Models.Constant;
 import com.grow.cmputf17team4.grow.Models.HabitEvent;
 import com.grow.cmputf17team4.grow.Models.HabitType;
 import com.grow.cmputf17team4.grow.R;
@@ -31,6 +33,10 @@ public class ActivityFollowingHabits extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_following_habits);
 
+        int index = getIntent().getIntExtra(Constant.EXTRA_INDEX,-1);
+        HabitType habitType = Cache.getInstance().getHabitTypes().get(index);
+
+        /*
         // initialize UI components
         iUserImage = (ImageView)findViewById(R.id.other_user_picture);
         tvHabitName = (TextView)findViewById(R.id.other_user_habit_name);
@@ -61,6 +67,6 @@ public class ActivityFollowingHabits extends AppCompatActivity {
         String achievedEvent = Integer.toString(habitType.getNumComplete());
         String eventTime = mostRecentEvent.getStringDate();
         String eventComment = mostRecentEvent.getComment();
-
+*/
     }
 }

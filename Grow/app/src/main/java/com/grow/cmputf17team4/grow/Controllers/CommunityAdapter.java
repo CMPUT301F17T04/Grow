@@ -23,6 +23,7 @@ import com.grow.cmputf17team4.grow.Models.HabitType;
 import com.grow.cmputf17team4.grow.Models.ItemList;
 import com.grow.cmputf17team4.grow.Models.User;
 import com.grow.cmputf17team4.grow.R;
+import com.grow.cmputf17team4.grow.Views.ActivityFollowingHabits;
 import com.grow.cmputf17team4.grow.Views.ActivityModifyEvent;
 
 import java.util.ArrayList;
@@ -93,6 +94,14 @@ public class CommunityAdapter  extends BaseAdapter implements ListAdapter {
             subtitle.setTextColor(Color.WHITE);
             imageManager= new ImageManager(user);
             imageManager.setPic(imageView);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
             accept.setVisibility(View.VISIBLE);
             accept.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -110,6 +119,15 @@ public class CommunityAdapter  extends BaseAdapter implements ListAdapter {
             });
             date.setVisibility(View.GONE);
         } else {
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(activity, ActivityFollowingHabits.class);
+                    intent.putExtra(Constant.EXTRA_INDEX,i - requestList.size());
+                    activity.startActivity(intent);
+                }
+            });
+
             title.setTextColor(activity.getColor(R.color.colorTextPrimary));
             subtitle.setTextColor(activity.getColor(R.color.colorTextPrimary));
             date.setVisibility(View.VISIBLE);

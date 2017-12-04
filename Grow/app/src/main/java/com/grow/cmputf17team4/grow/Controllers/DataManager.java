@@ -94,7 +94,9 @@ public class DataManager {
             public void run() {
                 if (ourInstance.getUser() != null) {
                     ourInstance.buffer.process();
-                    Cache.checkUpdates();
+                    if (Cache.checkUpdates()){
+                        new Cache.FetchTask().execute();
+                    }
                 }
             }
         },0,POLLING_INTERVAL);
