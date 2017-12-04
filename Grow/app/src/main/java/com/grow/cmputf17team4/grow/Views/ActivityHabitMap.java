@@ -313,7 +313,7 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
                             .title(habit.getName())
                             .snippet(habit.getComment()));
                 }
-            }else{
+            }else{/*
                 if (fiveKMClose) {
                     mMap.addMarker(new MarkerOptions().position(position)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
@@ -324,7 +324,7 @@ public class ActivityHabitMap extends AppCompatActivity implements OnMapReadyCal
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                             .title(habit.getName())
                             .snippet(habit.getUser()));
-                }
+                }*/
             }
 
         }

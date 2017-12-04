@@ -11,7 +11,7 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 /**
- * Created by Infrared on 2017-11-13.
+ * Created by Chris
  */
 
 public class HabitTypeUnitTest {
@@ -57,23 +57,9 @@ public class HabitTypeUnitTest {
         assertEquals(habitType.getRepeat(i),repeat);
 
     }
-
-    @Test
-    public void testGenerateUid(){
-        habitType = new HabitType(id);
-        HabitType habitType2 = new HabitType(id);
-        assertNotEquals(habitType.getUid(),habitType2.getUid());
-    }
-    @Test
-    public void testBuildEvent(){
-        habitType = new HabitType();
-        String name = "fufu";
-        habitType.setName(name);
-        assertNotEquals(habitType.buildEvent(),name);
-    }
     @Test
     public void testHasEventToday(){
-        habitType = new HabitType();
+        habitType = new HabitType(id);
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK)-1;
         boolean repeat = true;
@@ -84,7 +70,7 @@ public class HabitTypeUnitTest {
 
     @Test
     public void testGetNextEventDay(){
-        habitType = new HabitType();
+        habitType = new HabitType(id);
         habitType.setName("Name");
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK)-1;
@@ -99,17 +85,11 @@ public class HabitTypeUnitTest {
         assertEquals(format.format(habitType.getNextEventDay()),format.format(nextDate));
 
     }
-    @Test
-    public void testGetRecord(){
-        habitType = new HabitType();
-        String name = "fufu";
-        habitType.setName(name);
-        assertNotNull(habitType.getRecord());
-    }
+
     @Test
     public void testCompareTo(){
-        habitType = new HabitType();
-        HabitType habitType2 = new HabitType();
+        habitType = new HabitType(id);
+        HabitType habitType2 = new HabitType(id);
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK)-1;
         boolean repeat = true;
@@ -119,19 +99,19 @@ public class HabitTypeUnitTest {
     }
     @Test
     public void testAlreadyDone(){
-        habitType = new HabitType();
+        habitType = new HabitType(id);
         assertEquals(habitType.alreadyDone(),false);
     }
 
     @Test
     public void testGetUid(){
-        habitType = new HabitType();
+        habitType = new HabitType(id);
         assertNotNull(habitType.getUid());
     }
     @Test
-    public void testGetIndex(){
-        habitType = new HabitType();
-        assertEquals(habitType.getIndex(),"habitType");
+    public void testGetMostRecentEvent(){
+        habitType = new HabitType(id);
+        assertNull(habitType.getMostRecentEvent());
     }
 
 
