@@ -93,8 +93,8 @@ public class DataManager {
             public void run() {
                 if (ourInstance.getUser() != null) {
                     ourInstance.buffer.process();
+                    Cache.checkUpdates();
                 }
-                Cache.checkUpdates();
             }
         },0,POLLING_INTERVAL);
 

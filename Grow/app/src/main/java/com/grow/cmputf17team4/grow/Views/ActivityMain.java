@@ -58,11 +58,11 @@ public class ActivityMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DataManager.loadFromFile(this);
-        DataManager.getInstance().login(this);
         setupToolBar();
         setupBotNav();
         setupViewPager();
+        DataManager.loadFromFile(this);
+        DataManager.getInstance().login(this);
     }
 
     private void setupBotNav(){
