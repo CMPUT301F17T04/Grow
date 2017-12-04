@@ -88,6 +88,7 @@ public class DataManager {
             // TODO Auto-generated catch block
             ourInstance = new DataManager();
         }
+
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -97,6 +98,7 @@ public class DataManager {
                 }
             }
         },0,POLLING_INTERVAL);
+
 
     }
 
