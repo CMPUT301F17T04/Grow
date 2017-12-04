@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -90,6 +91,14 @@ public class HabitType extends Item implements Comparable<HabitType> {
      */
     public Date getStartDate() {
         return startDate;
+    }
+
+    public String getStringStartDate(){
+        String pattern = "MM/dd/yyyy";
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        String dateString = format.format(startDate);
+
+        return dateString;
     }
     /**
      * Set the start date of the habit

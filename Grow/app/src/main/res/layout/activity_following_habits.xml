@@ -44,13 +44,23 @@
         />
 
     <TextView
+        android:id="@+id/other_user_reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reason to have this habit"
+        android:layout_below="@id/other_user_habit_name"
+        android:layout_alignLeft="@id/other_user_habit_name"
+        android:layout_marginTop="0dp"
+        />
+
+    <TextView
         android:id="@+id/other_user_text_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Started on:"
-        android:layout_below="@id/other_user_habit_name"
+        android:text="Started at:"
+        android:layout_below="@id/other_user_reason"
         android:layout_alignLeft="@id/other_user_habit_name"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         />
 
     <TextView
@@ -59,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/other_user_text_start"
         android:layout_below="@id/other_user_habit_name"
-        android:layout_marginTop="10dp"
+        android:layout_alignTop="@id/other_user_text_start"
         android:layout_marginStart="80dp"
         android:text="02/18/2017"
         />
