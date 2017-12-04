@@ -2,6 +2,8 @@ package com.grow.cmputf17team4.grow.Models;
 
 import android.support.annotation.NonNull;
 
+import com.grow.cmputf17team4.grow.Controllers.DataManager;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,12 +13,15 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 /**
- * Created by Chris
+ * Created by chris on 2017-12-04.
  */
-
 public class HabitTypeUnitTest {
     private HabitType habitType;
     String id = "fufu", name = "coding";
+    @Before
+    public void setUp(){
+        DataManager.prepareForTesting();
+    }
 
     @Test
     public void testCreateHabitType(){
@@ -111,9 +116,10 @@ public class HabitTypeUnitTest {
     @Test
     public void testGetMostRecentEvent(){
         habitType = new HabitType(id);
-        assertNull(habitType.getMostRecentEvent());
+        String habitTypeID = habitType.getUid();
+        HabitEvent habitEvent = new HabitEvent(habitTypeID,id);
+        DataManager.getInstance().getHabitList().add(habitType);
+        DataManager.getInstance().getEventList().add(habitEvent);
+        assertEquals(habitType.getMostRecentEvent(),habitEvent);
     }
-
-
-
 }
