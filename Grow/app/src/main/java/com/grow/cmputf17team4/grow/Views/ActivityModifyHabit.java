@@ -163,4 +163,9 @@ public class ActivityModifyHabit extends AppCompatActivity {
         this.finish();
     }
 
+    public void onStasticClick(View v){
+        Intent intent = new Intent(this,ActivityStatistics.class);
+        intent.putExtra(Constant.EXTRA_ID,habit.getUid());
+        startActivity(intent);
+    }
 }

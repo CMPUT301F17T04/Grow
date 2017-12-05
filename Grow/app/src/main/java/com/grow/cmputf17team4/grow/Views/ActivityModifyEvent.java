@@ -126,6 +126,9 @@ public class ActivityModifyEvent extends AppCompatActivity {
      * @param resultCode
      * @param data
      */
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -138,5 +141,7 @@ public class ActivityModifyEvent extends AppCompatActivity {
             imageManager.encode(imageView,data.getData());
         }
     }
+
+
 
 }

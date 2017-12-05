@@ -204,6 +204,7 @@
 
             <Button
                 android:id="@+id/modify_habit_btn_statstic"
+                android:onClick="onStasticClick"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="0dp"

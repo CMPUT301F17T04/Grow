@@ -1,10 +1,19 @@
 package com.grow.cmputf17team4.grow.Views;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
+import com.androidplot.util.PixelUtils;
+import com.androidplot.xy.BarFormatter;
+import com.androidplot.xy.BarRenderer;
+import com.androidplot.xy.SimpleXYSeries;
+import com.androidplot.xy.XYPlot;
+import com.androidplot.xy.XYSeries;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Models.Cache;
 import com.grow.cmputf17team4.grow.Models.Constant;
@@ -13,19 +22,24 @@ import com.grow.cmputf17team4.grow.Models.HabitEvent;
 import com.grow.cmputf17team4.grow.Models.HabitType;
 import com.grow.cmputf17team4.grow.R;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class ActivityStatistics extends AppCompatActivity {
 
-    private TextView userName;
-    private ArrayList<DataPoint> aMonthlyAchievement;
-    private ArrayList<DataPoint> aIntervalFrequency;
+    private TextView numComplete;
+    private List<Integer> aMonthlyAchievement = new ArrayList<Integer>();
+    private List<Integer> aIntervalFrequency = new ArrayList<Integer>();
     private HabitType habitType;
+    private XYPlot graph_month_achievement;
+    private XYPlot graph_interval_frequency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,29 +47,34 @@ public class ActivityStatistics extends AppCompatActivity {
         setContentView(R.layout.activity_statistics);
 
         // get HabitType from
-        int index = getIntent().getIntExtra(Constant.EXTRA_INDEX,-1);
-        habitType = Cache.getInstance().getHabitTypes().get(index);
+        String uid = getIntent().getStringExtra(Constant.EXTRA_ID);
+        habitType = DataManager.getInstance().getHabitList().get(uid);
+        numComplete = (TextView) findViewById(R.id.stat_complete);
+        int num = habitType.getNumCompleted();
+        numComplete.setText(Integer.toString(num));
 
-        // get arrayList of monthlyAchievenment
+
+        // initialize our XYPlot reference:
+        graph_month_achievement = (XYPlot) findViewById(R.id.graph_monthly_achievement);
+        graph_interval_frequency= (XYPlot)findViewById(R.id.graph_interval_frequency);
         getMonthlyAchievement();
-        DataPoint[] monthlyAchievement = aMonthlyAchievement.toArray(new DataPoint[aMonthlyAchievement.size()]);
+        getIntervalFrequency();
 
-        // draw the monthly achievement
-        GraphView graph = (GraphView) findViewById(R.id.graph_monthly_achievement);
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<>(monthlyAchievement);
-        series.setDrawValuesOnTop(true);
-        graph.addSeries(series);
+        graph_month_achievement.setDomainStepValue(1.0);
+        graph_month_achievement.setRangeStepValue(1.0);
+        XYSeries series1 = new SimpleXYSeries(
+                aMonthlyAchievement, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "# completed");
 
-        // get arrayList of intervalFrequency
-        getMonthlyAchievement();
-        DataPoint[] intervalFrequency = aIntervalFrequency.toArray(new DataPoint[aIntervalFrequency.size()]);
+        BarFormatter bf = new BarFormatter(Color.WHITE, Color.WHITE);
+        graph_month_achievement.addSeries(series1, bf);
 
-        // draw the monthly achievement
-        GraphView graph1 = (GraphView) findViewById(R.id.graph_interval_frequency);
-        BarGraphSeries<DataPoint> series1 = new BarGraphSeries<>(intervalFrequency);
-        series1.setDrawValuesOnTop(true);
-        graph1.addSeries(series1);
 
+        graph_interval_frequency.setDomainStepValue(1.0);
+        graph_interval_frequency.setRangeStepValue(1.0);
+        XYSeries series2 = new SimpleXYSeries(
+                aIntervalFrequency, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "# completed");
+
+        graph_interval_frequency.addSeries(series2, bf);
 
     }
 
@@ -67,6 +86,8 @@ public class ActivityStatistics extends AppCompatActivity {
         while(true){
             Date eventDate = habitEvent.getDate();
             int month = eventDate.getMonth();
+
+            Log.d("statistics",Integer.toString(month));
             monthFrequency[month] += 1;
 
             String eventString = habitEvent.getPrevEvent();
@@ -78,9 +99,11 @@ public class ActivityStatistics extends AppCompatActivity {
         }
 
         // copy monthFrequency to aMonthlyAchievement
+        aMonthlyAchievement.add(0);
         for(int i = 0; i<12; i++){
-            aMonthlyAchievement.add(new DataPoint(i,monthFrequency[i]));
+            aMonthlyAchievement.add(monthFrequency[i]);
         }
+        aMonthlyAchievement.add(0);
     }
 
     public void getIntervalFrequency(){
@@ -89,9 +112,10 @@ public class ActivityStatistics extends AppCompatActivity {
         int[] hourFreq = new int[24];
         while(true){
             Date eventDate = habitEvent.getDate();
-            int hour = eventDate.getHours();
-            hourFreq[hour] += 1;
 
+            int hour = eventDate.getHours();
+            Log.d("statistics",Integer.toString(hour));
+            hourFreq[hour] += 1;
             String eventString = habitEvent.getPrevEvent();
             if (eventString == null){
                 // if eventString is null, then we reach the end
@@ -101,11 +125,14 @@ public class ActivityStatistics extends AppCompatActivity {
         }
 
         // copy monthFrequency to aMonthlyAchievement
+        aIntervalFrequency.add(0);
         for(int i = 0; i < 24; i++){
-            aIntervalFrequency.add(new DataPoint(i,hourFreq[i]));
+            //Log.d("statistics","------");
+            //Log.d("statistics", Integer.toString(i));
+            //Log.d("statistics",Integer.toString(hourFreq[i]));
+            aIntervalFrequency.add(hourFreq[i]);
         }
-
-
+        aIntervalFrequency.add(0);
     }
 
 

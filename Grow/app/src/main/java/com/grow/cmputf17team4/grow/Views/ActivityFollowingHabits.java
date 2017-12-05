@@ -112,7 +112,6 @@ public class ActivityFollowingHabits extends AppCompatActivity implements OnMapR
             if(eventLocation == null){
                 cLocation.setVisibility(View.GONE);
             }
-
         }
 
     }
