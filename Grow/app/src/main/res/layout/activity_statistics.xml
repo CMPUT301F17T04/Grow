@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ap="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
@@ -13,64 +12,125 @@
     android:orientation="vertical"
     >
 
-    <TextView
-        android:id="@+id/statistics_habit_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="Habit Name Here"
-        android:layout_gravity="center"
-        />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Achieved event each month:"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
-        />
-    <com.androidplot.xy.XYPlot
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/graph_monthly_achievement"
-        ap:rangeTitle="range"
-        ap:domainTitle="domain"
-        ap:lineLabels="left|bottom"
-        />
+        android:layout_height="match_parent"
+        style="?attr/cardStyle"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Daily time interval frequency:"
-        android:layout_marginTop="5dp"
-        android:textSize="20sp"
-        />
+        <TextView
+            android:id="@+id/statistics_habit_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Habit Name Here"
+            android:textSize="30sp" />
+    </android.support.v7.widget.CardView>
 
-    <com.androidplot.xy.XYPlot
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/graph_interval_frequency"
-        ap:rangeTitle="range"
-        ap:domainTitle="domain"
-        ap:lineLabels="left|bottom"
-        />
+        android:layout_height="match_parent"
+        style="?attr/cardStyle"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Completed:"
-        android:layout_marginTop="20dp"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/stat_complete"
-        android:text="0"
-        android:textSize="30sp"
-        android:layout_gravity="center"
-        />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Achieved event each month:"
+                android:textSize="20sp"
+                android:gravity="center"/>
+
+            <com.androidplot.xy.XYPlot
+                android:id="@+id/graph_monthly_achievement"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_margin="8dp"
+                app:domainTitle="domain"
+                app:lineLabels="left|bottom"
+                app:rangeTitle="range" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="?attr/cardStyle"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:text="Daily time interval frequency:"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <com.androidplot.xy.XYPlot
+                android:id="@+id/graph_interval_frequency"
+                app:domainTitle="domain"
+                app:lineLabels="left|bottom"
+                app:rangeTitle="range"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        style="?attr/cardStyle"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="Completed:"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/stat_complete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>
 

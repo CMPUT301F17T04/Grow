@@ -17,12 +17,14 @@ import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Get;
 import io.searchbox.core.Index;
+import io.searchbox.core.Search;
 import io.searchbox.core.Update;
 
 /**
@@ -177,14 +179,10 @@ public class ESManager {
 
         @Override
         protected Integer doInBackground(Void... voids) {
-            try {
-                Thread.sleep(5000);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-            return Constant.TASK_EXCEPTION;
+            Search search;
 
-
+            HashMap<String,Integer> count;
+            return null;
         }
 
         public ArrayList<User> getFriends() {
