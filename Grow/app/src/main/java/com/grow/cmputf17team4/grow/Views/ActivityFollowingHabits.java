@@ -77,7 +77,7 @@ public class ActivityFollowingHabits extends AppCompatActivity {
         String habitStartDate = habitType.getStringStartDate();
         //String achievedEvent = Integer.toString(habitType.getNumComplete());
         //String eventTime = mostRecentEvent.getStringDate();
-        String eventComment = mostRecentEvent.getComment();
+        //String eventComment = mostRecentEvent.getComment();
 
     }
 }
