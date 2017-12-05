@@ -52,6 +52,7 @@ public class ActivityStatistics extends AppCompatActivity {
         numComplete = (TextView) findViewById(R.id.stat_complete);
         int num = habitType.getNumCompleted();
         numComplete.setText(Integer.toString(num));
+        ((TextView)findViewById(R.id.statistics_habit_name)).setText(habitType.getName());
 
 
         // initialize our XYPlot reference:

@@ -16,13 +16,20 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Get;
 import io.searchbox.core.Index;
+import io.searchbox.core.Search;
+import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
 
 /**
@@ -160,54 +167,4 @@ public class ESManager {
             client = (JestDroidClient) factory.getObject();
         }
     }
-
-    public static class SearchFriendsTask extends AsyncTask<Void,Void,Integer>{
-        private ArrayList<User> friends;
-
-        private Runnable preExecute;
-        private Runnable postExecuteSuccess;
-        private Runnable postExecuteFailed;
-
-        public SearchFriendsTask(Runnable pre, Runnable postSuccess, Runnable postFailed){
-            friends = new ArrayList<>();
-            preExecute = pre;
-            postExecuteSuccess = postSuccess;
-            postExecuteFailed = postFailed;
-        }
-
-        @Override
-        protected Integer doInBackground(Void... voids) {
-            try {
-                Thread.sleep(5000);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-            return Constant.TASK_EXCEPTION;
-
-
-        }
-
-        public ArrayList<User> getFriends() {
-            return friends;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            // SHOW THE SPInull;NNER WHILE LOADING FEEDS
-            preExecute.run();
-        }
-
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            if(result == Constant.TASK_SUCCESS){
-                postExecuteSuccess.run();
-            }else if(result == Constant.TASK_EXCEPTION){
-                postExecuteFailed.run();
-            }
-        }
-
-    }
-
-
 }
