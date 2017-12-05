@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.grow.cmputf17team4.grow.Controllers.ImageManager;
@@ -45,10 +47,12 @@ public class ActivityFollowingHabits extends AppCompatActivity implements OnMapR
     private ImageView iEventImage;
     private TextView tvEventDate;
     private TextView tvEventComment;
+    private CameraPosition mCameraPosition;
 
     private GoogleMap mMap;
     private MapFragment mapFragment;
     private Location eventLocation = null;
+    private static final int DEFAULT_ZOOM = 15;
 
 
     @Override
@@ -112,7 +116,6 @@ public class ActivityFollowingHabits extends AppCompatActivity implements OnMapR
             if(eventLocation == null){
                 cLocation.setVisibility(View.GONE);
             }
-
         }
 
     }
@@ -126,6 +129,8 @@ public class ActivityFollowingHabits extends AppCompatActivity implements OnMapR
             LatLng position = new LatLng(lat,lng);
             mMap.addMarker(new MarkerOptions()
                     .position(position));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(lat,lng), DEFAULT_ZOOM));
         }
     }
 }

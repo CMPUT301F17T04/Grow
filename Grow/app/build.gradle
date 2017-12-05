@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.android.support.test.espresso:espresso-contrib:3.0.1'
     implementation 'io.searchbox:jest-droid:2.0.1'
     implementation 'com.jjoe64:graphview:4.2.1'
+    implementation 'com.androidplot:androidplot-core:1.5.1'
 }
 
 repositories {
