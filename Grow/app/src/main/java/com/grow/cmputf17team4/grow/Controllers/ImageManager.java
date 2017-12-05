@@ -164,9 +164,9 @@ public class ImageManager {
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
+                imageFileName,          /* prefix */
+                ".jpg",           /* suffix */
+                storageDir              /* directory */
         );
 
         // Save a file: path for use with ACTION_VIEW intents
@@ -174,6 +174,10 @@ public class ImageManager {
         return image;
     }
 
+    /**
+     * Set picture to givent imageView
+     * @param imageView
+     */
     public void setPic(final ImageView imageView){
         if (getImageable==null ||getImageable.getEncodedImage() == null){
             imageView.setImageResource(R.drawable.noimage);
@@ -188,6 +192,11 @@ public class ImageManager {
 
     }
 
+    /**
+     * Encode picture to ImageView
+     * @param imageView
+     * @param uri
+     */
     public void encode(final ImageView imageView, final Uri uri){
         imageView.post(new Runnable() {
             @Override
@@ -198,6 +207,10 @@ public class ImageManager {
     }
 
 
+    /**
+     * encode picture to imageView
+     * @param mImageView
+     */
     public void encode(final ImageView mImageView){
         final File file = new File(mCurrentPhotoPath);
 
@@ -210,6 +223,10 @@ public class ImageManager {
 
     }
 
+    /**
+     * Get picture from gallery
+     * @param context
+     */
     public void getPictureFromGalleryIntent(Context context){
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
 

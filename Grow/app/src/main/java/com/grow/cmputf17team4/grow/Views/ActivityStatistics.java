@@ -32,6 +32,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Activity shows the statistics
+ */
 public class ActivityStatistics extends AppCompatActivity {
 
     private TextView numComplete;
@@ -79,6 +82,9 @@ public class ActivityStatistics extends AppCompatActivity {
 
     }
 
+    /**
+     * Get how many event happened in each month
+     */
     public void getMonthlyAchievement(){
         // traverse the habit event history
         HabitEvent habitEvent = habitType.getMostRecentEvent();
@@ -107,6 +113,9 @@ public class ActivityStatistics extends AppCompatActivity {
         aMonthlyAchievement.add(0);
     }
 
+    /**
+     * Get the how many event happened in each hour in a day
+     */
     public void getIntervalFrequency(){
         HabitEvent habitEvent = habitType.getMostRecentEvent();
         EventList eventList = DataManager.getInstance().getEventList();

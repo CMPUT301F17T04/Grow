@@ -5,9 +5,8 @@ import java.util.UUID;
 import io.searchbox.annotations.JestId;
 
 /**
- * Created by qin7 on 2017/12/1.
+ * Class represent Item in elasticSearch.
  */
-
 public class Item {
     protected String uid;
     protected String type = null;

@@ -5,10 +5,14 @@ import android.util.Log;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 
 /**
- * Created by qin7 on 2017/12/2.
+ * Class represent a HabitEvet list
  */
-
 public class EventList extends ItemList<HabitEvent> {
+
+    /**
+     * Add given HabitEvent to the list stored in DataManager
+     * @param event
+     */
     @Override
     public void add(HabitEvent event) {
         super.add(event);
@@ -23,6 +27,11 @@ public class EventList extends ItemList<HabitEvent> {
         DataManager.save();
     }
 
+    /**
+     * Remove habitEvent from list according to given key
+     * @param key
+     * @return
+     */
     @Override
     public HabitEvent remove(Object key) {
         HabitEvent removed = super.remove(key);
@@ -47,6 +56,10 @@ public class EventList extends ItemList<HabitEvent> {
         return removed;
     }
 
+    /**
+     * Commit change
+     * @param key
+     */
     @Override
     public void commit(String key) {
         if (get(key).getNextEvent() == null) {
@@ -58,6 +71,10 @@ public class EventList extends ItemList<HabitEvent> {
         }
     }
 
+    /**
+     * Clean the habitEvent list
+     * @param habitType
+     */
     public void removeAll(HabitType habitType){
         HabitEvent cursor = habitType.getMostRecentEvent();
         while (cursor != null){

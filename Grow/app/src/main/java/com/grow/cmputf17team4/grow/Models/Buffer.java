@@ -23,7 +23,6 @@ public class Buffer extends ConcurrentLinkedQueue<Pair<Integer,ItemHolder>>{
      * @param o the object that will be updated
      * @param queryType the query
      */
-
     public void update(int queryType,Object o){
         Item item = (Item) o;
         add(new Pair<>(queryType,new ItemHolder(item)));

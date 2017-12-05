@@ -17,15 +17,38 @@ import com.grow.cmputf17team4.grow.R;
 import java.util.List;
 
 /**
- * Created by jack27 on 04/12/17.
+ * Activity of Wow factor, recommend other users based on current user's habit
+ * @author Yizhou Zhao
+ * @author Qin Zhang
+ * @since 1.0
  */
 
 public class ActivityRecommendUser extends AppCompatActivity {
+    /**
+     * ListView object in the activity
+     */
     private ListView mListView;
+
+    /**
+     * Progress bar shows before the data is fetching
+     */
     private ProgressBar progressBar;
+
+    /**
+     * TextView object shows when an exception is thrown
+     */
     private TextView textView;
+
+    /**
+     * SwipeRefreshLayout so that user can update the data
+     */
     private SwipeRefreshLayout swipeRefreshLayout;
 
+
+    /**
+     * Override super.onCreate(). Connect UI component and layout file, loading data.
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -46,6 +69,9 @@ public class ActivityRecommendUser extends AppCompatActivity {
         loading();
     }
 
+    /**
+     * Loding data from elasterSearch server
+     */
     private void loading(){
         mListView.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
@@ -59,7 +85,12 @@ public class ActivityRecommendUser extends AppCompatActivity {
 
     }
 
-    // Runnable when fetching data is successful
+
+    /**
+     * Runnable object, will passed to ESManager.
+     * Called after the data is successfully fetched
+     * @see ESManager
+     */
     private class SuccessPostExecuteRunnable implements Runnable{
         @Override
         public void run(){
@@ -69,7 +100,11 @@ public class ActivityRecommendUser extends AppCompatActivity {
         }
     }
 
-    // Runnable before fetching data
+    /**
+     * Runnable object, will passed to ESManager.
+     * Called before the data is getting fetched
+     * @see ESManager
+     */
     private class PreExecuteRunnable implements Runnable{
         @Override
         public void run(){
@@ -77,7 +112,11 @@ public class ActivityRecommendUser extends AppCompatActivity {
         }
     }
 
-    // Runnable when fetching data is successful
+    /**
+     * Runnable object, will passed to ESManager
+     * Called after exceptions are thrown when fetching data.
+     * @see ESManager
+     */
     private class FailedPostExecuteRunnable implements Runnable{
         @Override
         public void run(){
@@ -86,7 +125,5 @@ public class ActivityRecommendUser extends AppCompatActivity {
             textView.setVisibility(View.VISIBLE);
         }
     }
-
-
 
 }

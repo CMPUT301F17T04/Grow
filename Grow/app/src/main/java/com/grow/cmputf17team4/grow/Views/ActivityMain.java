@@ -72,6 +72,9 @@ public class ActivityMain extends AppCompatActivity {
         DataManager.getInstance().login(this);
     }
 
+    /**
+     * Setup bottom navigation bar
+     */
     private void setupBotNav(){
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -152,6 +155,9 @@ public class ActivityMain extends AppCompatActivity {
 
     }
 
+    /**
+     * Set up tool bar on top
+     */
     private void setupToolBar(){
         toolBarViews = new SparseArray<>();
         int habit = 0, event =1, community = 2, profile = 3;
@@ -167,12 +173,21 @@ public class ActivityMain extends AppCompatActivity {
 
     }
 
+    /**
+     * Called when this activity is destoryed
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
         DataManager.waitAllTaskDone();
     }
 
+    /**
+     * Called when return from other activity
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

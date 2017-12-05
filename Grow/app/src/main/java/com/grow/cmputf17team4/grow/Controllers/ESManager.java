@@ -28,13 +28,19 @@ import io.searchbox.core.Search;
 import io.searchbox.core.Update;
 
 /**
- * Created by qin7 on 2017/11/30.
+ * Class that deal with elasticSearch
+ * @author Qin Zhang
+ * @author Yizhou Zhao
  */
-
 public class ESManager {
     private static final ESManager ourInstance = new ESManager();
     private JestDroidClient client;
 
+    /**
+     * Create a index
+     * @param item
+     * @return
+     */
     public static boolean create(Item item){
         Index index = new Index.Builder(item).id(item.getUid()).index(Constant.ELASTIC_SEARCH_INDEX).type(item.getType()).build();
         try {
@@ -50,6 +56,13 @@ public class ESManager {
 
     }
 
+    /**
+     * Get object from elasticSearch given id, type and class.
+     * @param id
+     * @param type
+     * @param cls
+     * @return
+     */
     public static Object get(String id, String type, Class cls){
         Get get = new Get.Builder(Constant.ELASTIC_SEARCH_INDEX,id).type(type).build();
         try {
@@ -66,7 +79,11 @@ public class ESManager {
     }
 
 
-
+    /**
+     * Update the given item in server
+     * @param item
+     * @return true if the update is success, false otherwise
+     */
     public static boolean update(Item item){
         Index update = new Index.Builder(item).id(item.getUid()).index(Constant.ELASTIC_SEARCH_INDEX).type(item.getType()).build();
         try {
@@ -81,6 +98,11 @@ public class ESManager {
         }
     }
 
+    /**
+     * Delete the given item
+     * @param item
+     * @return true if the delete is success, false otherwise
+     */
     public static boolean delete(Item item){
         Delete delete = new Delete.Builder(item.getUid()).index(Constant.ELASTIC_SEARCH_INDEX).type(item.getType()).build();
         try {
@@ -95,6 +117,10 @@ public class ESManager {
         }
     }
 
+
+    /**
+     * Inner class check if the user exit the app
+     */
     public static class CheckExistTask extends AsyncTask<String,Void,Integer>{
         @Override
         protected Integer doInBackground(String... strings) {
@@ -151,7 +177,6 @@ public class ESManager {
     }
 
 
-
     private ESManager() {
         if (client == null) {
             DroidClientConfig.Builder builder = new DroidClientConfig.Builder(Constant.ELASTIC_SEARCH_SERVER);
@@ -163,13 +188,21 @@ public class ESManager {
         }
     }
 
+    /**
+     * Inner class for searching recommended user for current user
+     */
     public static class SearchFriendsTask extends AsyncTask<Void,Void,Integer>{
         private ArrayList<User> friends;
-
         private Runnable preExecute;
         private Runnable postExecuteSuccess;
         private Runnable postExecuteFailed;
 
+        /**
+         * Constructor for SearchFriendsTask
+         * @param pre
+         * @param postSuccess
+         * @param postFailed
+         */
         public SearchFriendsTask(Runnable pre, Runnable postSuccess, Runnable postFailed){
             friends = new ArrayList<>();
             preExecute = pre;
@@ -177,6 +210,11 @@ public class ESManager {
             postExecuteFailed = postFailed;
         }
 
+        /**
+         * Call when the task is being executed.
+         * @param voids
+         * @return
+         */
         @Override
         protected Integer doInBackground(Void... voids) {
             Search search;
@@ -185,11 +223,18 @@ public class ESManager {
             return null;
         }
 
+        /**
+         * Get result from search
+         * @return
+         */
         public ArrayList<User> getFriends() {
 
             return friends;
         }
 
+        /**
+         * Called before executing the task
+         */
         @Override
         protected void onPreExecute() {
             // SHOW THE SPInull;NNER WHILE LOADING FEEDS
@@ -197,6 +242,10 @@ public class ESManager {
         }
 
 
+        /**
+         * Called after executing the task
+         * @param result
+         */
         @Override
         protected void onPostExecute(Integer result) {
             if(result == Constant.TASK_SUCCESS){

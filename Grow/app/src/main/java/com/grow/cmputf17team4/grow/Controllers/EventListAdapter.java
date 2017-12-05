@@ -123,17 +123,21 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
     public long getItemId(int position) {
         return 0;
     }
+
     /**
      * Override the getItem function. will return the habitEvent object at corresponding position
      * @param position the position of the habitEvent object in eventList
      * @return the habitEvent object at corresponding position.
      */
-
     @Override
     public Object getItem(int position) {
         return eventList.get(position);
     }
 
+    /**
+     * Get eventList.
+     * @return
+     */
     public ArrayList<HabitEvent> getEventList() {
         return eventList;
     }

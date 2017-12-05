@@ -8,9 +8,8 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 /**
- * Created by qin7 on 2017/12/1.
+ * Helper class for item
  */
-
 public class ItemHolder{
     private static HashMap<String,Class> map;
     private String type;

@@ -133,6 +133,7 @@ public class DataManager {
     public HabitList getHabitList() {
         return habitList;
     }
+
     /**
      * Getter of Query queue
      * @return A queue of Query that work with elasticSearch
@@ -141,6 +142,10 @@ public class DataManager {
         return buffer;
     }
 
+    /**
+     * Show the login page on given activity
+     * @param activity Activity that will show the login page
+     */
     public void login(final Activity activity){
         if (this.user != null){
             return ;
@@ -191,6 +196,9 @@ public class DataManager {
         });
     }
 
+    /**
+     * Save file in local in new thread
+     */
     private static class SaveLocalDataTask extends AsyncTask<Void,Void,Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -199,6 +207,9 @@ public class DataManager {
         }
     }
 
+    /**
+     * Wait all task are done
+     */
     public static void waitAllTaskDone(){
         while (!taskPool.isEmpty()){
             if (taskPool.peekFirst().getStatus() == AsyncTask.Status.FINISHED){
@@ -207,6 +218,10 @@ public class DataManager {
         }
     }
 
+    /**
+     * Start a saving task
+     * @return
+     */
     public static AsyncTask<Void, Void, Void> save(){
         if(isTesting){return null;}
         SaveLocalDataTask task =  new SaveLocalDataTask();
@@ -215,10 +230,17 @@ public class DataManager {
         return task;
     }
 
+    /**
+     * Get the user object
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * Clear the current dataManager object
+     */
     public static void clear(){
         App.getContext().deleteFile(Constant.FILE_NAME);
         if (getInstance().getUser()!= null) {
@@ -231,6 +253,9 @@ public class DataManager {
         ourInstance = new DataManager();
     }
 
+    /**
+     * Delete the current user
+     */
     public static class CancelAccountTask extends AsyncTask<Void,Void,Void>{
 
         @Override
@@ -240,6 +265,9 @@ public class DataManager {
         }
     }
 
+    /**
+     * Prepare for testing
+     */
     @VisibleForTesting
     public static void prepareForTesting(){
         ourInstance = new DataManager();
