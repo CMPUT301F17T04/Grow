@@ -16,8 +16,14 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;
@@ -25,6 +31,7 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Get;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
+import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
 
 /**
@@ -182,7 +189,27 @@ public class ESManager {
             Search search;
 
             HashMap<String,Integer> count;
-            return null;
+            Collection<HabitType> habits = DataManager.getInstance().getHabitList().values();
+            for (HabitType habit: habits) {
+                SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+                searchSourceBuilder.query(QueryBuilders.matchQuery("name", habit.getName()));
+                search = new Search.Builder(searchSourceBuilder.toString())
+                        .addIndex(Constant.ELASTIC_SEARCH_INDEX)
+                        .addType(Constant.TYPE_HABIT_TYPE)
+                        .build();
+
+                try {
+                    SearchResult result = ourInstance.client.execute(search);
+                    List<String> jsons = result.getSourceAsStringList();
+                    for (String json : jsons){
+                        Log.i("GSON:",json);
+                    }
+                } catch (Exception e){
+                    return Constant.TASK_EXCEPTION;
+                }
+
+            }
+            return Constant.TASK_SUCCESS;
         }
 
         public ArrayList<User> getFriends() {
