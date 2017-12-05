@@ -52,6 +52,7 @@ dependencies {
     implementation 'com.android.support.test:runner:1.0.1'
     implementation 'com.android.support.test.espresso:espresso-contrib:3.0.1'
     implementation 'io.searchbox:jest-droid:2.0.1'
+    implementation 'com.jjoe64:graphview:4.2.1'
 }
 
 repositories {
@@ -60,6 +61,9 @@ repositories {
 
 dependencies {
     compile 'org.osmdroid:osmdroid-android:5.6.5'
+}
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:+'

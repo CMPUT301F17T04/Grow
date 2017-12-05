@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.grow.cmputf17team4.grow.Views.ActivityStatistics"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/statistics_habit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="Habit Name Here"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Achieved event each month:"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        />
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph_monthly_achievement"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daily time interval frequency:"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"
+        />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph_interval_frequency"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+</LinearLayout>
