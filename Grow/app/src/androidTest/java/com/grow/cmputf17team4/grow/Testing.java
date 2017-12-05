@@ -101,7 +101,7 @@ public class Testing {
     private class prepareTask extends AsyncTask<Void,Void,Void>{
         @Override
         protected Void doInBackground(Void... voids) {
-            assertTrue(ESManager.delete(new User("fufu")));
+            ESManager.delete(new User("fufu"));
             User user = new User(friendId);
             ESManager.create(new IDList(friendId, Constant.TYPE_REQUESTS));
             ESManager.create(new IDList(friendId, Constant.TYPE_FOLLOWINGS));
@@ -457,6 +457,11 @@ public class Testing {
                 allOf(withId(R.id.my_toolbar), childAtPosition(withId(R.id.container),
                         0)), 2), isDisplayed())).perform(click());
 
+
+        Espresso.onView(allOf(withId(android.R.id.title), withText("Search Users"), childAtPosition(
+                childAtPosition(withClassName(is("com.android.internal.view.menu.ListMenuItemView")),
+                        0), 0), isDisplayed())).perform(click());
+
         Espresso.onView(allOf(withId(R.id.dialog_edit_id), childAtPosition(
                 childAtPosition(withId(R.id.custom), 0), 0), isDisplayed()))
                 .perform(replaceText("Qin7"), closeSoftKeyboard());
@@ -475,6 +480,16 @@ public class Testing {
         } catch (Exception e){
             e.printStackTrace();
         }
+
+        //Espresso.onView(ViewMatchers.withId(R.id.list_item_btn_accept)).perform(ViewActions.click());
+
+        ViewInteraction clickAccept = onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view), isDisplayed()))
+                .atPosition(0).onChildView(ViewMatchers.withId(R.id.list_item_btn_accept)).perform(click());
+        assertNotNull(clickAccept);
+
+        onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view),  isDisplayed())).atPosition(0).perform(click());
+
+
     }
     private class FakeRequestTask extends AsyncTask<Void,Void,Void>{
         @Override
