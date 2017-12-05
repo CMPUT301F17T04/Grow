@@ -32,6 +32,7 @@ public class HabitList extends ItemList<HabitType> {
      * Notify the DataManager to update the change
      * @param key the key of the habit event that is updated
      */
+
     @Override
     public void commit(String key){
         DataManager.getInstance().getBuffer().update(Constant.QUERY_UPDATE,get(key));

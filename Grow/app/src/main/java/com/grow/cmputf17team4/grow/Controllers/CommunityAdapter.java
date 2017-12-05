@@ -32,24 +32,12 @@ import static com.grow.cmputf17team4.grow.Models.Constant.REQUEST_MODIFY_EVENT;
 import static com.grow.cmputf17team4.grow.Models.Constant.TYPE_FOLLOWINGS;
 
 /**
- * Adapter for listView in Community tab
- * @author Qin Zhang
+ * Created by qin7 on 2017/12/3.
  */
+
 public class CommunityAdapter  extends BaseAdapter implements ListAdapter {
-
-    /**
-     * ArrayList stores the users requesting to follow current user
-     */
     private ArrayList<User> requestList;
-
-    /**
-     * ArrayList stores current user's following habits
-     */
     ArrayList<HabitType> habitTypes;
-
-    /**
-     * Will be used when need a context or activity
-     */
     Activity activity;
 
     public CommunityAdapter(Activity activity,ArrayList<User> requestList, ArrayList<HabitType> habitTypes) {
@@ -58,20 +46,11 @@ public class CommunityAdapter  extends BaseAdapter implements ListAdapter {
         this.habitTypes = habitTypes;
     }
 
-    /**
-     * Required method to implement BaseAdapter
-     * @return sum of sizes of TWO lists
-     */
     @Override
     public int getCount() {
         return requestList.size()+habitTypes.size();
     }
 
-    /**
-     * Get Object stored at given index in the listView
-     * @param i the index of the item in the list view
-     * @return the object stored at that index
-     */
     @Override
     public Object getItem(int i) {
         if (i < requestList.size()){
@@ -81,23 +60,11 @@ public class CommunityAdapter  extends BaseAdapter implements ListAdapter {
         }
     }
 
-    /**
-     * Get id stored at given index in the listView
-     * @param i
-     * @return
-     */
     @Override
     public long getItemId(int i) {
         return 0;
     }
 
-    /**
-     * Called when rendering the list view.
-     * @param i index of current object
-     * @param view the view that needs to be rendered
-     * @param viewGroup the view needed
-     * @return
-     */
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         if (view == null){
@@ -183,9 +150,6 @@ public class CommunityAdapter  extends BaseAdapter implements ListAdapter {
         return view;
     }
 
-    /**
-     * Update the data need to show in listView
-     */
     public void commit() {
         activity.runOnUiThread(new Runnable() {
             @Override

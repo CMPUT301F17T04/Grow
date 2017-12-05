@@ -3,8 +3,9 @@ package com.grow.cmputf17team4.grow.Models;
 import java.util.ArrayList;
 
 /**
- * Class stores IDs
+ * Created by qin7 on 2017/12/2.
  */
+
 public class IDList extends Item {
     private ArrayList<String> payload;
     private boolean isChanged;

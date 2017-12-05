@@ -121,10 +121,6 @@ public class ActivityFollowingHabits extends AppCompatActivity implements OnMapR
     }
 
 
-    /**
-     * Called when need to update the map
-     * @param mMap
-     */
     @Override
     public void onMapReady(GoogleMap mMap){
         if(eventLocation != null){
