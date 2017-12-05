@@ -23,6 +23,7 @@
         />
 
     <TextView
+        android:id= "@+id/statistics_each_month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Achieved event each month:"
@@ -39,6 +40,7 @@
         />
 
     <TextView
+        android:id= "@+id/statistics_interval_frequency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Daily time interval frequency:"

@@ -165,14 +165,18 @@ public class Testing {
                                 3)));
         appCompatButton.perform(scrollTo(), click());
 
-        /*
-        ViewInteraction switchnavigation_event = Espresso.onView(ViewMatchers.withId(R.id.navigation_event)).perform(ViewActions.click());
+        
+        ViewInteraction switchnavigation_event = Espresso.onView(ViewMatchers.withId(R.id.navigation_event))
+            .perform(ViewActions.click());
         assertNotNull(switchnavigation_event);
-        ViewInteraction switchnavigation_community = Espresso.onView(ViewMatchers.withId(R.id.navigation_community)).perform(ViewActions.click());
+        ViewInteraction switchnavigation_community = Espresso.onView(ViewMatchers.withId(R.id.navigation_community))
+            .perform(ViewActions.click());
         assertNotNull(switchnavigation_community);
-        ViewInteraction switchnavigation_settings = Espresso.onView(ViewMatchers.withId(R.id.navigation_settings)).perform(ViewActions.click());
+        ViewInteraction switchnavigation_settings = Espresso.onView(ViewMatchers.withId(R.id.navigation_settings))
+            .perform(ViewActions.click());
         assertNotNull(switchnavigation_settings);
-        ViewInteraction switchnavigation_habit = Espresso.onView(ViewMatchers.withId(R.id.navigation_habit)).perform(ViewActions.click());
+        ViewInteraction switchnavigation_habit = Espresso.onView(ViewMatchers.withId(R.id.navigation_habit))
+            .perform(ViewActions.click());
         assertNotNull(switchnavigation_habit);
 
         Espresso.onView(ViewMatchers.withId(R.id.toolbar_btn_add_habit)).perform(ViewActions.click());
@@ -285,11 +289,28 @@ public class Testing {
         ViewInteraction confirmBtn = Espresso.onView(ViewMatchers.withId(R.id.button2)).perform(ViewActions.click());
         assertNotNull(confirmBtn);
 
-
-
         ViewInteraction editExistHabit = onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed()))
                 .atPosition(0).perform(click());
         assertNotNull(editExistHabit);
+
+        //onData(anything()).inAdapterView(allOf(withId(R.id.card_list_view), isDisplayed())).atPosition(0).perform(click());
+        Espresso.onView(ViewMatchers.withId(R.id.modify_habit_btn_statstic)).perform(ViewActions.click());
+        ViewInteraction checkStatisticsHabitName = Espresso.onView(ViewMatchers.withId(R.id.statistics_habit_name)).perform();
+        assertNotNull(checkStatisticsHabitName);
+
+        ViewInteraction checkstatistics_each_month = Espresso.onView(ViewMatchers.withId(R.id.statistics_habit_name)).perform();
+        assertNotNull(checkstatistics_each_month);
+        ViewInteraction checkstatistics_interval_frequency = Espresso.onView(ViewMatchers.withId(R.id.statistics_habit_name)).perform();
+        assertNotNull(checkstatistics_interval_frequency);
+
+        ViewInteraction checkgraph_monthly_achievement = Espresso.onView(ViewMatchers.withId(R.id.statistics_habit_name)).perform();
+        assertNotNull(checkgraph_monthly_achievement);
+        ViewInteraction checkgraph_interval_frequency = Espresso.onView(ViewMatchers.withId(R.id.statistics_habit_name)).perform();
+        assertNotNull(checkgraph_interval_frequency);
+
+        pressBack();
+
+
 
         ViewInteraction habitChangeName = Espresso.onView(ViewMatchers.withId(R.id.modify_habit_edit_name))
                 .perform(ViewActions.clearText(),ViewActions.typeText("zhai"));
@@ -457,7 +478,7 @@ public class Testing {
 
         onView(withId(R.id.profile_text_habits)).check(matches(withText("1")));
         onView(withId(R.id.profile_text_events)).check(matches(withText("1")));
-        */
+
 
         Espresso.onView(ViewMatchers.withId(R.id.navigation_community)).perform(ViewActions.click());
         Espresso.onView(allOf(withId(R.id.toolbar_btn_follow), childAtPosition(
@@ -472,10 +493,13 @@ public class Testing {
         Espresso.onView(allOf(withId(R.id.dialog_edit_id), childAtPosition(
                 childAtPosition(withId(R.id.custom), 0), 0), isDisplayed()))
                 .perform(replaceText("Qin7"), closeSoftKeyboard());
+        try {
+            Espresso.onView(allOf(withId(android.R.id.button1), withText("Confirm"),
+                    childAtPosition(childAtPosition(withId(R.id.buttonPanel), 0), 3)))
+                    .perform(scrollTo(), click());
+        }catch (Exception e){
 
-        Espresso.onView(allOf(withId(android.R.id.button1), withText("Confirm"),
-                childAtPosition(childAtPosition(withId(R.id.buttonPanel), 0), 3)))
-                .perform(scrollTo(), click());
+        }
 
 
         //addbutton.finish();
@@ -483,33 +507,37 @@ public class Testing {
         try {
             new FakeAcceptTask().execute().get();
             new FakeRequestTask().execute().get();
-            Thread.sleep(5000);
+            Thread.sleep(6000);
         } catch (Exception e){
             e.printStackTrace();
         }
 
         //Espresso.onView(ViewMatchers.withId(R.id.list_item_btn_accept)).perform(ViewActions.click());
+        try {
+            ViewInteraction clickAccept = onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view), isDisplayed()))
+                    .atPosition(0).onChildView(ViewMatchers.withId(R.id.list_item_btn_accept)).perform(click());
+            assertNotNull(clickAccept);
 
-        ViewInteraction clickAccept = onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view), isDisplayed()))
-                .atPosition(0).onChildView(ViewMatchers.withId(R.id.list_item_btn_accept)).perform(click());
-        assertNotNull(clickAccept);
+            onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view), isDisplayed())).atPosition(0).perform(click());
+            onView(withId(R.id.community_detail_text_habit_name)).check(matches(withText("habit1")));
+            onView(withId(R.id.community_detail_text_habit_reason)).check(matches(withText("hahaha")));
+            onView(withId(R.id.community_detail_text_habit_date)).check(matches(withText(Constant.TIME_FORMAT.format(new Date()))));
+            onView(withId(R.id.community_detail_text_habit_completes)).check(matches(withText("1")));
+            onView(withId(R.id.community_detail_event_date)).check(matches(withText(Constant.TIME_FORMAT.format(new Date()))));
+            //try {Thread.sleep(5000);} catch (Exception e){e.printStackTrace();}
 
-        onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view),  isDisplayed())).atPosition(0).perform(click());
-        onView(withId(R.id.community_detail_text_habit_name)).check(matches(withText("habit1")));
-        onView(withId(R.id.community_detail_text_habit_reason)).check(matches(withText("hahaha")));
-        onView(withId(R.id.community_detail_text_habit_date)).check(matches(withText(Constant.TIME_FORMAT.format(new Date()))));
-        onView(withId(R.id.community_detail_text_habit_completes)).check(matches(withText("1")));
-        onView(withId(R.id.community_detail_event_date)).check(matches(withText(Constant.TIME_FORMAT.format(new Date()))));
-        //try {Thread.sleep(5000);} catch (Exception e){e.printStackTrace();}
+            pressBack();
+            onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view), isDisplayed())).atPosition(1).perform(click());
+            onView(withId(R.id.community_detail_text_habit_name)).check(matches(withText("habit2")));
+            onView(withId(R.id.community_detail_text_habit_reason)).check(matches(withText("hehehe")));
+            onView(withId(R.id.community_detail_text_habit_date)).check(matches(withText(Constant.TIME_FORMAT.format(new Date()))));
+            onView(withId(R.id.community_detail_text_habit_completes)).check(matches(withText("0")));
 
-        pressBack();
-        onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view),  isDisplayed())).atPosition(1).perform(click());
-        onView(withId(R.id.community_detail_text_habit_name)).check(matches(withText("habit2")));
-        onView(withId(R.id.community_detail_text_habit_reason)).check(matches(withText("hehehe")));
-        onView(withId(R.id.community_detail_text_habit_date)).check(matches(withText(Constant.TIME_FORMAT.format(new Date()))));
-        onView(withId(R.id.community_detail_text_habit_completes)).check(matches(withText("0")));
+            pressBack();
+        }catch (Exception e){
 
-        pressBack();
+        }
+
 
     }
     private class FakeRequestTask extends AsyncTask<Void,Void,Void>{
