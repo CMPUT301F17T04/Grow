@@ -118,10 +118,7 @@ public class FragmentCommunity extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         int id = item.getItemId();
-                        if(id == R.id.community_menu_recommond){
-                            // intent to the recommend activity
-                            startActivity(new Intent(getActivity(),ActivityRecommendUser.class));
-                        }else if(id == R.id.community_menu_search){
+                        if(id == R.id.community_menu_search){
                             // show the search dialog
                             showDialog();
                         }

@@ -56,7 +56,6 @@
         <activity android:name=".Views.ActivityHabitMap" />
 
         <activity android:name=".Views.ActivityFollowingHabits" />
-        <activity android:name=".Views.ActivityRecommendUser"></activity>
         <activity android:name=".Views.ActivityStatistics"></activity>
     </application>
 

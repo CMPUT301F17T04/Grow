@@ -16,8 +16,6 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -169,71 +167,4 @@ public class ESManager {
             client = (JestDroidClient) factory.getObject();
         }
     }
-
-    public static class SearchFriendsTask extends AsyncTask<Void,Void,Integer>{
-        private ArrayList<User> friends;
-
-        private Runnable preExecute;
-        private Runnable postExecuteSuccess;
-        private Runnable postExecuteFailed;
-
-        public SearchFriendsTask(Runnable pre, Runnable postSuccess, Runnable postFailed){
-            friends = new ArrayList<>();
-            preExecute = pre;
-            postExecuteSuccess = postSuccess;
-            postExecuteFailed = postFailed;
-        }
-
-        @Override
-        protected Integer doInBackground(Void... voids) {
-            Search search;
-
-            HashMap<String,Integer> count;
-            Collection<HabitType> habits = DataManager.getInstance().getHabitList().values();
-            for (HabitType habit: habits) {
-                SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-                searchSourceBuilder.query(QueryBuilders.matchQuery("name", habit.getName()));
-                search = new Search.Builder(searchSourceBuilder.toString())
-                        .addIndex(Constant.ELASTIC_SEARCH_INDEX)
-                        .addType(Constant.TYPE_HABIT_TYPE)
-                        .build();
-
-                try {
-                    SearchResult result = ourInstance.client.execute(search);
-                    List<String> jsons = result.getSourceAsStringList();
-                    for (String json : jsons){
-                        Log.i("GSON:",json);
-                    }
-                } catch (Exception e){
-                    return Constant.TASK_EXCEPTION;
-                }
-
-            }
-            return Constant.TASK_SUCCESS;
-        }
-
-        public ArrayList<User> getFriends() {
-
-            return friends;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            // SHOW THE SPInull;NNER WHILE LOADING FEEDS
-            preExecute.run();
-        }
-
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            if(result == Constant.TASK_SUCCESS){
-                postExecuteSuccess.run();
-            }else if(result == Constant.TASK_EXCEPTION){
-                postExecuteFailed.run();
-            }
-        }
-
-    }
-
-
 }
