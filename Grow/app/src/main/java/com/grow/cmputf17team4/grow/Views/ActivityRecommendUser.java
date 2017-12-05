@@ -3,6 +3,7 @@ package com.grow.cmputf17team4.grow.Views;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -33,6 +34,15 @@ public class ActivityRecommendUser extends AppCompatActivity {
         mListView = findViewById(R.id.recommend_user_list);
         textView = findViewById(R.id.recommend_user_text_error);
         progressBar = findViewById(R.id.recommend_user_progress_bar);
+
+        SwipeRefreshLayout swi findViewById(R.id.recommend_user_swipe_layout)
+                .setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        loading();
+
+                    }
+                });
 
         loading();
     }
