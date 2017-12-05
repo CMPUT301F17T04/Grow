@@ -177,9 +177,12 @@ public class ESManager {
 
         @Override
         protected Integer doInBackground(Void... voids) {
-
-            
-            return null;
+            try {
+                Thread.sleep(5000);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            return Constant.TASK_EXCEPTION;
 
 
         }
@@ -190,7 +193,7 @@ public class ESManager {
 
         @Override
         protected void onPreExecute() {
-            // SHOW THE SPINNER WHILE LOADING FEEDS
+            // SHOW THE SPInull;NNER WHILE LOADING FEEDS
             preExecute.run();
         }
 

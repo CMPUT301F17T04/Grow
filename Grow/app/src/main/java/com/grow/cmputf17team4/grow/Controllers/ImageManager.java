@@ -40,16 +40,12 @@ public class ImageManager {
      * Inner class to encode image
      */
     private class EncodeImageTask extends AsyncTask<Void,Void,Void>{
-        private int height;
-        private int width;
         private ImageView imageView;
         private Uri uri;
 
 
         EncodeImageTask(ImageView imageView,Uri uri) {
             this.imageView = imageView;
-            this.height = imageView.getHeight();
-            this.width = imageView.getWidth();
             this.uri = uri;
         }
 
@@ -65,7 +61,7 @@ public class ImageManager {
             BitmapFactory.decodeFileDescriptor(fileDescriptor,null,bmOptions);
             int photoW = bmOptions.outWidth;
             int photoH = bmOptions.outHeight;
-            int scaleFactor = Math.min(photoW/width, photoH/height);
+            int scaleFactor = Math.min(photoW/Constant.MAX_IMAGE_SIZE, Constant.MAX_IMAGE_SIZE);
 
             // Decode the image file into a Bitmap sized to fill the View
             bmOptions.inJustDecodeBounds = false;
@@ -84,7 +80,7 @@ public class ImageManager {
          */
         private void encodeImage(Bitmap image){
             ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
-            image.compress(Bitmap.CompressFormat.JPEG, 100,
+            image.compress(Bitmap.CompressFormat.JPEG, 80,
                     byteArrayBitmapStream);
             byte[] b = byteArrayBitmapStream.toByteArray();
             getImageable.setEncodedImage(Base64.encodeToString(b, Base64.DEFAULT));
@@ -114,14 +110,10 @@ public class ImageManager {
 
     private class LoadBytesImageTask extends AsyncTask<Void,Void,Void>{
         private ImageView imageView;
-        private int height;
-        private int width;
         private Bitmap image;
 
         LoadBytesImageTask(ImageView imageView){
             this.imageView = imageView;
-            this.height = imageView.getHeight();
-            this.width = imageView.getWidth();
         }
 
         @Override

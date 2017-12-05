@@ -25,7 +25,7 @@ public interface Constant {
     int TASK_FAIL = 2;
     int TASK_EXCEPTION = 3;
 
-    int MAX_IMAGE_SIZE = 65536;
+    int MAX_IMAGE_SIZE = 600;
 
     long POLLING_INTERVAL = 3000;
 

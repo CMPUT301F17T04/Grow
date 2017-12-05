@@ -51,6 +51,12 @@ public class ActivityRecommendUser extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         textView.setVisibility(View.GONE);
 
+        new ESManager.SearchFriendsTask(
+                new PreExecuteRunnable(),
+                new SuccessPostExecuteRunnable(),
+                new FailedPostExecuteRunnable()
+        ).execute();
+
     }
 
     // Runnable when fetching data is successful
