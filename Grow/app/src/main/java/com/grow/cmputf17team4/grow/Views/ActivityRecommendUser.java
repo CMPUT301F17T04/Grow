@@ -3,10 +3,13 @@ package com.grow.cmputf17team4.grow.Views;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.grow.cmputf17team4.grow.Controllers.ESManager;
 import com.grow.cmputf17team4.grow.R;
@@ -20,19 +23,33 @@ import java.util.List;
 public class ActivityRecommendUser extends AppCompatActivity {
     private ListView mListView;
     private ProgressBar progressBar;
-    private LinearLayout mlinearLayout;
-
+    private TextView textView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend_user);
-        mListView = (ListView)findViewById(R.id.recommend_user_list);
 
+        mListView = findViewById(R.id.recommend_user_list);
+        textView = findViewById(R.id.recommend_user_text_error);
+        progressBar = findViewById(R.id.recommend_user_progress_bar);
 
-        AsyncTask task = new ESManager.SearchFriendsTask(new PreExecuteRunnable(),
-                new SuccessPostExecuteRunnable(),
-                new FailedPostExecuteRunnable());
+        swipeRefreshLayout =  findViewById(R.id.recommend_user_swipe_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loading();
+            }
+        });
+
+        loading();
+    }
+
+    private void loading(){
+        mListView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
+        textView.setVisibility(View.GONE);
 
     }
 
@@ -40,6 +57,8 @@ public class ActivityRecommendUser extends AppCompatActivity {
     private class SuccessPostExecuteRunnable implements Runnable{
         @Override
         public void run(){
+            swipeRefreshLayout.setRefreshing(false);
+            progressBar.setVisibility(View.GONE);
 
         }
     }
@@ -48,7 +67,7 @@ public class ActivityRecommendUser extends AppCompatActivity {
     private class PreExecuteRunnable implements Runnable{
         @Override
         public void run(){
-
+            progressBar.setVisibility(View.VISIBLE);
         }
     }
 
@@ -56,7 +75,9 @@ public class ActivityRecommendUser extends AppCompatActivity {
     private class FailedPostExecuteRunnable implements Runnable{
         @Override
         public void run(){
-
+            swipeRefreshLayout.setRefreshing(false);
+            progressBar.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
         }
     }
 
