@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 import com.grow.cmputf17team4.grow.Controllers.ESManager;
@@ -38,6 +39,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.w3c.dom.Text;
 
 
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
@@ -108,16 +110,16 @@ public class Testing {
             ESManager.create(new IDList(friendId, Constant.TYPE_REQUESTS));
             ESManager.create(new IDList(friendId, Constant.TYPE_FOLLOWINGS));
             HabitType habitType1 = new HabitType(friendId);
-            Date startDate = habitType1.getStartDate();
             habitType1.setName("habit1");
             habitType1.setReason("hahaha");
-            habitType1.setStartDate(startDate);
             HabitType habitType2 = new HabitType(friendId);
             habitType2.setName("habit2");
+            habitType2.setReason("hehehe");
             user.getHabitList().add(habitType1.getUid());
             user.getHabitList().add(habitType2.getUid());
             HabitEvent event = new HabitEvent(habitType1.getUid(),habitType1.getUserId());
             habitType1.setMostRecentEvent(event);
+            habitType1.addNumCompleted(1);
             ESManager.create(user);
             ESManager.create(habitType1);
             ESManager.create(habitType2);
@@ -495,10 +497,19 @@ public class Testing {
         onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view),  isDisplayed())).atPosition(0).perform(click());
         onView(withId(R.id.community_detail_text_habit_name)).check(matches(withText("habit1")));
         onView(withId(R.id.community_detail_text_habit_reason)).check(matches(withText("hahaha")));
-        onView(withId(R.id.community_detail_text_habit_date).matches("");
+        onView(withId(R.id.community_detail_text_habit_date)).check(matches(withText(Constant.TIME_FORMAT.format(new Date()))));
+        onView(withId(R.id.community_detail_text_habit_completes)).check(matches(withText("1")));
+        onView(withId(R.id.community_detail_event_date)).check(matches(withText(Constant.TIME_FORMAT.format(new Date()))));
+        //try {Thread.sleep(5000);} catch (Exception e){e.printStackTrace();}
+
         pressBack();
         onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view),  isDisplayed())).atPosition(1).perform(click());
+        onView(withId(R.id.community_detail_text_habit_name)).check(matches(withText("habit2")));
+        onView(withId(R.id.community_detail_text_habit_reason)).check(matches(withText("hehehe")));
+        onView(withId(R.id.community_detail_text_habit_date)).check(matches(withText(Constant.TIME_FORMAT.format(new Date()))));
+        onView(withId(R.id.community_detail_text_habit_completes)).check(matches(withText("0")));
 
+        pressBack();
 
     }
     private class FakeRequestTask extends AsyncTask<Void,Void,Void>{
