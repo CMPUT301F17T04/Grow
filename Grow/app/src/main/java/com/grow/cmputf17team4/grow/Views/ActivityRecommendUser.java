@@ -24,7 +24,7 @@ public class ActivityRecommendUser extends AppCompatActivity {
     private ListView mListView;
     private ProgressBar progressBar;
     private TextView textView;
-
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -35,14 +35,13 @@ public class ActivityRecommendUser extends AppCompatActivity {
         textView = findViewById(R.id.recommend_user_text_error);
         progressBar = findViewById(R.id.recommend_user_progress_bar);
 
-        SwipeRefreshLayout swi findViewById(R.id.recommend_user_swipe_layout)
-                .setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        loading();
-
-                    }
-                });
+        swipeRefreshLayout =  findViewById(R.id.recommend_user_swipe_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loading();
+            }
+        });
 
         loading();
     }
@@ -58,6 +57,8 @@ public class ActivityRecommendUser extends AppCompatActivity {
     private class SuccessPostExecuteRunnable implements Runnable{
         @Override
         public void run(){
+            swipeRefreshLayout.setRefreshing(false);
+            progressBar.setVisibility(View.GONE);
 
         }
     }
@@ -66,7 +67,7 @@ public class ActivityRecommendUser extends AppCompatActivity {
     private class PreExecuteRunnable implements Runnable{
         @Override
         public void run(){
-
+            progressBar.setVisibility(View.VISIBLE);
         }
     }
 
@@ -74,7 +75,9 @@ public class ActivityRecommendUser extends AppCompatActivity {
     private class FailedPostExecuteRunnable implements Runnable{
         @Override
         public void run(){
-
+            swipeRefreshLayout.setRefreshing(false);
+            progressBar.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
         }
     }
 

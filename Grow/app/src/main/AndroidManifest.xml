@@ -55,6 +55,7 @@
         <activity android:name=".Views.ActivityModifyEvent" />
         <activity android:name=".Views.ActivityHabitMap" />
         <activity android:name=".Views.ActivityFollowingHabits"></activity>
+        <activity android:name=".Views.ActivityRecommendUser"></activity>
     </application>
 
 </manifest>

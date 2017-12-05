@@ -120,6 +120,7 @@ public class FragmentCommunity extends Fragment {
                         int id = item.getItemId();
                         if(id == R.id.community_menu_recommond){
                             // intent to the recommend activity
+                            startActivity(new Intent(getActivity(),ActivityRecommendUser.class));
                         }else if(id == R.id.community_menu_search){
                             // show the search dialog
                             showDialog();
