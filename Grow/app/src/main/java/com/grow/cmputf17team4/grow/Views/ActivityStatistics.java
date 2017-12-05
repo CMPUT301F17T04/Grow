@@ -54,6 +54,9 @@ public class ActivityStatistics extends AppCompatActivity {
         numComplete.setText(Integer.toString(num));
         ((TextView)findViewById(R.id.statistics_habit_name)).setText(habitType.getName());
 
+        if (num == 0){
+            return;
+        }
 
         // initialize our XYPlot reference:
         graph_month_achievement = (XYPlot) findViewById(R.id.graph_monthly_achievement);
