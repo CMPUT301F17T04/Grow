@@ -62,9 +62,6 @@ public class ActivityFollowingHabits extends AppCompatActivity implements OnMapR
 
 
         // initialize UI components
-        iUserImage = (ImageView)findViewById(R.id.community_detail_user_image);
-        tvUserName = (TextView)findViewById(R.id.community_detail_user_name);
-
         cMostRecentEvent = (CardView)findViewById(R.id.community_detail_event_card);
         tvHabitName = (TextView)findViewById(R.id.community_detail_text_habit_name);
         tvReason = (TextView)findViewById(R.id.community_detail_text_habit_reason);
@@ -88,17 +85,13 @@ public class ActivityFollowingHabits extends AppCompatActivity implements OnMapR
         }
 
         // Get required data
-        String userName = habitType.getUserId();
         String habitName = habitType.getName();
         String reason = habitType.getReason();
         String habitStartDate = habitType.getStringStartDate();
+
         String achievedEvent = Integer.toString(habitType.getNumCompleted());
 
         // update UI component to show correct information
-        ImageManager imageManager = new ImageManager(new User(userName));
-        imageManager.setPic(iUserImage);
-        tvUserName.setText(userName);
-
         tvHabitName.setText(habitName);
         tvHabitStartDate.setText(habitStartDate);
         tvHabitAchieved.setText(achievedEvent);
@@ -121,15 +114,6 @@ public class ActivityFollowingHabits extends AppCompatActivity implements OnMapR
             }
 
         }
-
-
-
-
-
-
-
-
-
 
     }
 
