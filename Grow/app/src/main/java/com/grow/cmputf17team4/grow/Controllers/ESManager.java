@@ -177,8 +177,8 @@ public class ESManager {
 
         @Override
         protected Integer doInBackground(Void... voids) {
-            Integer result = new Integer(20);
-            return result;
+            
+            return null;
 
         }
 
