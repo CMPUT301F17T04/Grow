@@ -189,4 +189,9 @@ public class HabitType extends Item implements Comparable<HabitType> {
 
     public void addNumCompleted(int d){this.numCompleted+=d;}
 
+    public int getNumCompleted() {
+        return numCompleted;
+    }
+
+
 }
