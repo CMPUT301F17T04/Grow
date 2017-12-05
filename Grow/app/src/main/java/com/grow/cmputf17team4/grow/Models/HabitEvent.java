@@ -1,37 +1,18 @@
 package com.grow.cmputf17team4.grow.Models;
 
 import android.app.Activity;
-import android.content.Context;
 import android.location.Location;
-import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
-import android.text.BoringLayout;
 import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 
-import org.osmdroid.util.GeoPoint;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
-import com.grow.cmputf17team4.grow.Models.SelfPosition;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.grow.cmputf17team4.grow.Models.HabitEvent;
-import com.grow.cmputf17team4.grow.Models.SelfPosition;
-import com.grow.cmputf17team4.grow.Views.ActivityMain;
 
 /**
  * Class represents a habit event
