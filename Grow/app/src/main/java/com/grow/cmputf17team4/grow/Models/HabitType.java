@@ -96,11 +96,7 @@ public class HabitType extends Item implements Comparable<HabitType> {
     }
 
     public String getStringStartDate(){
-        String pattern = "MM/dd/yyyy";
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
-        String dateString = format.format(startDate);
-
-        return dateString;
+        return Constant.TIME_FORMAT.format(this.startDate);
     }
     /**
      * Set the start date of the habit
