@@ -1,18 +1,37 @@
 package com.grow.cmputf17team4.grow.Models;
 
 import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
+import android.text.BoringLayout;
 import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
 import com.grow.cmputf17team4.grow.Controllers.DataManager;
 
+import org.osmdroid.util.GeoPoint;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
+import com.grow.cmputf17team4.grow.Models.SelfPosition;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.grow.cmputf17team4.grow.Models.HabitEvent;
+import com.grow.cmputf17team4.grow.Models.SelfPosition;
+import com.grow.cmputf17team4.grow.Views.ActivityMain;
 
 /**
  * Class represents a habit event
@@ -91,17 +110,8 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         return encodedImage;
     }
 
-    /**
-     * get the location for this habit event
-     * @return null if there is no location data stored
-     */
     public Location getHabitLocation(){ return HabitLocation;}
 
-    /**
-     * Attach location or not
-     * @param attached attach location or not
-     * @param activity required data to get location
-     */
     public void setAttachedLocation(Boolean attached, Activity activity) {
         if (attached){
             getDeviceLocation(activity);
@@ -110,10 +120,6 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         }
     }
 
-    /**
-     * Check if this habit event has location data
-     * @return
-     */
     public Boolean isAttachedLocation() {
         return HabitLocation!=null;
     }
@@ -140,43 +146,25 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         return date;
     }
 
-    /**
-     * Get previous event ID
-     * @return
-     */
+
+
     public String getPrevEvent() {
         return prevEvent;
     }
 
-    /**
-     * Set previous event based on given ID
-     * @param prevEvent
-     */
     public void setPrevEvent(String prevEvent) {
         this.prevEvent = prevEvent;
     }
 
-    /**
-     * Get next event ID
-     * @return
-     */
     public String getNextEvent() {
         return nextEvent;
     }
 
-    /**
-     * Set next event based on given ID
-     * @param nextEvent
-     */
     public void setNextEvent(String nextEvent) {
         this.nextEvent = nextEvent;
     }
 
 
-    /**
-     * Get the habit type this habit event belong to
-     * @return
-     */
     public HabitType getHabitType(){
         try {
             return DataManager.getInstance().getHabitList().get(this.habitTypeID);
@@ -189,26 +177,14 @@ public class HabitEvent extends Item implements Comparable<HabitEvent>,GetImagea
         this.date = date;
     }
 
-    /**
-     * Get habit type's ID this event belongs to
-     * @return
-     */
     public String getHabitTypeID() {
         return habitTypeID;
     }
 
-    /**
-     * Get user how owns this event
-     * @return
-     */
     public String getUserId() {
         return userId;
     }
 
-    /**
-     * Set this event name
-     * @param name
-     */
     public void setName(String name) {
         this.name = name;
     }

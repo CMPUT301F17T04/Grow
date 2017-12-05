@@ -16,7 +16,7 @@ import java.util.UUID;
 
 /**
  * Class to represent a habit type
- * @author Yizhou Zhao
+ * @author
  */
 
 public class HabitType extends Item implements Comparable<HabitType> {

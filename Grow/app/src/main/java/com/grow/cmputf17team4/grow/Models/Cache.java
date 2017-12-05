@@ -25,8 +25,9 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * Class Represent...
+ * Created by qin7 on 2017/12/3.
  */
+
 public class Cache {
     private static final Cache ourInstance = new Cache();
     private ArrayList<User> requesters;
