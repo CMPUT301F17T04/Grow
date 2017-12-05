@@ -188,6 +188,7 @@ public class ESManager {
         }
 
         public ArrayList<User> getFriends() {
+
             return friends;
         }
 
