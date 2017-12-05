@@ -49,9 +49,11 @@ import com.grow.cmputf17team4.grow.Views.ActivityModifyHabit;
 import junit.framework.Assert;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.pressImeActionButton;
@@ -106,7 +108,10 @@ public class Testing {
             ESManager.create(new IDList(friendId, Constant.TYPE_REQUESTS));
             ESManager.create(new IDList(friendId, Constant.TYPE_FOLLOWINGS));
             HabitType habitType1 = new HabitType(friendId);
+            Date startDate = habitType1.getStartDate();
             habitType1.setName("habit1");
+            habitType1.setReason("hahaha");
+            habitType1.setStartDate(startDate);
             HabitType habitType2 = new HabitType(friendId);
             habitType2.setName("habit2");
             user.getHabitList().add(habitType1.getUid());
@@ -488,6 +493,11 @@ public class Testing {
         assertNotNull(clickAccept);
 
         onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view),  isDisplayed())).atPosition(0).perform(click());
+        onView(withId(R.id.community_detail_text_habit_name)).check(matches(withText("habit1")));
+        onView(withId(R.id.community_detail_text_habit_reason)).check(matches(withText("hahaha")));
+        onView(withId(R.id.community_detail_text_habit_date).matches("");
+        pressBack();
+        onData(anything()).inAdapterView(allOf(withId(R.id.community_list_view),  isDisplayed())).atPosition(1).perform(click());
 
 
     }
