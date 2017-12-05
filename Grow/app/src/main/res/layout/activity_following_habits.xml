@@ -267,12 +267,12 @@
                     android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintStart_toEndOf="@+id/community_detail_event_image"
                     app:layout_constraintTop_toBottomOf="@+id/divider2"
                     tools:text="Date:" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/community_detail_event_image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginBottom="8dp"
@@ -291,7 +291,7 @@
                     android:layout_marginTop="8dp"
                     android:text="Comment:"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintStart_toEndOf="@+id/community_detail_event_image"
                     app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
                 <TextView
